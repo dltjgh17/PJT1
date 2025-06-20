@@ -1,4 +1,5 @@
 #include "Shop.h"
+#include "Character.h"
 #include "Item.h"
 #include "HealthPotion.h"
 #include "AttackBoost.h"
@@ -27,10 +28,12 @@ void Shop::displayItems(Character* player)
 		cout << "[0] Exit Shop" << endl;
 
 		cout << "\nChoose an item to buy: ";
+		cin >> choice;
 
 		switch (choice)
 		{
 		case 0:
+			return;
 			break;
 		case 1:
 			break;

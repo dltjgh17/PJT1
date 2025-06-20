@@ -1,12 +1,10 @@
 #pragma once
-
+#include "Item.h"
 #include <string>
 #include <vector>
 #include <iostream>
 
 using namespace std;
-
-class Item; //실제 정의는 Character.cpp에서 함
 
 class Character
 {

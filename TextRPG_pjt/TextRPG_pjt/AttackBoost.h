@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#include "Character.h"
+#include <string>
 
 class AttackBoost : public Item
 {
@@ -9,6 +11,6 @@ private:
 public:
 	AttackBoost();
 	virtual void Use(Character* character) override;
-	virtual const string& getName() const override { return name; };
+	virtual const std::string& getName() const override { return name; }
 };
 
