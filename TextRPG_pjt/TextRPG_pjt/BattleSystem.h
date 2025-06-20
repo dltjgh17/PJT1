@@ -1,15 +1,13 @@
 ﻿#pragma once
 
 
-class Player;
 class Character;
+class Monster;
 
 class BattleSystem {
 public:
-    static void StartBattle(Player* Player);
-
-private:
-    static Character* CreateRandomEnemy();
-    static void GrantVictoryRewards(Player* Player);
+    static void StartBattle(Character* player);
+    static Monster* CreateRandomEnemy();
+    static void GrantVictoryRewards(Character* player);
 
 };

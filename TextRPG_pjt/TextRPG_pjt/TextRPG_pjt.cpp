@@ -6,13 +6,6 @@
 
 int main()
 {
-    string name = "Chan";
-    Character* character;
-    character->getInstance(name);
-    character->getInstance()->addGold(50);
-
-    Shop shop;
-    shop.displayItems(character->getInstance());
     std::cout << "Hello World!\n";
 }
 
