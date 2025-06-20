@@ -19,6 +19,12 @@ public:
 	void TakeDamage(int damage);
 
 	void SetHealth(int playerLevel);
+	
+	void SetHealth(int playerLevel, int randomPer);
+	
+	void SetHealth(int playerLevel, int randomPerHp, int randomPerAtk);
+	
+
 
 protected:
 	std::string name_;
