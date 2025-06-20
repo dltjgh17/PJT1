@@ -10,6 +10,7 @@ class Character
 {
 private:
 	Character(const string& name);
+	~Character();
 	static Character* instance;
 	string name; //캐릭터 이름
 	int level; //캐릭터 레벨
@@ -43,4 +44,6 @@ public:
 	int getAttack() const { return attack; } //캐릭터 공격력 반환
 	int getExp() const { return experience; } //현재 경험치 반환
 	int getGold() const { return gold; } //소지 골드 반환
+
+	void destroyInstance();
 };

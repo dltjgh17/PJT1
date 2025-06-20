@@ -7,6 +7,18 @@ Character* Character::instance = nullptr;
 Character::Character(const std::string& name)
     : name(name), level(1), health(200), maxHealth(200), attack(30), experience(0), gold(0) {} //초기화 리스트로 변수 초기화
 
+// 소멸자
+Character::~Character()
+{
+    // 동적할당한 인벤토리 아이템들 메모리 해제
+    for (Item* i : inventory)
+    {
+        delete i;
+    }
+    // 인벤토리 벡터 비우기 (안지우면 dangling pointer가 됨)
+    inventory.clear();
+}
+
 //캐릭터는 단 하나만 존재해야함
 Character* Character::getInstance(const std::string& name) 
 {
@@ -75,6 +87,16 @@ void Character::useItem(int index)
 bool Character::isDead()
 {
     return health <= 0; //캐릭터 체력이 0이하면 true 반환
+}
+
+void Character::destroyInstance()
+{
+    // 인스턴스 valid 체크
+    if (instance)
+    {
+        delete instance;
+        instance = nullptr;
+    }
 }
 
 

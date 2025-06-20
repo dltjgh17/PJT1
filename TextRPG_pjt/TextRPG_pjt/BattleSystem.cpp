@@ -1,8 +1,8 @@
-#include <iostream>
 #include "BattleSystem.h"
+#include "Character.h"
 
 
-
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <thread>
@@ -28,13 +28,13 @@ Character* BattleSystem::CreateRandomEnemy()
 
 }
 
-void BattleSystem::StartBattle(Player* Player)
+void BattleSystem::StartBattle(Character* Player)
 {
     Character* enemy = CreateRandomEnemy();  //ToDo:
 
-    cout << "\n Battle Start!" << Player->GetName() << "vs" << enemy->GetName() << endl;  // ToDo:
+    cout << "\n Battle Start!" << Player->getName() << "vs" << enemy->GetName() << endl;  // ToDo:
 
-    while (Player->GetHp() > 0 && enemy->GetHp() > 0)
+    while (Player->getHp() > 0 && enemy->getHp() > 0)
     {
         enemy->takeDamage(Player->GetAttack());    //ToDo:
 

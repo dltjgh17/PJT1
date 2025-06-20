@@ -1,9 +1,18 @@
 ﻿// TextRPG_pjt.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
+#include "Character.h"
+#include "Shop.h"
 #include <iostream>
 
 int main()
 {
+    string name = "Chan";
+    Character* character;
+    character->getInstance(name);
+    character->getInstance()->addGold(50);
+
+    Shop shop;
+    shop.displayItems(character->getInstance());
     std::cout << "Hello World!\n";
 }
 
