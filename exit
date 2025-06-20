@@ -1,0 +1,180 @@
+[1mdiff --git a/TextRPG_pjt/TextRPG_pjt/Character.cpp b/TextRPG_pjt/TextRPG_pjt/Character.cpp[m
+[1mnew file mode 100644[m
+[1mindex 0000000..849b295[m
+[1m--- /dev/null[m
+[1m+++ b/TextRPG_pjt/TextRPG_pjt/Character.cpp[m
+[36m@@ -0,0 +1,80 @@[m
+[32m+[m[32m#include "Character.h"[m
+[32m+[m[32m#include "Item.h"[m
+[32m+[m
+[32m+[m[32m//ÃÊ±â°ªÀº nullptr·Î ÃÊ±âÈ­[m
+[32m+[m[32mCharacter* Character::instance = nullptr;[m
+[32m+[m[32m//Å¬·¡½º »ı¼ºÀÚ[m
+[32m+[m[32mCharacter::Character(const std::string& name)[m
+[32m+[m[32m    : name(name), level(1), health(200), maxHealth(200), attack(30), experience(0), gold(0) {} //ÃÊ±âÈ­ ¸®½ºÆ®·Î º¯¼ö ÃÊ±âÈ­[m
+[32m+[m
+[32m+[m[32m//Ä³¸¯ÅÍ´Â ´Ü ÇÏ³ª¸¸ Á¸ÀçÇØ¾ßÇÔ[m
+[32m+[m[32mCharacter* Character::getInstance(const std::string& name)[m[41m [m
+[32m+[m[32m{[m
+[32m+[m[32m    if (instance == nullptr) //Ä³¸¯ÅÍ°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é[m
+[32m+[m[32m    {[m
+[32m+[m[32m        instance = new Character(name); //ÇÑ¹ø¸¸ »ı¼ºÇÔ[m
+[32m+[m[32m    }[m
+[32m+[m[32m    return instance; //±× ÀÌÈÄºÎÅÍ´Â °°Àº ÀÎ½ºÅÏ½º ¹İÈ¯[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mvoid Character::displayStatus()[m[41m [m
+[32m+[m[32m{[m
+[32m+[m[32m    //UIÂÊ¿¡¼­ ÀÌ¹Ì ±¸ÇöÇÑµí[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m//·¹º§¾÷ ÇÔ¼ö[m
+[32m+[m[32mvoid Character::levelUp()[m[41m [m
+[32m+[m[32m{[m
+[32m+[m[32m    if (level >= 10) return; //ÃÖ´ë ·¹º§ 10 Á¦ÇÑ[m
+[32m+[m
+[32m+[m[32m    while (experience >= 100 && level < 10) //Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¸¸Å­ ·¹º§¾÷ ½ÇÇà[m
+[32m+[m[32m    {[m
+[32m+[m[32m        experience -= 100; //·¹º§¾÷ ÇÏ´Â ¸¸Å­ °æÇèÄ¡ Á¦°Å[m
+[32m+[m[32m        level++; //·¹º§ +1[m
+[32m+[m[32m        maxHealth += 20; //ÃÖ´ëÃ¼·Â (·¹º§ * 20) ¸¸Å­ Áõ°¡[m
+[32m+[m[32m        health += maxHealth; //ÃÖ´ëÃ¼·Â±îÁö È¸º¹[m
+[32m+[m[32m        attack += 5; //°ø°İ·Â (·¹º§ * 5) ¸¸Å­ Áõ°¡[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[32m+[m[32m//°æÇèÄ¡ È¹µæ ÇÔ¼ö[m
+[32m+[m[32mvoid Character::addExp(int amount)[m
+[32m+[m[32m{[m
+[32m+[m[32m    experience += amount; //°ª¸¸Å­ °æÇèÄ¡ È¹µæ[m
+[32m+[m[32m    levelUp(); //·¹º§¾÷ ½ÇÇà, ¿©±â¼­ ÇØ¾ßÇÏ³ª? ½ÍÀºµ¥ ¿©±â¼­ ÇÏ´Â°Ô ÆíÇÒµí[m
+[32m+[m[32m}[m
+[32m+[m[32m//°ñµå È¹µæ ÇÔ¼ö[m
+[32m+[m[32mvoid Character::addGold(int amount)[m
+[32m+[m[32m{[m
+[32m+[m[32m    gold += amount; //°ª¸¸Å­ °ñµå È¹µæ[m
+[32m+[m[32m}[m
+[32m+[m[32m//Ã¼·Â È¸º¹ ÇÔ¼ö[m
+[32m+[m[32mvoid Character::heal(int amount)[m
+[32m+[m[32m{[m
+[32m+[m[32m    health += amount; //°ª¸¸Å­ Ã¼·Â È¸º¹[m
+[32m+[m[32m}[m
+[32m+[m[32m//Ã¼·Â °¨¼Ò ÇÔ¼ö[m
+[32m+[m[32mvoid Character::takeDamage(int amount)[m
+[32m+[m[32m{[m
+[32m+[m[32m    health -= amount; //°ª¸¸Å­ Ã¼·Â °¨¼Ò[m
+[32m+[m[32m}[m
+[32m+[m[32m//¾ÆÀÌÅÛ È¹µæ ÇÔ¼ö[m
+[32m+[m[32mvoid Character::addItem(Item* item)[m
+[32m+[m[32m{[m
+[32m+[m[32m    inventory.push_back(item); //º¤ÅÍ¿¡ ¾ÆÀÌÅÛ push[m
+[32m+[m[32m}[m
+[32m+[m[32m//¾ÆÀÌÅÛ »ç¿ë ÇÔ¼ö[m
+[32m+[m[32mvoid Character::useItem(int index)[m
+[32m+[m[32m{[m
+[32m+[m[32m    if (index <= 0 || index >= inventory.size() + 1) return; //ÀÔ·Â¹ŞÀº indexÀÇ À¯È¿¼º °Ë»ç. »ç¿ëÀÚ ±âÁØÀÌ±â ¶§¹®¿¡ ÀÎº¥Åä¸® »çÀÌÁî¿¡ 1À» ´õÇÔ(1ºÎÅÍ ½ÃÀÛ)[m
+[32m+[m
+[32m+[m[32m    //´ëÃæ¹º°¡¾ÆÀÌÅÛÀ»»ç¿ëÇÏ´ÂÄÚµå[m
+[32m+[m
+[32m+[m[32m    inventory.erase(inventory.begin() + index - 1); //ÇØ´ç À§Ä¡ÀÇ ¾ÆÀÌÅÛ »èÁ¦[m
+[32m+[m[32m}[m
+[32m+[m[32m//Ä³¸¯ÅÍ »ç¸Á ¿©ºÎ Ã¼Å© ÇÔ¼ö[m
+[32m+[m[32mbool Character::isDead()[m
+[32m+[m[32m{[m
+[32m+[m[32m    return health <= 0; //Ä³¸¯ÅÍ Ã¼·ÂÀÌ 0ÀÌÇÏ¸é true ¹İÈ¯[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/TextRPG_pjt/TextRPG_pjt/Character.h b/TextRPG_pjt/TextRPG_pjt/Character.h[m
+[1mnew file mode 100644[m
+[1mindex 0000000..faf2593[m
+[1m--- /dev/null[m
+[1m+++ b/TextRPG_pjt/TextRPG_pjt/Character.h[m
+[36m@@ -0,0 +1,48 @@[m
+[32m+[m[32m#pragma once[m
+[32m+[m
+[32m+[m[32m#include <string>[m
+[32m+[m[32m#include <vector>[m
+[32m+[m[32m#include <iostream>[m
+[32m+[m
+[32m+[m[32musing namespace std;[m
+[32m+[m
+[32m+[m[32mclass Item; //½ÇÁ¦ Á¤ÀÇ´Â Character.cpp¿¡¼­ ÇÔ[m
+[32m+[m
+[32m+[m[32mclass Character[m
+[32m+[m[32m{[m
+[32m+[m[32mprivate:[m
+[32m+[m	[32mCharacter(const string& name);[m
+[32m+[m	[32mstatic Character* instance;[m
+[32m+[m	[32mstring name; //Ä³¸¯ÅÍ ÀÌ¸§[m
+[32m+[m	[32mint level; //Ä³¸¯ÅÍ ·¹º§[m
+[32m+[m	[32mint health; //Ä³¸¯ÅÍ ÇöÀç Ã¼·Â[m
+[32m+[m	[32mint maxHealth; //Ä³¸¯ÅÍ ÃÖ´ë Ã¼·Â[m
+[32m+[m	[32mint attack; //Ä³¸¯ÅÍ °ø°İ·Â[m
+[32m+[m	[32mint experience; //ÇöÀç °æÇèÄ¡[m
+[32m+[m	[32mint gold; //¼ÒÁö °ñµå[m
+[32m+[m	[32mvector<Item*> inventory; //¾ÆÀÌÅÛ ÀÎº¥Åä¸®[m
+[32m+[m
+[32m+[m[32mpublic:[m
+[32m+[m	[32mstatic Character* getInstance(const string& name = "");[m
+[32m+[m	[32mvoid displayStatus();[m
+[32m+[m	[32mvoid levelUp(); //·¹º§¾÷ ÇÔ¼ö[m
+[32m+[m	[32mvoid addItem(Item* item); //¾ÆÀÌÅÛ È¹µæ ÇÔ¼ö[m
+[32m+[m	[32mvoid useItem(int index); //¾ÆÀÌÅÛ »ç¿ë ÇÔ¼ö[m
+[32m+[m	[32mvoid addExp(int amount); //°æÇèÄ¡ È¹µæ ÇÔ¼ö[m
+[32m+[m	[32mvoid addGold(int amount); //°ñµå È¹µæ ÇÔ¼ö[m
+[32m+[m	[32mvoid heal(int amount); //Ã¼·Â È¸º¹ ÇÔ¼ö[m
+[32m+[m	[32mvoid takeDamage(int amount); //Ã¼·Â °¨¼Ò ÇÔ¼ö[m
+[32m+[m	[32mbool isDead(); //Ä³¸¯ÅÍ »ç¸Á ¿©ºÎ Ã¼Å© ÇÔ¼ö[m
+[32m+[m
+[32m+[m
+[32m+[m	[32m//getterÇÔ¼öµé[m
+[32m+[m	[32m//»ç¿ëÇÏ½Ç cpp¿¡¼­ Character* p(»ç¿ëÇÒ ÀÌ¸§) = Character::getInstance(); ÇÏ½Ã°í[m
+[32m+[m	[32m//int HP = p->getHealth(); ÀÌ·±½ÄÀ¸·Î È­»ìÇ¥ ¿¬»êÀÚ »ç¿ëÇÏ¼Å¼­ °ª °¡Á®¿À½Ã¸é µË´Ï´Ù[m
+[32m+[m	[32mstring getName() const { return name; } //Ä³¸¯ÅÍ ÀÌ¸§ ¹İÈ¯[m
+[32m+[m	[32mint getLevel() const { return level; } //·¹º§ ¹İÈ¯[m
+[32m+[m	[32mint getHealth() const { return health; } //ÇöÀç Ã¼·Â ¹İÈ¯[m
+[32m+[m	[32mint getMaxHealth() const { return maxHealth; } //ÃÖ´ë Ã¼·Â ¹İÈ¯[m
+[32m+[m	[32mint getAttack() const { return attack; } //Ä³¸¯ÅÍ °ø°İ·Â ¹İÈ¯[m
+[32m+[m	[32mint getExp() const { return experience; } //ÇöÀç °æÇèÄ¡ ¹İÈ¯[m
+[32m+[m	[32mint getGold() const { return gold; } //¼ÒÁö °ñµå ¹İÈ¯[m
+[32m+[m[32m};[m
+\ No newline at end of file[m
+[1mdiff --git a/TextRPG_pjt/TextRPG_pjt/Monster.cpp b/TextRPG_pjt/TextRPG_pjt/Monster.cpp[m
+[1mindex 86b1b9d..4ace300 100644[m
+[1m--- a/TextRPG_pjt/TextRPG_pjt/Monster.cpp[m
+[1m+++ b/TextRPG_pjt/TextRPG_pjt/Monster.cpp[m
+[36m@@ -32,8 +32,9 @@[m [mvoid Monster::TakeDamage(int damage)[m
+ 	//ë¡œê·¸ ì²˜ë¦¬ í•„ìš”í•œì§€?[m
+ }[m
+ [m
+[31m-[m
+[32m+[m[32m//ë ˆë²¨ë‹¹ ì²´ë ¥ ê³µê²©ë ¥ ì¡°ì •[m
+ void Monster::SetHealth(int playerLevel)[m
+ {[m
+ 	health_ *= playerLevel;[m
+[32m+[m	[32mattack_ *= playerLevel;[m
+ }[m
+[1mdiff --git a/TextRPG_pjt/TextRPG_pjt/MonsterData.h b/TextRPG_pjt/TextRPG_pjt/MonsterData.h[m
+[1mindex 9b4fdd4..5d4b1a1 100644[m
+[1m--- a/TextRPG_pjt/TextRPG_pjt/MonsterData.h[m
+[1m+++ b/TextRPG_pjt/TextRPG_pjt/MonsterData.h[m
+[36m@@ -15,14 +15,15 @@[m [mstruct MonsterStats[m
+ 	int attack;[m
+ };[m
+ [m
+[31m-[m
+[32m+[m[32m//ëª¬ìŠ¤í„° idë¥¼ ì…ë ¥í•´ì„œ ëª¬ìŠ¤í„° ê°ì²´ ìƒì„± ex) std::unique_ptr<Monster> goblin = createMonster(1);[m
+ std::unique_ptr<Monster> CreateMonster(int monsterId)[m
+ {[m
+ 	static const std::map<int, MonsterStats> monsterTamplates =[m
+ 	{[m
+[31m-		{1,{"Slime",50,5}},[m
+[31m-		{2,{"Slime",50,5}},[m
+[31m-		{3,{"Slime",50,5}}[m
+[32m+[m		[32m{1,{"Slime",20,5}},[m
+[32m+[m		[32m{2,{"Goblin",15,7}},[m
+[32m+[m		[32m{3,{"Golem",30,10}},[m
+[32m+[m		[32m{4,{"Dragon",45,15}}[m
+ 	};[m
+ [m
+ [m

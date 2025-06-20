@@ -1,17 +1,16 @@
 #pragma once
-
+#include "Item.h"
 #include <string>
 #include <vector>
 #include <iostream>
 
 using namespace std;
 
-class Item; //실제 정의는 Character.cpp에서 함
-
 class Character
 {
 private:
 	Character(const string& name);
+	~Character();
 	static Character* instance;
 	string name; //캐릭터 이름
 	int level; //캐릭터 레벨
@@ -27,6 +26,7 @@ public:
 	void displayStatus();
 	void levelUp(); //레벨업 함수
 	void addItem(Item* item); //아이템 획득 함수
+	void removeItem(int index); // 아이템 삭제 함수
 	void useItem(int index); //아이템 사용 함수
 	void addExp(int amount); //경험치 획득 함수
 	void addGold(int amount); //골드 획득 함수
@@ -45,4 +45,7 @@ public:
 	int getAttack() const { return attack; } //캐릭터 공격력 반환
 	int getExp() const { return experience; } //현재 경험치 반환
 	int getGold() const { return gold; } //소지 골드 반환
+	const vector<Item*>& const getInventory() { return inventory; } // 인벤토리 반환
+
+	void destroyInstance();
 };

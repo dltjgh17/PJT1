@@ -1,22 +1,14 @@
 #pragma once
 #include <string>
 
-class Character
-{
-private:
-	int health;
-	int attack;
-public:
-	void heal(int amount) {};
-	void takeDamage(int amount) {};
-};
-
-using namespace std;
-
+class Character;
 class Item
 {
 public:
 	virtual ~Item() {}
 	virtual void Use(Character* character) = 0;
-	virtual const string& getName() const = 0;
+	virtual const std::string& getName() const = 0;
+	virtual const std::string& getToolTip() const = 0;
+	virtual const int& getSellPrice() const = 0;
+	virtual const int& getBuyPrice() const = 0;
 };
