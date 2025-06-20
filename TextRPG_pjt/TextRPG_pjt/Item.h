@@ -1,15 +1,5 @@
 #pragma once
-#include <string>
-
-class Character
-{
-private:
-	int health;
-	int attack;
-public:
-	void heal(int amount) {};
-	void takeDamage(int amount) {};
-};
+#include "Character.h"
 
 using namespace std;
 
