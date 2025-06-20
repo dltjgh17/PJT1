@@ -129,6 +129,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="TextRPG_pjt.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,9 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterData.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="UIXY.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
