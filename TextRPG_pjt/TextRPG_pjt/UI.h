@@ -6,16 +6,26 @@
 #include "UIXY.h"
 #include <windows.h>
 #include "Monster.h"
+#include <memory>
 
 class UI
 {
 private:
+    UI() = default;
+    static std::unique_ptr<UI> instance;
 
     std::vector<std::string> FullLog;
     std::vector<std::string> BattleLog;
     Monster* currentMonster = nullptr;
 
 public:
+
+    static UI* getInstance();
+    UI(const UI&) = delete;
+    UI& operator=(const UI&) = delete;
+    ~UI() = default;
+
+    int StageCount = 0;
 
     void SetCursorPosition(int X, int Y);
     void PrintStatus();
@@ -37,6 +47,11 @@ public:
 
     void SetMonster(Monster* m);
     void PrintMonsterSummary();
+
+    void destroyInstance();
+
+    void Stage() { ++StageCount; }
+
 };
 
 #endif

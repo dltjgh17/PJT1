@@ -1,5 +1,15 @@
 #include "UI.h"
 
+//초기값은 nullptr로 초기화
+std::unique_ptr<UI> UI::instance = nullptr;
+
+//단일 인스턴스화
+UI* UI::getInstance()
+{
+	static UI instance;
+	return &instance;
+}
+
 /* UI 위치 값 함수*/
 void UI::SetCursorPosition(int X, int Y) 
 {
@@ -20,7 +30,6 @@ void UI::PrintStatus()
 	int UIGold = p->getGold();
 
 	SetCursorPosition(UI_XY::POS_STATUS_X, UI_XY::POS_STATUS_Y);
-
 	cout << "=======STATUS=======" << endl;
 	cout << "|  Name : " << UIName << endl;
 	cout << "|  Level : " << UILevel << endl;
@@ -34,25 +43,35 @@ void UI::PrintStatus()
 /* 인벤토리 UI*/
 void UI::PrintInventory()
 {
-	// 아이템 어디에 저장되는 정확히 파악되기 전까지 참조 보류//
+	Character* p = Character::getInstance();
+	vector<Item*> items = p->getInventory();
+	
+
 	SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y);
-	cout << "=====INVENTORY======" << endl;
-	cout << "| item A : AAAAAAA" << endl;
-	cout << "| item B : BBBBBBB" << endl;
-	cout << "| item C : CCCCCCC" << endl;
-	cout << "| item D : CCCCCCC" << endl;
+    cout << "=====INVENTORY======" << endl;
+
+	for (size_t i = 0; i < items.size(); ++i) 
+	{
+		if (items[i] != nullptr)
+		{
+			SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + (int)i + 1);
+			std::cout << "| " << (i + 1) << ". " << items[i]->getName(); 		}
+	
+	}
+	SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + 5);
 	cout << "____________________" << endl;
 
 }
 
-/* 상점 UI (방문 안 했을 때)*/
-void UI::PrintIsShop()
-{
-	SetCursorPosition(UI_XY::POS_SHOP_X, UI_XY::POS_SHOP_Y);
-	cout << "========SHOP========" << endl;
-	cout << "|      NOT NOW " << endl;
-	cout << "____________________" << endl;
-}
+/* 상점 UI (방문 안 했을 때)*/ 
+//void UI::PrintIsShop()
+//{
+//	SetCursorPosition(UI_XY::POS_SHOP_X, UI_XY::POS_SHOP_Y);
+//	cout << "========SHOP========" << endl;
+//	cout << "|      NOT NOW " << endl;
+//	cout << "____________________" << endl;
+//}
+
 
 /* 행동 유형 선택 UI*/
 void UI::PrintAction()
@@ -70,9 +89,8 @@ void UI::PrintAction()
 /* 스테이지 UI*/
 void UI::PrintStage()
 {
-	static int StageCount = 0;
 	SetCursorPosition(UI_XY::POS_STAGE_X, UI_XY::POS_STAGE_Y);
-	cout << "- STAGE : " << ++StageCount << " -" << endl;
+	cout << "- STAGE : " << StageCount << " -" << endl;
 }
 
 
@@ -191,4 +209,5 @@ void UI::CheckVal()
 	PrintFullLog();
 	PrintMonsterSummary();
 	PrintPlayerSummry();
+	PrintStage();
 }

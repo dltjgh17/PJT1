@@ -3,13 +3,17 @@
 
 using namespace std;
 
-Title::Title()
+
+//초기값은 nullptr로 초기화
+std::unique_ptr<Title> Title::instance = nullptr;
+
+//단일 인스턴스화
+Title* Title::getInstance() 
 {
+	static Title instance;  
+	return &instance;
 }
 
-Title::~Title()
-{
-}
 
 /* 게임 시작 화면*/
 void Title::GameStart()

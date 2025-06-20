@@ -5,9 +5,17 @@
 #include <iostream>
 class Title
 {
+
+private:
+	Title() = default;
+	static std::unique_ptr <Title> instance;
+
 public:
-	Title();
-	~Title();
+	
+	static Title* getInstance();
+	Title(const Title&) = delete;
+	Title& operator=(const Title&) = delete;
+	~Title() = default;
 
 	/* 게임 시작 화면*/
 	void GameStart();
@@ -17,9 +25,6 @@ public:
 
 	/* 게임 승리 화면*/
 	void Victory();
-
-
-private:
 
 };
 
