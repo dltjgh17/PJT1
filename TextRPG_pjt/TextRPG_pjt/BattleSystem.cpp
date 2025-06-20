@@ -1,7 +1,8 @@
 #include <iostream>
 #include "BattleSystem.h"
-
-
+#include "Character.h"
+#include "MonsterData.h"
+#include "Monster.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -13,60 +14,67 @@ using namespace std;
 
 
 
-Character* BattleSystem::CreateRandomEnemy()
+Monster* BattleSystem::CreateRandomEnemy()
 {
     srand(static_cast<unsigned int>(time(nullptr)));
-    int r = rand() % 3;
+    int r = rand() % 4;
 
     switch (r)
     {
-    case 0: return new //ToDo:
-    case 1: return new //ToDo:
-    case 2: return new //ToDo:
-    default: return new //ToDo:
+    case 0: return new Monster("Slime", 20, 5);
+	case 1: return new Monster("Goblin", 15, 7);
+	case 2: return new Monster("Golem", 30, 10);
+	case 3: return new Monster("Dragon", 45, 15);
     }
 
 }
 
-void BattleSystem::StartBattle(Player* Player)
+void BattleSystem::StartBattle(Character* player)
 {
-    Character* enemy = CreateRandomEnemy();  //ToDo:
+    Monster* monster = CreateRandomEnemy();  //ToDo:
 
-    cout << "\n Battle Start!" << Player->GetName() << "vs" << enemy->GetName() << endl;  // ToDo:
+    cout << "\n Battle Start!" << player->getName() << "vs" << monster->GetName() << endl;  // ToDo:
 
-    while (Player->GetHp() > 0 && enemy->GetHp() > 0)
+    while (player->getHealth() > 0 && monster->GetHealth() > 0)
     {
-        enemy->takeDamage(Player->GetAttack());    //ToDo:
+        monster->TakeDamage(player->getAttack());    //ToDo:
 
-        cout << Player->GetName() << " attacks " << enemy->GetHp() << " Hp left." << endl;
-        if (enemy->GetHp() <= 0)
+        cout << player->getName() << " attacks " << monster->GetHealth() << " HP left.\n" << endl;
+
+        if (monster->GetHealth() <= 0)
         {
-            cout << enemy->GetName() << " is defeated!" << endl;
-            if (!enemy->IsAlive()) break;
-            Player->takeDamage(enemy->GetAttack());
-            cout << enemy->GetName() << " attacks " << Player->GetName() << " for " << enemy->GetAttack() << " damage " << endl;
+            cout << monster->GetName() << " is defeated!" << endl;
+  
             this_thread::sleep_for(chrono::milliseconds(500)); // 0.5ÃÊ µô·¹ÀÌ
-
+            break;
 
         }
-        else (Player)
+        player->takeDamage(monster->GetAttack());
+        cout << monster->GetName() << " attacks " << player->getName() << " has " << monster->GetAttack() << " HP left. \n " << endl;
+        this_thread::sleep_for(chrono::milliseconds(500)); // 0.5ÃÊ µô·¹ÀÌ
+   
     }
 
-    if (Player->IsAlive())
+    if (player->getHealth() > 0) 
     {
-        cout << "\nVictory!" << endl;
-        GrantVictoryRewards(Player);
+        cout << "\nVictory!\n" << endl;
+        GrantVictoryRewards(player);
+    }
+    else
+    {
+        cout << "\n You were defeated!\n" << endl;
     }
 
+    delete monster;
 }
 
-void BattleSystem::GrantVictoryRewards(Player* Player)
+void BattleSystem::GrantVictoryRewards(Character* player)
 {
     const int expReward = 50;
     int goldReward = 10 + (rand() % 10);
-    cout << "Reward :" << expReward << ". Gold " << goldReward << endl;
-    Player->addExp(expReward);
-    Player->addGold(goldReward);
+    cout << "Reward :" << expReward << "EXP," << ". Gold\n " << goldReward << endl;
+    player->addExp(expReward);
+    player->addGold(goldReward);
 }
 
 
