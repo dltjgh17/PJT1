@@ -32,9 +32,22 @@ void Monster::TakeDamage(int damage)
 	//로그 처리 필요한지?
 }
 
-//레벨당 체력 공격력 조정
+//레벨당 체력 공격력 조정 (플레이어 레벨)
 void Monster::SetHealth(int playerLevel)
 {
-	health_ *= playerLevel;
-	attack_ *= playerLevel;
+	health_ = health_ * (playerLevel);
+	attack_ = attack_ * (playerLevel);
+}
+//레벨당 체력 공격력 조정 (플레이어 레벨 + 적용 퍼센트)
+void Monster::SetHealth(int playerLevel, int randomPer)
+{
+	health_ = (health_*(playerLevel))* randomPer;
+	attack_ = (attack_ * (playerLevel)) * randomPer;
+}
+
+//레벨당 체력 공격력 조정 (플레이어 레벨 + 적용 퍼센트Hp + 적용 퍼센트 Atk)
+void Monster::SetHealth(int playerLevel, int randomPerHp, int randomPerAtk)
+{
+	health_ = (health_ * (playerLevel)) * randomPerHp;
+	attack_ = (attack_ * (playerLevel)) * randomPerAtk;
 }

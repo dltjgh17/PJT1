@@ -1,9 +1,14 @@
-#include <iostream>
 #include "BattleSystem.h"
 #include "Character.h"
+<<<<<<< HEAD
+
+
+#include <iostream>
+=======
 #include "MonsterData.h"
 #include "Monster.h"
 
+>>>>>>> 57e491f46ad5467c820e2fd0eba0210f317522fa
 #include <cstdlib>
 #include <ctime>
 #include <thread>
@@ -29,13 +34,23 @@ Monster* BattleSystem::CreateRandomEnemy()
 
 }
 
+<<<<<<< HEAD
+void BattleSystem::StartBattle(Character* Player)
+=======
 void BattleSystem::StartBattle(Character* player)
+>>>>>>> 57e491f46ad5467c820e2fd0eba0210f317522fa
 {
     Monster* monster = CreateRandomEnemy();  //ToDo:
 
+<<<<<<< HEAD
+    cout << "\n Battle Start!" << Player->getName() << "vs" << enemy->GetName() << endl;  // ToDo:
+
+    while (Player->getHp() > 0 && enemy->getHp() > 0)
+=======
     cout << "\n Battle Start!" << player->getName() << "vs" << monster->GetName() << endl;  // ToDo:
 
     while (player->getHealth() > 0 && monster->GetHealth() > 0)
+>>>>>>> 57e491f46ad5467c820e2fd0eba0210f317522fa
     {
         monster->TakeDamage(player->getAttack());    //ToDo:
 
