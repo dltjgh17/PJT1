@@ -1,6 +1,12 @@
 #include "HealthPotion.h"
 
-const std::string HealthPotion::getName()
+HealthPotion::HealthPotion()
 {
-    return std::string();
+	name = "Healing Potion";
+	healthRestore = 50;
+}
+
+void HealthPotion::Use(Character* character)
+{
+	character->heal(healthRestore);
 }

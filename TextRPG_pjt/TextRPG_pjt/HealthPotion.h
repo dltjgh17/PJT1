@@ -1,7 +1,5 @@
 #pragma once
 #include "Item.h"
-// #include "Character.h"
-#include <string>
 
 class HealthPotion : public Item
 {
@@ -10,8 +8,8 @@ private:
 	int healthRestore;
 
 public:
-	virtual ~Item() {}
-	virtual void Use() override;
+	HealthPotion();
+	virtual void Use(Character* character) override;
 	virtual const string& getName() const override { return name; };
 };
 
