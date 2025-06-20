@@ -1,6 +1,7 @@
 #pragma once
-#include <vector>
 #include "Item.h"
+#include "Character.h"
+#include <vector>
 class Shop
 {
 private:
