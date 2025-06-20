@@ -10,7 +10,11 @@ private:
 public:
 	Shop();
 	void displayItems(Character* player);
-	void byItem(int slotNum, Character* player);
-	void sellItem(int slotNum, Character* player);
+	void displayBuyMenu(Character* player);
+	void displaySellMenu(Character* player);
+
+	void byItem(const int& slotNum, Character* player);
+	void sellItem(const int& slotNum, Character* player);
+
 };
 

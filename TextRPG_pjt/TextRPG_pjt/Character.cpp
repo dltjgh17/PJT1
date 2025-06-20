@@ -74,6 +74,14 @@ void Character::addItem(Item* item)
 {
     inventory.push_back(item); //벡터에 아이템 push
 }
+
+//아이템 제거 함수
+void Character::removeItem(int index)
+{
+    delete inventory[index];
+    inventory.erase(inventory.begin() + index);
+}
+
 //아이템 사용 함수
 void Character::useItem(int index)
 {
