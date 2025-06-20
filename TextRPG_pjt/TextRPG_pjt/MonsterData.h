@@ -15,7 +15,7 @@ struct MonsterStats
 	int attack;
 };
 
-
+//몬스터 id를 입력해서 몬스터 객체 생성 ex) std::unique_ptr<Monster> goblin = createMonster(1);
 std::unique_ptr<Monster> CreateMonster(int monsterId)
 {
 	static const std::map<int, MonsterStats> monsterTamplates =

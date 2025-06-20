@@ -32,8 +32,9 @@ void Monster::TakeDamage(int damage)
 	//로그 처리 필요한지?
 }
 
-
+//레벨당 체력 공격력 조정
 void Monster::SetHealth(int playerLevel)
 {
 	health_ *= playerLevel;
+	attack_ *= playerLevel;
 }
