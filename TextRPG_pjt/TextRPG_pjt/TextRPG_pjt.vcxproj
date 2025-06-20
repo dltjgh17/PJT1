@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AttackBoost.cpp" />
+    <ClCompile Include="BattleSystem.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="TextRPG_pjt.cpp" />
@@ -131,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackBoost.h" />
+    <ClInclude Include="BattleSystem.h" />
     <ClInclude Include="HealthPotion.h" />
     <ClInclude Include="Item.h" />
   </ItemGroup>
