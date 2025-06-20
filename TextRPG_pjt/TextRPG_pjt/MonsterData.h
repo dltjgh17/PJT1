@@ -20,9 +20,10 @@ std::unique_ptr<Monster> CreateMonster(int monsterId)
 {
 	static const std::map<int, MonsterStats> monsterTamplates =
 	{
-		{1,{"Slime",50,5}},
-		{2,{"Slime",50,5}},
-		{3,{"Slime",50,5}}
+		{1,{"Slime",20,5}},
+		{2,{"Goblin",15,7}},
+		{3,{"Golem",30,10}},
+		{4,{"Dragon",45,15}}
 	};
 
 
