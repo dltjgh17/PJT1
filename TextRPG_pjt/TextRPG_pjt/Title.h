@@ -3,10 +3,16 @@
 #ifndef TITLE_H_
 #define TITLE_H_
 #include <iostream>
+#include <conio.h>
+
+using namespace std;
+
 class Title
 {
 
 private:
+	bool LoginCheck = false;
+	string Name="";
 	Title() = default;
 	static std::unique_ptr <Title> instance;
 
@@ -18,7 +24,10 @@ public:
 	~Title() = default;
 
 	/* 게임 시작 화면*/
-	void GameStart();
+	string GameStart();
+
+	/* 게임 종료 화면*/
+	void GameEnd();
 
 	/* 게임 오버 화면*/
 	void GameOver();

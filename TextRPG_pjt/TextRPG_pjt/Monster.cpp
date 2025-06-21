@@ -24,16 +24,15 @@ int Monster::GetAttack() const
 
 void Monster::TakeDamage(int damage)
 {
+	UI* ui = UI::getInstance();
 	health_ -= damage;
-	if (health_ < 0)
+	ui->AddBattleLog(name_ + " : [HEALTH]: " + to_string(damage) + " : LOST!");
+	ui->AddBattleLog(name_ + " : [HEALTH] : " + to_string(health_) + " : NOW! ");
+	if (health_ <= 0)
 	{
 		health_ = 0;
-
-		UI* ui = UI::getInstance();
-		std::vector<std::string>* BattleLogPtr = ui->GetBattleLogPtr();
-		ui->AddFullLog(GetName() + "이(가) " + "죽었습니다!");
+		ui->AddBattleLog(GetName() + " IS DEAD");
 	}
-	
 }
 
 //레벨당 체력 공격력 조정 (플레이어 레벨)
