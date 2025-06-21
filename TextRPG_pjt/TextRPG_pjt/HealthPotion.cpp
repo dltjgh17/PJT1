@@ -14,3 +14,4 @@ void HealthPotion::Use(Character* character)
 {
 	character->heal(healthRestore);
 }
+	
