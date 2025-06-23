@@ -24,15 +24,15 @@ string Title::GameStart()
 		cout << "            R          P         G             " << endl;
 		cout << endl;;
 		cout << endl;;
-		cout << "       >>> PRESS ANY KEY TO NAMING <<<         " << endl;
+		cout << "          >>> 아무 키나 누르세요. <<<            " << endl;
 		cout << endl;;
 		if (false == LoginCheck)
 		{
 			_getch();
 			LoginCheck = true;
 		}
-		cout << "           less 3 word in english              "  << endl;
-		cout << "          Name : ";
+		cout << "      영어 약자로 이름을 입력하세요 (3글자 이하)    "  << endl;
+		cout << "          이름 : ";
 		
 		/*이름 생성*/
 		cin >> Name;
@@ -66,9 +66,9 @@ void Title::GameEnd()
 	cout << "            R          P         G             " << endl;
 	cout << endl;
 	cout << endl;
-	cout << "         >>> SEE YOU TEXT TIME!!!! <<<         " << endl;
-	cout << "         >>> SEE YOU TEXT TIME!!!! <<<         " << endl;
-	cout << "         >>> SEE YOU TEXT TIME!!!! <<<         " << endl;
+	cout << "             >>> 다음에 만나요!!!! <<<           " << endl;
+	cout << "             >>> 다음에 만나요!!!! <<<           " << endl;
+	cout << "             >>> 다음에 만나요!!!! <<<           " << endl;
 	cout << endl;
 	cout << endl;
 
@@ -90,10 +90,10 @@ void Title::GameOver()
 	cout << "            R          P         G             " << endl;
 	cout << endl;
 	cout << endl;;
-	cout << "       >>>        YOU ARE DIE    <<<         " << endl;
-	cout << "       >>>        YOU ARE DIE    <<<         " << endl;
-	cout << "       >>>        YOU ARE DIE    <<<         " << endl;
-	cout << "       >>>        YOU ARE DIE    <<<         " << endl;
+	cout << "       >>>          유 다이ㅋ     <<<         " << endl;
+	cout << "       >>>          유 다이ㅋ     <<<         " << endl;	
+	cout << "       >>>          유 다이ㅋ     <<<         " << endl;	
+	cout << "       >>>          유 다이ㅋ     <<<         " << endl;
 	cout << endl;
 	cout << endl;
 }

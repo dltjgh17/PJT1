@@ -26,12 +26,12 @@ void Monster::TakeDamage(int damage)
 {
 	UI* ui = UI::getInstance();
 	health_ -= damage;
-	ui->AddBattleLog(name_ + " : [HEALTH]: " + to_string(damage) + " : LOST!");
-	ui->AddBattleLog(name_ + " : [HEALTH] : " + to_string(health_) + " : NOW! ");
+	ui->AddBattleLog(name_ + " : [HEALTH]: " + to_string(damage) + " : 감소했습니다!");
+	ui->AddBattleLog(name_ + " : [HEALTH] : " + to_string(health_) + " : 남았습니다! ");
 	if (health_ <= 0)
 	{
 		health_ = 0;
-		ui->AddBattleLog(GetName() + " IS DEAD");
+		ui->AddBattleLog(GetName() + " 죽었습니다!");
 	}
 }
 

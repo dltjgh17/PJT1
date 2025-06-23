@@ -51,10 +51,10 @@ void Character::levelUp()
 
         /*UI*/
         UI* ui = UI::getInstance();
-        ui->AddFullLog(name + " : [Level UP!] ");
-        ui->AddFullLog(name + " : [new Lv] : " + to_string(level));
-        ui->AddFullLog(name + " : [new HP] : " + to_string(health));
-        ui->AddFullLog(name + " : [new ATK] : " + to_string(attack));
+        ui->AddFullLog(name + " : [레벨 업!] ");
+        ui->AddFullLog(name + " : [new 레벨] : " + to_string(level));
+        ui->AddFullLog(name + " : [new 체력] : " + to_string(health));
+        ui->AddFullLog(name + " : [new 공격력] : " + to_string(attack));
     }
 }
 //경험치 획득 함수
@@ -65,7 +65,7 @@ void Character::addExp(int amount)
 
     /*UI*/
     UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [EXP] :  " + to_string(amount) + " : GET!");
+    ui->AddFullLog(name + " : [EXP] :  " + to_string(amount) + " : 획득!");
 }
 //골드 획득 함수
 void Character::addGold(int amount)
@@ -74,7 +74,7 @@ void Character::addGold(int amount)
 
     /*UI*/
     UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [GOLD] :  " + to_string(amount) + " : GET!");
+    ui->AddFullLog(name + " : [GOLD] :  " + to_string(amount) + " : 획득!");
 
 }
 //체력 회복 함수
@@ -85,7 +85,7 @@ void Character::heal(int amount)
 
     /*UI*/
     UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [HELALTH] : " + to_string(amount) + " :  HEAL!");
+    ui->AddFullLog(name + " : [HELALTH] : " + to_string(amount) + " :  회복!");
 
 }
 //공격력 증가 함수
@@ -95,7 +95,7 @@ void Character::increaseAtk(int amount)
 
     /*UI*/
     UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [ATTACK] : " + to_string(amount) + " :  UP!"); //출력내용 임의로 내용 수정했는데 다시 바꾸셔도 됩니다
+    ui->AddFullLog(name + " : [ATTACK] : " + to_string(amount) + " :  상승!"); //출력내용 임의로 내용 수정했는데 다시 바꾸셔도 됩니다
 
 }
 //체력 감소 함수
@@ -105,7 +105,7 @@ void Character::takeDamage(int amount)
 
     /*UI*/
     UI* ui = UI::getInstance();
-    ui->AddBattleLog(name + " : [HELALTH] : " + to_string(amount) + " : LOST!");
+    ui->AddBattleLog(name + " : [HELALTH] : " + to_string(amount) + " : 감소!");
 }
 //아이템 획득 함수
 void Character::addItem(Item* item)
@@ -114,7 +114,7 @@ void Character::addItem(Item* item)
     
     /*UI*/
     UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [ITEM] : " + item->getName() + " : GET");
+    ui->AddFullLog(name + " : [ITEM] : " + item->getName() + " : 획득!");
 }
 
 //아이템 제거 함수
@@ -124,7 +124,7 @@ void Character::removeItem(int index)
     Item* targetItem = inventory[index - 1];
     std::string itemName = targetItem->getName();
     UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [ITEM] : " + itemName + " : DELETE!");
+    ui->AddFullLog(name + " : [ITEM] : " + itemName + " : 제거!");
 
     inventory.erase(inventory.begin() + index - 1);
     delete targetItem;
@@ -139,7 +139,7 @@ void Character::useItem(int index)
     Item* targetItem = inventory[index - 1];
     std::string itemName = targetItem->getName();
     UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [ITEM] : " + itemName + " : USE!");
+    ui->AddFullLog(name + " : [ITEM] : " + itemName + " : 사용!");
 
     targetItem->Use(this); //아이템 사용
     removeItem(index); //사용한 아이템 삭제

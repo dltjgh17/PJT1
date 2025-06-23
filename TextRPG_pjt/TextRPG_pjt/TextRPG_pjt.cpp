@@ -2,10 +2,11 @@
 //
 #include <iostream>
 #include "UI.h"
-#include "Monster.h"
-#include "MonsterData.h"
+//#include "Monster.h"
+//#include "MonsterData.h"
 #include "Title.h"
 #include "Shop.h"
+#include "BattleSystem.h"
 
 int main()
 {
@@ -15,10 +16,11 @@ int main()
 	UI* InterFace = UI::getInstance();
 	Character Player();
 	Shop MyShop;
-	
+	BattleSystem MyBattle;
+
 	//테스트용 생성한 몬스터, 아이템입니다.//
-	unique_ptr<Monster> goblin = CreateMonster(1);
-	InterFace->SetMonster(goblin.get());;
+	//unique_ptr<Monster> goblin = CreateMonster(1);
+	//InterFace->SetMonster(goblin.get());;
 	
 	/*캐릭터 이름 짓기*/
 	Character* player = Character::getInstance(MainTitle->GameStart());
@@ -46,18 +48,23 @@ int main()
 		{
 		case 1:
 			//로그 테스트
+
+			system("cls");
+			MyBattle.StartBattle(player);
+
 			InterFace->Stage(); // 스테이트 올라가는 거 표시
 
-			player->addGold(100); // 골드 획득 (정상작동)
-			player->takeDamage(10); // 체력 감소 (정상작동)
-			player->heal(5); //체력 회복 (정상작동)
+			//player->addGold(100); // 골드 획득 (정상작동)
+			//player->takeDamage(10); // 체력 감소 (정상작동)
+			//player->heal(5); //체력 회복 (정상작동)
 
-			goblin->TakeDamage(10); // 체력 감소 (정상작동) 죽고 나서 삭제는 아직 X
-			player->addExp(10); // 경험치 획득 (정상작동)
-			player->levelUp(); //  레벨업 (정상 작동)
+			//goblin->TakeDamage(10); // 체력 감소 (정상작동) 죽고 나서 삭제는 아직 X
+			//player->addExp(10); // 경험치 획득 (정상작동)
+			//player->levelUp(); //  레벨업 (정상 작동)
 
 			cin.clear();
 			cin.ignore();
+			system("Pause");
 			break;
 
 		case 2: //상점

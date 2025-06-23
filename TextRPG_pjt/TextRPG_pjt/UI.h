@@ -41,8 +41,8 @@ public:
 
     void AddBattleLog(const std::string& log);
 
-    void SetMonster(Monster* m);
-    void PrintMonsterSummary();
+    //void SetMonster(Monster* m);
+    //void PrintMonsterSummary();
 
     void destroyInstance();
 
