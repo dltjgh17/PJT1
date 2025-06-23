@@ -12,12 +12,12 @@ private:
 	int sellPrice;
 	int buyPrice;
 
-
 public:
 	HealthPotion();
 	virtual void Use(Character* character) override;
 	virtual const std::string& getName() const override { return name; }
 	virtual const std::string& getToolTip() const override { return toolTip; }
+	virtual const ItemCode& getItemCode() const override { return ItemCode::ITEM_HEALTH_POTION; }
 	virtual const int& getSellPrice() const override { return sellPrice; }
 	virtual const int& getBuyPrice() const override { return buyPrice; }
 };

@@ -64,33 +64,15 @@ void Shop::displayBuyMenu(Character* player)
 		cin >> choice;
 
 		//아이템구매처리//
-		if (choice > 0 && choice <= availableItems.size())
+		if (0 < choice && choice <= availableItems.size())
 		{
 			if (player->getGold() >= availableItems[choice - 1]->getBuyPrice())
 			{
-				// 아이템 복제 후 구매 처리
-				Item* purchased = nullptr;
-
-				// 원본을 기반으로 새 인스턴스 생성
-				if (availableItems[choice - 1]->getName() == "Healing Potion")
-				{
-					purchased = new HealthPotion();
-				}
-				else if (availableItems[choice - 1]->getName() == "Berserker Tincture")
-				{
-					purchased = new AttackBoost();
-				}
-				else
-				{
-					continue; // 정의되지 않은 아이템
-				}
-
-				player->addItem(purchased);
-				player->addGold(-availableItems[choice - 1]->getBuyPrice());
+				buyItem(choice - 1, player);
 			}
 			else
 			{
-				cout << "MORE NEDD GOLD !" << endl;
+				cout << "MORE NEED GOLD !" << endl;
 			}
 			// 엔터를 누르면 계속 진행
 			cout << "\nPress Enter to Continue...";
@@ -143,13 +125,12 @@ void Shop::displaySellMenu(Character* player)
 	}
 }
 
-void Shop::byItem(const int& slotNum, Character* player)
+void Shop::buyItem(const int& slotNum, Character* player)
 {
-	Item* item = new HealthPotion();
+	Item* item = createItemType(availableItems[slotNum]->getItemCode());
 
+	player->addGold(-availableItems[slotNum]->getBuyPrice());
 	player->addItem(item);
-	player->addGold(-50);
-
 }
 
 void Shop::sellItem(const int& slotNum, Character* player)
@@ -158,4 +139,16 @@ void Shop::sellItem(const int& slotNum, Character* player)
 	{
 		player->removeItem(slotNum); // 인덱스 위치의 아이템 제거 함수 호출
 	}
+}
+
+Item* Shop::createItemType(const ItemCode& code)
+{
+	switch (code)
+	{
+	case ItemCode::ITEM_HEALTH_POTION: return new HealthPotion();
+	case ItemCode::ITEM_ATTACK_BOOST: return new AttackBoost();
+	// 계속 추가
+	default: return nullptr;
+	}
+	return nullptr;
 }

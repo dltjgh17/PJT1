@@ -13,8 +13,8 @@ public:
 	void displayBuyMenu(Character* player);
 	void displaySellMenu(Character* player);
 
-	void byItem(const int& slotNum, Character* player);
+	void buyItem(const int& slotNum, Character* player);
 	void sellItem(const int& slotNum, Character* player);
-
+	Item* createItemType(const ItemCode& code);
 };
 
