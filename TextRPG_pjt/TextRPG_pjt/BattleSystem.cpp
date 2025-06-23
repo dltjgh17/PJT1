@@ -32,32 +32,76 @@ unique_ptr<Monster> BattleSystem::CreateRandomEnemy()
 
 }
 
+unique_ptr<Monster> BattleSystem::CreateBossMonster(int playerLevel)
+{
+    unique_ptr<Monster> boss = make_unique<Monster>("Dragon", 50, 15); // Todo: 보스 몬스터 생성 로직 추가
+
+	int randomPerHp = rand() % 2 + 2; 
+	int randomPerAtk = rand() % 2 + 2; 
+    boss->SetHealth(playerLevel, randomPerHp, randomPerAtk);
+
+	return boss; // 생성된 보스 몬스터를 반환
+}
+
 
 void BattleSystem::StartBattle(Character* player)
 {
-    unique_ptr<Monster> monster = CreateRandomEnemy();
+    unique_ptr<Monster> monster;
+
+	bool isBossBattle = false; // 보스 배틀 여부 초기화
+    if (player->getLevel() >= 10) // 플레이어 레벨이 10 이상이면 보스 배틀로 설정
+    {
+        monster = CreateBossMonster(player->getLevel()); // 보스 몬스터 생성
+        isBossBattle = true; // 보스 배틀로 설정
+
+        cout << "\n=========보스 배틀=========\n"; // 보스 배틀 시작 메시지 출력
+        cout << player->getName() << " VS " << monster->GetName() << endl; // 플레이어와 몬스터 이름 출력
+    }
+    else
+    {
+		monster = CreateRandomEnemy(); // 일반 몬스터 생성
+		monster->SetHealth(player->getLevel()); // 몬스터의 체력을 플레이어 레벨에 맞게 설정
+
+        cout << "\n=========일반 전투=========\n";
+		cout << player->getName() << " VS " << monster->GetName() << endl; // 플레이어와 몬스터 이름 출력
+    }
 
 
 	cout << "\n Battle Start! \n" << player->getName() << "\nvs\n" << monster->GetName() << endl;  // 전투 시작 메시지 출력
 	while (player->getHealth() > 0 && monster->GetHealth() > 0) // 플레이어와 몬스터가 모두 살아있는 동안 전투 진행
     {
 		monster->TakeDamage(player->getAttack());     // 플레이어가 몬스터를 공격
-		cout << player->getName() << " attacks " << monster->GetHealth() << " HP left.\n" << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
-        this_thread::sleep_for(chrono::seconds(3));    //3초 대기
-        if (monster->GetHealth() <= 0) break;
+        if (isBossBattle) // 보스 배틀인 경우
+        {
+            cout << player->getName() << " attacks " << monster->GetName() << " HP left: " << monster->GetHealth() << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
+        }
+        else // 일반 몬스터 배틀인 경우
+        {
+			cout << player->getName() << " attacks " << monster->GetHealth() << " HP left.\n" << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
+            this_thread::sleep_for(chrono::seconds(3));    //3초 대기
+            if (monster->GetHealth() <= 0) break;
+        }
+
 
 		player->takeDamage(monster->GetAttack()); // 플레이어가 몬스터의 공격을 받음
-		cout << monster->GetName() << " attacks!" << player->getName() << " HP left: " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
+        if (isBossBattle) // 보스 배틀인 경우
+        {
+			cout << monster->GetName() << " attacks " << player->getName() << " HP left: " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
+        }
+        else
+        {
+        cout << monster->GetName() << " attacks!" << player->getName() << " HP left: " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
 		this_thread::sleep_for(chrono::seconds(3)); //3초 대기
-
 		if (player->getHealth() <= 0) break; // 플레이어가 죽었는지 확인
+        }
+
 
 
     }
 	bool playerWon = player->getHealth() > 0 && monster->GetHealth() <= 0; // 플레이어가 승리했는지 확인
 
 	cout << "\n=====================\n"; // 전투 결과 출력
-    if (playerWon)
+    if (playerWon) // 6.24 보스 몬스터 배틀 승리 조건 별도로 출력,
     {
         cout << player->getName() << " wins the battle!" << endl;
 		Title::getInstance()->Victory();      // 승리 화면 출력
