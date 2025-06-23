@@ -83,6 +83,7 @@ void Shop::displaySellMenu(Character* player)
 		cout << "          Inventory         " << endl;
 		cout << "============================" << endl;
 		cout << "Gold: " << player->getGold() << "G" << endl;
+
 		if (!inven.size()) // 인벤이 빈 경우
 		{
 			cout << "Your inventory is empty." << endl;
