@@ -74,7 +74,10 @@ void Character::addGold(int amount)
 
     /*UI*/
     UI* ui = UI::getInstance();
+    if (amount > 0)
     ui->AddFullLog(name + " : [GOLD] :  " + to_string(amount) + " : È¹µæ!");
+    else if (amount < 0)
+    ui->AddFullLog(name + " : [GOLD] :  " + to_string(amount) + " : °¨¼Ò!");
 
 }
 //Ã¼·Â È¸º¹ ÇÔ¼ö
