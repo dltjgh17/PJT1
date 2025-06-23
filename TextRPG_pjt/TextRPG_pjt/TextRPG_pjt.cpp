@@ -33,6 +33,7 @@ int main()
 	Character* player = Character::getInstance(MainTitle->GameStart());
     
 	/*인 게임 루프 */
+
 	while (true)
 	{
 
