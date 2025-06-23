@@ -2,7 +2,6 @@
 //
 #include <iostream>
 #include "UI.h"
-#include <string>
 #include "Monster.h"
 #include "MonsterData.h"
 #include "Title.h"
@@ -12,80 +11,96 @@ int main()
 {
 	/*인스턴스 및 필요 변수 생성*/
 	string Name;
-	Title T;
-	UI InterFace;
+	Title* MainTitle= Title::getInstance();
+	UI* InterFace = UI::getInstance();
 	Character Player();
 	Shop MyShop;
 	
-	//테스트용 생성한 몬스터입니다.//
-	std::unique_ptr<Monster> goblin = CreateMonster(1);
-
-	/*이름 짓기*/
-	T.GameStart();
-	cout << "Name : ";
-	cin >> Name;
-	system("cls");
-	Character* player = Character::getInstance(Name);
+	//테스트용 생성한 몬스터, 아이템입니다.//
+	unique_ptr<Monster> goblin = CreateMonster(1);
+	InterFace->SetMonster(goblin.get());;
+	
+	/*캐릭터 이름 짓기*/
+	Character* player = Character::getInstance(MainTitle->GameStart());
 
 	/*실제 작동 부분*/
 	while (true)
 	{
-		Character* p = Character::getInstance();
-		string UIName = p->getName();
-		int UIHP = p->getHealth();
-		int UIATK = p->getAttack();
+		const vector<Item*>& Itemlsit = player->getInventory();
+		int Choice = -1;
+
+		//플레이어 체력 0인지 체크
+		int PH = player->getHealth();
+		if (0>=PH)
+		{
+			MainTitle->GameOver();
+			goto END;
+		}
 
 		int ChooseAction = 0;
-		InterFace.CheckVal();
-		InterFace.SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 7);
-		cout << "Action? : ";
+		InterFace->CheckVal();
 		cin >> ChooseAction;
 
+		// 케이스 테스트 중 //
 		switch (ChooseAction)
 		{
 		case 1:
-			//전투 예상 로그
-			InterFace.AddFullLog("전투 시작!");
-			InterFace.AddBattleLog("플레이어가 공격했다!");
-			InterFace.AddBattleLog("몬스터가 반격했다!");
-			InterFace.AddBattleLog("플레이어가 공격했다!");
-			InterFace.AddBattleLog("몬스터가 반격했다!");
-			InterFace.AddFullLog("전투 승리!");
-			InterFace.AddFullLog("아이템을 획득했다");
-			InterFace.AddFullLog("경험치를 획득했다");
-			InterFace.AddFullLog("레벨업을 했다");
-			InterFace.CheckVal();
-			InterFace.SetMonster(goblin.get());;
-			InterFace.SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 7);
-			cout << "                        ";
-			InterFace.PrintStage();
+			//로그 테스트
+			InterFace->Stage(); // 스테이트 올라가는 거 표시
+
+			player->addGold(100); // 골드 획득 (정상작동)
+			player->takeDamage(10); // 체력 감소 (정상작동)
+			player->heal(5); //체력 회복 (정상작동)
+
+			goblin->TakeDamage(10); // 체력 감소 (정상작동) 죽고 나서 삭제는 아직 X
+			player->addExp(10); // 경험치 획득 (정상작동)
+			player->levelUp(); //  레벨업 (정상 작동)
+
+			cin.clear();
+			cin.ignore();
 			break;
 
-		case 2: //쇼핑 예상 로그 출력
-			InterFace.AddFullLog("쇼핑이다!");
-			InterFace.AddFullLog("물건을 샀다!");
-			InterFace.AddFullLog("물건을 팔았다!");
-			InterFace.CheckVal();
-			system("cls");
+		case 2: //상점
+			
 			MyShop.displayItems(player);
-
-			InterFace.SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 7);
-			cout << "                        ";
+			
+			cin.clear();
+			cin.ignore();
 			break;
 
 		case 3:
+			// 아이템 사용
+				cout << "Choose item : ";
+				cin >> Choice;
+				--Choice;
+				if (Choice >= 0 && Choice < Itemlsit.size())
+				{
+					player->useItem(Choice+1); // 아이템 사용 
+				}
+				else
+				{
+					cout << "wrong!!" << endl;
+					Sleep(50);
+				}
+				break;
+		case 4:
 			//게임 오버
-			system("cls");
-			T.GameOver();
-			exit(0);
+			MainTitle->GameOver();
+			goto END;
+
+		case 5:
+			//게임 승리
+			MainTitle->Victory();
+			goto END;
 
 		default:
 			cin.clear();
 			cin.ignore();
-			system("cls");
 		}
-
 	}
+
+END:
+	player->destroyInstance();
 
 	return 0;
 }
