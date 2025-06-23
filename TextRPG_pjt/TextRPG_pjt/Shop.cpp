@@ -12,6 +12,7 @@ Shop::Shop()
 {
 	Item* slot1 = new HealthPotion;
 	Item* slot2 = new AttackBoost;
+	// 아이템 추가
 	availableItems.push_back(slot1);
 	availableItems.push_back(slot2);
 }

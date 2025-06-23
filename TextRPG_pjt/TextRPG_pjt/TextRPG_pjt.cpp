@@ -29,6 +29,7 @@ int main()
 	string Name; // 플레이엄 이름을 받아올 변수
 	
 	/*캐릭터 생성, 이름 짓기, 초기 화면*/
+
 	Character* player = Character::getInstance(MainTitle->GameStart());
     
 	/*인 게임 루프 */
@@ -54,9 +55,11 @@ int main()
 			break;
 
 		case 2: //상점
-			InterFace->AddFullLog("[상점]---------------------------------");
+
 			MyShop.displayItems(player);
-			InterFace->AddFullLog("                                       ");
+
+			cin.clear();
+			cin.ignore();
 			break;
 
 		case 3:
