@@ -13,6 +13,7 @@
 #include <Windows.h>
 
 using namespace std;
+using std::unique_ptr;
 
 
 
@@ -27,14 +28,14 @@ unique_ptr<Monster> BattleSystem::CreateRandomEnemy()
     }
 	int r = rand() % 4;  // 0부터 3까지의 랜덤 숫자 생성 (몬스터 종류 선택)
 
-    return CreateMonster(r);  // unique_ptr<Monster> 반환
+	return CreateMonster(r);  // 몬스터 생성 함수 호출
 
 }
 
 
 void BattleSystem::StartBattle(Character* player)
 {
-    std::unique_ptr<Monster> monster = CreateRandomEnemy();
+    unique_ptr<Monster> monster = CreateRandomEnemy();
 
 
 	cout << "\n Battle Start! \n" << player->getName() << "\nvs\n" << monster->GetName() << endl;  // 전투 시작 메시지 출력
@@ -74,9 +75,9 @@ Item* CreateRandomItemDrop()
 {
 	int r = rand() % 100;
     
-    if (r < 30) return new HealthPotion(); // 30% 확률로 HealthPotion 드랍
-    else if (r < 70) return new AttackBoost(); // 40% 확률로 AttackBoost 드랍
-    else return nullptr; //30% 확률로 아이템 드랍 없음
+    if (r < 30) return new HealthPotion(); // 50% 확률로 HealthPotion 드랍
+    else if (r < 10) return new AttackBoost(); // 10% 확률로 AttackBoost 드랍 
+    else return nullptr; // 아이템 드랍 없음
     
 		
 }
@@ -85,7 +86,7 @@ void BattleSystem::GrantVictoryRewards(Character* player) // 플레이어에게 보상 �
 {
 	const int expReward = 50; // 고정 경험치 보상
 	int goldReward = 10 + (rand() % 10); // 10에서 20 사이의 랜덤 골드 보상
-    cout << "Reward :" << expReward << "EXP," << ". Gold\n " << goldReward << endl;
+    cout << "Reward :" << expReward << "EXP , " << "Gold " << goldReward << endl;
 	player->addExp(expReward); // 플레이어에게 경험치 추가
 	player->addGold(goldReward); // 플레이어에게 골드 추가
 
