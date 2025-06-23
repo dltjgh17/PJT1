@@ -25,13 +25,15 @@ public:
     ~UI() = default;
 
     int StageCount = 0;
+    int PastStageCount = 0;
 
     void SetCursorPosition(int X, int Y);
     void PrintStatus();
     void PrintInventory();
     void PrintAction();
     void PrintStage();
-    void PrintPlayerSummry();
+    void DeletePastBattleLog();
+    //void PrintPlayerSummry();
     void PrintBattleLog();
     void PrintFullLog();
 
@@ -41,8 +43,8 @@ public:
 
     void AddBattleLog(const std::string& log);
 
-    void SetMonster(Monster* m);
-    void PrintMonsterSummary();
+    //void SetMonster(Monster* m);
+    //void PrintMonsterSummary();
 
     void destroyInstance();
 

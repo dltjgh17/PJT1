@@ -10,6 +10,7 @@
 #include <ctime>
 #include <thread>
 #include <chrono>
+#include <Windows.h>
 
 using namespace std;
 
@@ -37,7 +38,6 @@ void BattleSystem::StartBattle(Character* player)
 
 
 	cout << "\n Battle Start!" << player->getName() << "vs" << monster->GetName() << endl;  // 전투 시작 메시지 출력
-
 	while (player->getHealth() > 0 && monster->GetHealth() > 0) // 플레이어와 몬스터가 모두 살아있는 동안 전투 진행
     {
 		monster->TakeDamage(player->getAttack());     // 플레이어가 몬스터를 공격

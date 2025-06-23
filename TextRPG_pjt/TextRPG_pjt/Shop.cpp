@@ -116,7 +116,7 @@ void Shop::displaySellMenu(Character* player)
 		if (choice > 0 && 0 < inven.size() && choice <= inven.size()) // 인벤토리가 비어있을 경우 인벤토리에 접근 못하도록 예외처리
 		{
 			player->addGold(inven[choice - 1]->getSellPrice()); // 판매시 골드 증가
-			sellItem(choice - 1, player); // 인벤토리에서 제거
+			sellItem(choice, player); // 인벤토리에서 제거
 		}
 		// 엔터를 누르면 계속 진행
 		cout << "\nPress Enter to Continue...";
