@@ -35,6 +35,9 @@ public:
 	/* 게임 승리 화면*/
 	void Victory();
 
+	/* 게임 최종승리 화면*/
+	void EndVictory();
+
 };
 
 

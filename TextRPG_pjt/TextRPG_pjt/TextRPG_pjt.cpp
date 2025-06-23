@@ -103,8 +103,8 @@ int main()
 			goto END;
 
 		case 5:
-			//게임 승리
-			MainTitle->Victory();
+			//게임 최종 승리
+			MainTitle->EndVictory();
 			goto END;
 
 		default:
