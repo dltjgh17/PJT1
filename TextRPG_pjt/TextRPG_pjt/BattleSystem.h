@@ -1,5 +1,7 @@
 ﻿#pragma once
+#include <memory>
 
+using std::unique_ptr;
 
 class Character;
 class Monster;
@@ -7,7 +9,7 @@ class Monster;
 class BattleSystem {
 public:
     static void StartBattle(Character* player);
-    static Monster* CreateRandomEnemy();
+    static unique_ptr<Monster> CreateRandomEnemy();
     static void GrantVictoryRewards(Character* player);
 
 };

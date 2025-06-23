@@ -128,8 +128,13 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterData.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Unreal\Github\PJT1\TextRPG_pjt\TextRPG_pjt</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="Shop.cpp" />
-    <ClCompile Include="TextRPG_pjt.cpp" />
+    <ClCompile Include="TextRPG_pjt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>

@@ -16,24 +16,24 @@ using namespace std;
 
 
 
-Monster* BattleSystem::CreateRandomEnemy()
+unique_ptr<Monster> BattleSystem::CreateRandomEnemy() 
 {
-    srand(static_cast<unsigned int>(time(nullptr)));
-    int r = rand() % 3;
-
-    switch (r)
+	static bool seeded = false; // 랜덤 시드 초기화 여부를 확인하는 변수
+	if (!seeded) // 시드가 초기화되지 않았다면
     {
-    case 0: return new Monster("Slime", 20, 5);
-	case 1: return new Monster("Goblin", 15, 7);
-	case 2: return new Monster("Golem", 30, 10); // 몬스터 이름, 체력, 공격력 설정
+		srand(static_cast<unsigned int> (time(nullptr))); // 랜덤 시드 초기화
+		seeded = true; // 시드가 초기화되었음을 표시
     }
+	int r = rand() % 4;  // 0부터 3까지의 랜덤 숫자 생성 (몬스터 종류 선택)
+
+    return CreateMonster(r);  // unique_ptr<Monster> 반환
 
 }
 
 
 void BattleSystem::StartBattle(Character* player)
 {
-	Monster* monster = CreateRandomEnemy();   // 랜덤 몬스터 생성
+    std::unique_ptr<Monster> monster = CreateRandomEnemy();
 
 
 	cout << "\n Battle Start!" << player->getName() << "vs" << monster->GetName() << endl;  // 전투 시작 메시지 출력
@@ -42,12 +42,12 @@ void BattleSystem::StartBattle(Character* player)
     {
 		monster->TakeDamage(player->getAttack());     // 플레이어가 몬스터를 공격
 		cout << player->getName() << " attacks " << monster->GetHealth() << " HP left.\n" << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
-		this_thread::sleep_for(chrono::milliseconds(500));     //0.5초 대기
+        this_thread::sleep_for(chrono::seconds(3));    //3초 대기
         if (monster->GetHealth() <= 0) break;
 
 		player->takeDamage(monster->GetAttack()); // 플레이어가 몬스터의 공격을 받음
 		cout << monster->GetName() << " attacks!" << player->getName() << " HP left: " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
-		this_thread::sleep_for(chrono::milliseconds(500)); //0.5초 대기
+		this_thread::sleep_for(chrono::seconds(3)); //3초 대기
 
 		if (player->getHealth() <= 0) break; // 플레이어가 죽었는지 확인
 
@@ -67,7 +67,6 @@ void BattleSystem::StartBattle(Character* player)
         cout << player->getName() << " has been defeated by " << monster->GetName() << "!" << endl;
 		Title::getInstance()->GameOver(); //패배 화면 출력
     }
-	delete monster; 
 
 }
 
