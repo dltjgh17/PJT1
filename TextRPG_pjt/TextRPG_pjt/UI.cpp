@@ -103,6 +103,7 @@ void UI::PrintStage()
 {
 	SetCursorPosition(UI_XY::POS_STAGE_X, UI_XY::POS_STAGE_Y);
 	cout << "- 현재 스테이지 : " << StageCount << " -" << endl;
+	PastStageCount = StageCount;
 }
 
 
@@ -152,6 +153,13 @@ void UI::PrintStage()
 //}
 
 
+/*이전 전투 로그 삭제*/
+void UI::DeletePastBattleLog()
+{
+	BattleLog.erase(BattleLog.begin(),BattleLog.end());
+}
+
+
 /*전투 로그*/
 void UI::PrintBattleLog()
 {
@@ -160,8 +168,8 @@ void UI::PrintBattleLog()
 
 	if (!BattleLog.empty())
 	{
-		// 벡터 크기 제한 (5개 초과시 오래된 로그 삭제)
-		while (BattleLog.size() > 5)
+		// 벡터 크기 제한 (10개 초과시 오래된 로그 삭제)
+		while (BattleLog.size() > 10)
 		{
 			BattleLog.erase(BattleLog.begin());
 		}
@@ -175,7 +183,6 @@ void UI::PrintBattleLog()
 		}
 	}
 	
-	// 전투 끝나면 모든 로그 삭제해버리는 게 좋을 것 같은데... 
 }
 
 /*모든 기록 로그*/
@@ -186,12 +193,13 @@ void UI::PrintFullLog()
 
 	if (!FullLog.empty())
 	{
-		// 벡터 크기 제한 (10개 초과시 오래된 로그 삭제)
-		while (FullLog.size() > 22) {
+		// 벡터 크기 제한 (22개 초과시 오래된 로그 삭제)
+		while (FullLog.size() > 22)
+		{
 			FullLog.erase(FullLog.begin());
 		}
 
-		// 안전한 반복문 - 현재 벡터 크기 기준으로 반복
+		// 현재 벡터 크기 기준으로 반복
 		for (size_t i = 0; i < FullLog.size(); ++i)
 		{
 			SetCursorPosition(UI_XY::POS_FULL_LOG_X+8, UI_XY::POS_FULL_LOG_Y + i + 1);

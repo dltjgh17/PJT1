@@ -42,17 +42,19 @@ int main()
 		int ChooseAction = 0;
 		InterFace->CheckVal();
 		cin >> ChooseAction;
-
+		UI * ui = UI::getInstance();
 		// 케이스 테스트 중 //
 		switch (ChooseAction)
 		{
 		case 1:
 			//로그 테스트
-
+			/*UI*/
+			
+			ui->AddFullLog("[전투 : " + std::to_string(InterFace->StageCount +1) + "]");
 			system("cls");
-			MyBattle.StartBattle(player);
-
 			InterFace->Stage(); // 스테이트 올라가는 거 표시
+			InterFace->DeletePastBattleLog(); //이전 전투 기록 삭제
+			MyBattle.StartBattle(player);
 
 			//player->addGold(100); // 골드 획득 (정상작동)
 			//player->takeDamage(10); // 체력 감소 (정상작동)
@@ -65,23 +67,27 @@ int main()
 			cin.clear();
 			cin.ignore();
 			system("Pause");
+			ui->AddFullLog("---------------------------------------");
 			break;
 
 		case 2: //상점
-			
+			ui->AddFullLog("[상점]");
 			MyShop.displayItems(player);
 			
 			cin.clear();
 			cin.ignore();
+			ui->AddFullLog("---------------------------------------");
 			break;
 
 		case 3:
+			ui->AddFullLog("[인벤토리]");
 			// 아이템 사용
 				cout << "Choose item : ";
 				cin >> Choice;
 				--Choice;
 				if (Choice >= 0 && Choice < Itemlsit.size())
 				{
+					ui->AddFullLog("아이템 사용");
 					player->useItem(Choice+1); // 아이템 사용 
 				}
 				else
@@ -90,6 +96,7 @@ int main()
 					Sleep(50);
 				}
 				break;
+				ui->AddFullLog("---------------------------------------");
 		case 4:
 			//게임 오버
 			MainTitle->GameOver();
