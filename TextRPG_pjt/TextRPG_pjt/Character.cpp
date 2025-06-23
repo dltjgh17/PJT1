@@ -80,11 +80,22 @@ void Character::addGold(int amount)
 //체력 회복 함수
 void Character::heal(int amount)
 {
-    health += amount; //값만큼 체력 회복
+    if (maxHealth <= health + amount) health = maxHealth; //최대체력을 넘는 회복 방지
+    else health += amount; //아닐경우 값만큼 체력 회복
 
     /*UI*/
     UI* ui = UI::getInstance();
     ui->AddFullLog(name + " : [HELALTH] : " + to_string(amount) + " :  HEAL!");
+
+}
+//공격력 증가 함수
+void Character::increaseAtk(int amount)
+{
+    attack += amount; //값만큼 공격력 증가
+
+    /*UI*/
+    UI* ui = UI::getInstance();
+    ui->AddFullLog(name + " : [ATTACK] : " + to_string(amount) + " :  UP!"); //출력내용 임의로 내용 수정했는데 다시 바꾸셔도 됩니다
 
 }
 //체력 감소 함수
@@ -109,16 +120,14 @@ void Character::addItem(Item* item)
 //아이템 제거 함수
 void Character::removeItem(int index)
 {
-
     /*UI 아이템 사용 및 제거시 무조건 먼저 실행되어야 합니다.*/
-    Item* targetItem = inventory[index];
+    Item* targetItem = inventory[index - 1];
     std::string itemName = targetItem->getName();
     UI* ui = UI::getInstance();
     ui->AddFullLog(name + " : [ITEM] : " + itemName + " : DELETE!");
 
-    delete inventory[index];
-    inventory.erase(inventory.begin() + index);
-
+    inventory.erase(inventory.begin() + index - 1);
+    delete targetItem;
 }
 
 //아이템 사용 함수
@@ -132,12 +141,8 @@ void Character::useItem(int index)
     UI* ui = UI::getInstance();
     ui->AddFullLog(name + " : [ITEM] : " + itemName + " : USE!");
 
-    //대충뭔가아이템을사용하는코드
-    // 대충 뭔가 아이템을 사용하는 코드가 있어야 실제로 ui에 반영이 가능합니다.
-    // 작동만 해주시면됩니다.
-    // 작동하는 코드만 있으면 ui에서 그냥 화면 출력 갱신하면 알아서 최신 상태 받아옵니다.
-
-    inventory.erase(inventory.begin() + index - 1); //해당 위치의 아이템 삭제
+    targetItem->Use(this); //아이템 사용
+    removeItem(index); //사용한 아이템 삭제
 }
 
 //캐릭터 사망 여부 체크 함수

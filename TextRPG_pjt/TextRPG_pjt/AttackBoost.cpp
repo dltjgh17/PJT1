@@ -11,5 +11,5 @@ AttackBoost::AttackBoost()
 
 void AttackBoost::Use(Character* character)
 {
-	character->takeDamage(attackIncrease);
+	character->increaseAtk(attackIncrease);
 }
