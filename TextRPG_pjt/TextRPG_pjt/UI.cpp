@@ -237,7 +237,7 @@ void UI::CheckVal()
 /*예비용 입력 함수*/
 // 사용법
 // UI 헤더 추가하고 
-// UI* ui = UI::getInstance(); 사용할 스코프, 함수의 내부에 선언
+// UI* InterFace = UI::getInstance(); 사용할 스코프, 함수의 내부에 선언
 // 아래 함수를 InterFace->Input(); 이렇게 가져오면 됩니다.
 void UI::Input()
 {

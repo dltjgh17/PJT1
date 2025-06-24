@@ -7,14 +7,19 @@
 #include "BattleSystem.h"
 #include <iostream>
 #include <limits>
-#include "Movie.h"
+#include "Opening.h"
+#include <conio.h>
 
 int main()
 {
-	//무비 테스트//
-	Movie DragonMoive;
-	DragonMoive.MoviePlay();
+	std::cout << "게임을 시작하려면 아무 키나 누르세요" << endl;
+	_getch();
+	system("cls");
 
+	/*오프닝*/
+	Opening OP;
+	OP.OPPlay();
+	
 	/*인스턴스 및 필요 변수 생성*/
 	Title* MainTitle= Title::getInstance(); // 화면 타이틀 및 승리, 게임 오버 표시
 	UI* InterFace = UI::getInstance(); // 인 게임 화면 및 UI 표시

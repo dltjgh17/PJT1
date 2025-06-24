@@ -1,7 +1,7 @@
 #pragma once
 class Movie
 {
-public:
+private:
 	void one();
 	void two();
 	void three();
@@ -12,7 +12,7 @@ public:
 	void eight();
 	void nine();
 	void Last();
-
+public:
 	void MoviePlay();
 
 };

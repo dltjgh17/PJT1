@@ -11,6 +11,7 @@
 #include <thread>
 #include <chrono>
 #include <Windows.h>
+#include "Movie.h" // 무비 추가
 
 using namespace std;
 using std::unique_ptr;
@@ -70,6 +71,10 @@ void BattleSystem::StartBattle(Character* player)
     {
         monster = CreateBossMonster(player->getLevel()); // 보스 몬스터 생성
         isBossBattle = true; // 보스 배틀로 설정
+
+        
+        Movie MV;
+        MV.MoviePlay();
 
         cout << "\n=========보스 배틀=========\n"; // 보스 배틀 시작 메시지 출력
         cout << player->getName() << " VS " << monster->GetName() << endl; // 플레이어와 몬스터 이름 출력
