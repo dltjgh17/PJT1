@@ -50,11 +50,11 @@ void Character::levelUp()
         attack += 5; //공격력 (레벨 * 5) 만큼 증가
 
         /*UI*/
-        UI* ui = UI::getInstance();
-        ui->AddFullLog(name + " : [레벨 업!] ");
-        ui->AddFullLog(name +  " : " + to_string(level) + " 레벨이 되었습니다.");
-        ui->AddFullLog(name + " : 최대 체력이 " + to_string(health) + " 이 되었습니다.");
-        ui->AddFullLog(name + " : 공격력이 " + to_string(attack) + " 이 되었습니다.");
+        UI* InterFace = UI::getInstance();
+        InterFace->AddFullLog(name + " : [레벨 업!] ");
+        InterFace->AddFullLog(name +  " : " + to_string(level) + " 레벨이 되었습니다.");
+        InterFace->AddFullLog(name + " : 최대 체력이 " + to_string(health) + " 이 되었습니다.");
+        InterFace->AddFullLog(name + " : 공격력이 " + to_string(attack) + " 이 되었습니다.");
     }
 }
 //경험치 획득 함수
@@ -64,8 +64,8 @@ void Character::addExp(int amount)
     levelUp(); //레벨업 실행, 여기서 해야하나? 싶은데 여기서 하는게 편할듯
 
     /*UI*/
-    UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [경험치] :  " + to_string(amount) + " : 획득!");
+    UI* InterFace = UI::getInstance();
+    InterFace->AddFullLog(name + " : [경험치] :  " + to_string(amount) + " : 획득!");
 }
 //골드 획득 함수
 void Character::addGold(int amount)
@@ -73,11 +73,11 @@ void Character::addGold(int amount)
     gold += amount; //값만큼 골드 획득
 
     /*UI*/
-    UI* ui = UI::getInstance();
+    UI* InterFace = UI::getInstance();
     if (amount > 0)
-    ui->AddFullLog(name + " : [골드] :  " + to_string(amount) + " : 획득!");
+    InterFace->AddFullLog(name + " : [골드] :  " + to_string(amount) + " : 획득!");
     else if (amount < 0)
-    ui->AddFullLog(name + " : [골드] :  " + to_string(amount) + " : 감소!");
+    InterFace->AddFullLog(name + " : [골드] :  " + to_string(amount) + " : 감소!");
 
 }
 //체력 회복 함수
@@ -87,8 +87,8 @@ void Character::heal(int amount)
     else health += amount; //아닐경우 값만큼 체력 회복
 
     /*UI*/
-    UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [체력] : " + to_string(amount) + " :  회복!");
+    UI* InterFace = UI::getInstance();
+    InterFace->AddFullLog(name + " : [체력] : " + to_string(amount) + " :  회복!");
 
 }
 //공격력 증가 함수
@@ -97,8 +97,8 @@ void Character::increaseAtk(int amount)
     attack += amount; //값만큼 공격력 증가
 
     /*UI*/
-    UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [공격력] : " + to_string(amount) + " :  상승!"); //출력내용 임의로 내용 수정했는데 다시 바꾸셔도 됩니다
+    UI* InterFace = UI::getInstance();
+    InterFace->AddFullLog(name + " : [공격력] : " + to_string(amount) + " :  상승!"); //출력내용 임의로 내용 수정했는데 다시 바꾸셔도 됩니다
 
 }
 //체력 감소 함수
@@ -107,8 +107,8 @@ void Character::takeDamage(int amount)
     health -= amount; //값만큼 체력 감소
 
     /*UI*/
-    UI* ui = UI::getInstance();
-    ui->AddBattleLog(name + " : [체력] : " + to_string(amount) + " : 감소!");
+    UI* InterFace = UI::getInstance();
+    InterFace->AddBattleLog(name + " : [체력] : " + to_string(amount) + " : 감소!");
 }
 //아이템 획득 함수
 void Character::addItem(Item* item)
@@ -116,8 +116,8 @@ void Character::addItem(Item* item)
     inventory.push_back(item); //벡터에 아이템 push
     
     /*UI*/
-    UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [아이템] : " + item->getName() + " : 획득!");
+    UI* InterFace = UI::getInstance();
+    InterFace->AddFullLog(name + " : [아이템] : " + item->getName() + " : 획득!");
 }
 
 //아이템 제거 함수
@@ -126,8 +126,8 @@ void Character::removeItem(int index)
     /*UI 아이템 사용 및 제거시 무조건 먼저 실행되어야 합니다.*/
     Item* targetItem = inventory[index - 1];
     std::string itemName = targetItem->getName();
-    UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [아이템] : " + itemName + " : 제거!");
+    UI* InterFace = UI::getInstance();
+    InterFace->AddFullLog(name + " : [아이템] : " + itemName + " : 제거!");
 
     inventory.erase(inventory.begin() + index - 1);
     delete targetItem;
@@ -141,8 +141,8 @@ void Character::useItem(int index)
     /*UI 아이템 사용 및 제거시 무조건 먼저 실행되어야 합니다.*/
     Item* targetItem = inventory[index - 1];
     std::string itemName = targetItem->getName();
-    UI* ui = UI::getInstance();
-    ui->AddFullLog(name + " : [아이템] : " + itemName + " : 사용!");
+    UI* InterFace = UI::getInstance();
+    InterFace->AddFullLog(name + " : [아이템] : " + itemName + " : 사용!");
 
     targetItem->Use(this); //아이템 사용
     removeItem(index); //사용한 아이템 삭제

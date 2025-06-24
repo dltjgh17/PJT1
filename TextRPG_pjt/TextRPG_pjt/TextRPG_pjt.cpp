@@ -51,7 +51,7 @@ int main()
 		case 3:
 			InterFace->AddFullLog("[인벤토리]-----------------------------");
 			// 아이템 사용
-				cout << "Choose item : ";
+				cout << "사용할 아이템 선택 : ";
 				cin >> Choice;
 				--Choice;
 				if (Choice >= 0 && Choice < Itemlsit.size())

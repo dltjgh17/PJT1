@@ -24,18 +24,18 @@ int Monster::GetAttack() const
 
 void Monster::TakeDamage(int damage)
 {
-	UI* ui = UI::getInstance();
+	UI* InterFace = UI::getInstance();
 	health_ -= damage;
 	if (health_ > 0)
 	{
-		ui->AddBattleLog(name_ + " : [체력]: " + to_string(damage) + " : 감소했습니다!");
-		ui->AddBattleLog(name_ + " : [체력] : " + to_string(health_) + " : 남았습니다! ");
+		InterFace->AddBattleLog(name_ + " : [체력]: " + to_string(damage) + " : 감소했습니다!");
+		InterFace->AddBattleLog(name_ + " : [체력] : " + to_string(health_) + " : 남았습니다! ");
 	}
 	if (health_ <= 0)
 	{
 		health_ = 0;
-		ui->AddBattleLog(name_ + " : [체력] : 0 : 남았습니다! ");
-		ui->AddBattleLog(GetName() + " 죽었습니다!");
+		InterFace->AddBattleLog(name_ + " : [체력] : 0 : 남았습니다! ");
+		InterFace->AddBattleLog(GetName() + " 죽었습니다!");
 	}
 }
 

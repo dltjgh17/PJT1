@@ -75,7 +75,7 @@ void Shop::displayBuyMenu(Character* player)
 				cout << "골드가 부족합니다!" << endl;
 			}
 			// 엔터를 누르면 계속 진행
-			cout << "\n 아무 키나 눌러 계속 진행하세요...";
+			cout << "\n 엔터 키를 눌러 계속 진행하세요...";
 			cin.ignore();
 			cin.get();
 		}
@@ -119,7 +119,7 @@ void Shop::displaySellMenu(Character* player)
 			sellItem(choice, player); // 인벤토리에서 제거
 		}
 		// 엔터를 누르면 계속 진행
-		cout << "\n아무 키나 눌러서 계속 진행하세요...";
+		cout << "\n엔터 키나 눌러서 계속 진행하세요...";
 		cin.ignore();
 		cin.get();
 	}
