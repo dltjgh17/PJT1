@@ -65,7 +65,7 @@ int main()
 				InterFace->AddFullLog("                                       ");
 		case 4:
 			//게임 종료
-			MainTitle->GameOver();
+			MainTitle->GameEnd();
 			goto END;
 
 		default:
