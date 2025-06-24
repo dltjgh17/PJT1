@@ -90,13 +90,13 @@ void BattleSystem::StartBattle(Character* player)
 		monster->TakeDamage(player->getAttack());     // 플레이어가 몬스터를 공격
         if (isBossBattle) // 보스 배틀인 경우
         {
-            cout << player->getName() << " 의 공격!\n" << monster->GetName() << " 남은 HP : " << monster->GetHealth() << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
+            cout << player->getName() << " 의 공격!\n" << monster->GetName() << " 남은 체력 : " << monster->GetHealth() << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
             this_thread::sleep_for(chrono::seconds(2)); //2초 대기
             if (monster->GetHealth() <= 0) break;
         }
         else // 일반 몬스터 배틀인 경우
         {
-			cout << player->getName() << " 의 공격!\n" << monster->GetName() << " 남은 HP : " << monster->GetHealth() << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
+			cout << player->getName() << " 의 공격!\n" << monster->GetName() << " 남은 체력 : " << monster->GetHealth() << endl; // 플레이어의 공격 후 몬스터의 남은 체력을 출력
             this_thread::sleep_for(chrono::seconds(2));    //2초 대기
             if (monster->GetHealth() <= 0) break;
         }
@@ -105,13 +105,13 @@ void BattleSystem::StartBattle(Character* player)
 		player->takeDamage(monster->GetAttack()); // 플레이어가 몬스터의 공격을 받음
         if (isBossBattle) // 보스 배틀인 경우
         {
-			cout << monster->GetName() << " 의 공격!\n" << player->getName() << " 남은 HP : " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
+			cout << monster->GetName() << " 의 공격!\n" << player->getName() << " 남은 체력 : " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
             this_thread::sleep_for(chrono::seconds(2)); //2초 대기
             if (player->getHealth() <= 0) break; // 플레이어가 죽었는지 확인
         }
         else
         {
-        cout << monster->GetName() << " 의 공격!\n" << player->getName() << " 남은 HP : " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
+        cout << monster->GetName() << " 의 공격!\n" << player->getName() << " 남은 체력 : " << player->getHealth() << endl; // 몬스터의 공격 후 플레이어의 남은 체력을 출력
 		this_thread::sleep_for(chrono::seconds(2)); //2초 대기
 		if (player->getHealth() <= 0) break; // 플레이어가 죽었는지 확인
         }
@@ -168,7 +168,7 @@ void BattleSystem::GrantVictoryRewards(Character* player) // 플레이어에게 보상 �
 {
 	const int expReward = 50; // 고정 경험치 보상
 	int goldReward = 10 + (rand() % 10); // 10에서 20 사이의 랜덤 골드 보상
-    cout << "보상 : " << expReward << "EXP , " << "골드 " << goldReward << endl;
+    cout << "보상 : " << expReward << "경험치 , " << "골드 " << goldReward << endl;
 	player->addExp(expReward); // 플레이어에게 경험치 추가
 	player->addGold(goldReward); // 플레이어에게 골드 추가
 
