@@ -150,6 +150,12 @@ void BattleSystem::StartBattle(Character* player)
         cout << "=========" << player->getName() << " 가 " << monster->GetName() << "에게 패배했습니다!=========" << endl;
         this_thread::sleep_for(chrono::seconds(2)); //2초 대기
 		Title::getInstance()->GameOver(); //패배 화면 출력
+        for (int i = 5; i > 0; --i)
+        {
+            cout << "\r" << "=========게임이 " << i << "초 후 종료됩니다...========= " << flush;
+            this_thread::sleep_for(chrono::seconds(1));
+        }
+        cout << "\n";			exit(0); // 게임 종료
     }
 
 }
