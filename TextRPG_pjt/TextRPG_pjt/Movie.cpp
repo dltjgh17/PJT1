@@ -376,33 +376,43 @@ void Movie::MoviePlay()
 {
 	one();
 	Sleep(100);
+	system("cls");
 
 	two();
 	Sleep(100);
+	system("cls");
 
 	three();
 	Sleep(100);
+	system("cls");
 
 	four();
 	Sleep(100);
+	system("cls");
 
 	five();
 	Sleep(100);
+	system("cls");
 
 	six();
 	Sleep(100);
+	system("cls");
 
 	seven();
 	Sleep(100);
+	system("cls");
 
 	eight();
 	Sleep(100);
+	system("cls");
 
 	nine();
 	Sleep(100);
+	system("cls");
 
 	Last();
 	Sleep(1000);
+	system("cls");
 
 
 }
