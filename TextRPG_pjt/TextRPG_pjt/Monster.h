@@ -22,7 +22,7 @@ public:
 	
 	void SetHealth(int playerLevel, int randomPer);
 	
-	void SetHealth(int playerLevel, int randomPerHp, int randomPerAtk);
+	void SetHealth(int playerLevel, float  randomPerHp, float  randomPerAtk);
 	
 
 

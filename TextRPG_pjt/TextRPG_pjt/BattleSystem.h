@@ -11,6 +11,6 @@ public:
     static void StartBattle(Character* player);
     static unique_ptr<Monster> CreateRandomEnemy();
     static void GrantVictoryRewards(Character* player);
-    static unique_ptr<Monster> CreateBossMonster(int playerLevel)
+    static unique_ptr<Monster> CreateBossMonster(int playerLevel);
 
 };

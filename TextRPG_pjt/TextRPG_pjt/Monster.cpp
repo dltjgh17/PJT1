@@ -51,7 +51,7 @@ void Monster::SetHealth(int playerLevel, int randomPer)
 }
 
 //레벨당 체력 공격력 조정 (플레이어 레벨 + 적용 퍼센트Hp + 적용 퍼센트 Atk)
-void Monster::SetHealth(int playerLevel, int randomPerHp, int randomPerAtk)
+void Monster::SetHealth(int playerLevel, float  randomPerHp, float  randomPerAtk)
 {
 	health_ = (health_ * (playerLevel)) * randomPerHp;
 	attack_ = (attack_ * (playerLevel)) * randomPerAtk;
