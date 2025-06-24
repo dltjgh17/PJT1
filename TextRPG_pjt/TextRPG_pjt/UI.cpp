@@ -223,6 +223,10 @@ void UI::CheckVal()
 }
 
 /*예비용 입력 함수*/
+// 사용법
+// UI 헤더 추가하고 
+// UI* ui = UI::getInstance(); 사용할 스코프, 함수의 내부에 선언
+// 아래 함수를 InterFace->Input(); 이렇게 가져오면 됩니다.
 void UI::Input()
 {
 /*입력 항상 초기화 후 입력 받기*/
@@ -236,7 +240,6 @@ std::getline(std::cin, input);
 // 입력이 비어있는지 확인
 if (input.empty())
 {
-	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
 	std::cout << "올바른 숫자를 입력해주세요! : ";
 	return;
 }
@@ -251,13 +254,11 @@ try
 	}
 	else
 	{
-		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
 		std::cout << "1~4 사이의 숫자를 입력해주세요! : ";
 	}
 }
 catch (const std::exception&)
 {
-	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
 	std::cout << "올바른 숫자를 입력해주세요! : ";
 }
 }
