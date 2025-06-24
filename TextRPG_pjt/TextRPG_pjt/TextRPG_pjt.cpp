@@ -7,9 +7,14 @@
 #include "BattleSystem.h"
 #include <iostream>
 #include <limits>
+#include "Movie.h"
 
 int main()
 {
+	//무비 테스트//
+	Movie DragonMoive;
+	DragonMoive.MoviePlay();
+
 	/*인스턴스 및 필요 변수 생성*/
 	Title* MainTitle= Title::getInstance(); // 화면 타이틀 및 승리, 게임 오버 표시
 	UI* InterFace = UI::getInstance(); // 인 게임 화면 및 UI 표시
