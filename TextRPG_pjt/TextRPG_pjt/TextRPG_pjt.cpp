@@ -9,6 +9,7 @@
 #include <limits>
 #include "Opening.h"
 #include <conio.h>
+#include <Windows.h>
 
 int main()
 {
@@ -59,20 +60,27 @@ int main()
 			break;
 
 		case 3:
+			if (Itemlsit.size() <= 0)
+			{
+				cout << "인벤토리에 아이템이 없습니다!" << endl;
+				Sleep(500);
+				break;
+			}
 			InterFace->AddFullLog("[인벤토리]-----------------------------");
 			// 아이템 사용
-				cout << "사용할 아이템 선택 : ";
-				cin >> Choice;
-				--Choice;
-				if (Choice >= 0 && Choice < Itemlsit.size())
-				{
-					player->useItem(Choice+1); // 아이템 사용 
-				}
-				else
-				{
-				}
-				break;
-				InterFace->AddFullLog("                                       ");
+				
+			cout << "사용할 아이템 선택 : ";
+			cin >> Choice;
+			--Choice;
+			if (Choice >= 0 && Choice < Itemlsit.size())
+			{
+				player->useItem(Choice+1); // 아이템 사용 
+			}
+			else
+			{
+			}
+			break;
+			InterFace->AddFullLog("                                       ");
 		case 4:
 			//게임 종료
 			MainTitle->GameEnd();
