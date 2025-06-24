@@ -52,9 +52,9 @@ void Character::levelUp()
         /*UI*/
         UI* ui = UI::getInstance();
         ui->AddFullLog(name + " : [레벨 업!] ");
-        ui->AddFullLog(name +  ":" + to_string(level) + " 레벨이 되었습니다.");
-        ui->AddFullLog(name + ": 최대 체력이 " + to_string(health) + " 이 되었습니다.");
-        ui->AddFullLog(name + ": 공격력이 " + to_string(attack) + " 이 되었습니다.");
+        ui->AddFullLog(name +  " : " + to_string(level) + " 레벨이 되었습니다.");
+        ui->AddFullLog(name + " : 최대 체력이 " + to_string(health) + " 이 되었습니다.");
+        ui->AddFullLog(name + " : 공격력이 " + to_string(attack) + " 이 되었습니다.");
     }
 }
 //경험치 획득 함수
