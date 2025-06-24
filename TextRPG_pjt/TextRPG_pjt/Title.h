@@ -1,18 +1,12 @@
 #pragma once
-
-#ifndef TITLE_H_
-#define TITLE_H_
 #include <iostream>
-#include <conio.h>
-
-using namespace std;
 
 class Title
 {
 
 private:
 	bool LoginCheck = false;
-	string Name="";
+	std::string Name="";
 	Title() = default;
 	static std::unique_ptr <Title> instance;
 
@@ -24,7 +18,7 @@ public:
 	~Title() = default;
 
 	/* 게임 시작 화면*/
-	string GameStart();
+	std::string GameStart();
 
 	/* 게임 종료 화면*/
 	void GameEnd();
@@ -39,6 +33,3 @@ public:
 	void EndVictory();
 
 };
-
-
-#endif

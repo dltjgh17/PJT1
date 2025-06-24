@@ -1,5 +1,7 @@
 #include "UI.h"
-
+#include <windows.h>
+#include <memory>
+/*단일 인스턴스로 생성*/
 std::unique_ptr<UI> UI::instance = nullptr;
 UI* UI::getInstance()
 {
@@ -29,14 +31,14 @@ void UI::PrintStatus()
 	int EXP = p->getExp();
 
 	SetCursorPosition(UI_XY::POS_STATUS_X, UI_XY::POS_STATUS_Y);
-	cout << "=======상태창=======" << endl;
-	cout << "|    이름 : " << UIName << endl;
-	cout << "|    레벨 : " << UILevel << endl;
-	cout << "|    체력 : " << UIHP << "/" << MAXHP << endl;
-	cout << "|  공격력 : " << UIATK << endl;
-	cout << "|    골드 : " << UIGold << endl;
-	cout << "|  경험치 : " << EXP << "/100" << endl;
-	cout << "____________________" << endl;
+	std::cout << "=======상태창=======" << endl;
+	std::cout << "|    이름 : " << UIName << endl;
+	std::cout << "|    레벨 : " << UILevel << endl;
+	std::cout << "|    체력 : " << UIHP << "/" << MAXHP << endl;
+	std::cout << "|  공격력 : " << UIATK << endl;
+	std::cout << "|    골드 : " << UIGold << endl;
+	std::cout << "|  경험치 : " << EXP << "/100" << endl;
+	std::cout << "____________________" << endl;
 }
 
 ///* 인벤토리 UI*/	
@@ -46,23 +48,26 @@ void UI::PrintInventory()
 	const vector<Item*>& Itemlsit = p->getInventory();
 	 
 	SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y);
-	cout << "===== 인벤토리 ======" << endl;
+	std::cout << "===== 인벤토리 ======" << endl;
 
+	// 인벤토리 접근 오류시 예외처리//
 	if (Itemlsit.empty())
 	{
 		SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + 1);
-		cout << "| 인벤토리가 비어있습니다." << endl;
+		std::cout << "| 인벤토리가 비어있습니다." << endl;
 		SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + 9);
-		cout << "____________________" << endl;
+		std::cout << "____________________" << endl;
 		return;
 	}
 
-	// 인벤토리 접근
+	// 인벤토리 접근해서 가져오기
 	for (size_t i = 0; i < Itemlsit.size(); ++i)
 	{
+		// 예외 처리 (표시 갯수 및 인벤토리 오버 접근 시 예외처리)
 		if (i >= Itemlsit.size()) break;
 		if (i >= 11 ) break;
 
+		// nullptr인 아닌 경우 슬롯 표시
 		if (Itemlsit[i] != nullptr)
 		{
 			SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + (int)i + 1);
@@ -77,80 +82,35 @@ void UI::PrintInventory()
 	}
 
 	SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + 12);
-	cout << "____________________" << endl;
+	std::cout << "____________________" << endl;
 }
 
 /* 행동 유형 선택 UI*/
 void UI::PrintAction()
 {
-	//시스템 전부 완성까지 참조 보류//
 	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y);
-	cout << "=======ACTION=======" << endl;
-	cout << "|     전투 : 1 " << endl;
-	cout << "|     상점 : 2 " << endl;
-	cout << "|   아이템 : 3 " << endl;
-	cout << "| **TEST GAMOVER: 4"  << endl;
-	cout << "| **TEST VICTORY : 5" << endl;
-	cout << "____________________" << endl;
+	std::cout << "=======ACTION=======" << endl;
+	std::cout << "|     전투 : 1 " << endl;
+	std::cout << "|     상점 : 2 " << endl;
+	std::cout << "|   아이템 : 3 " << endl;
+	std::cout << "|     종료 : 4"  << endl;
+	std::cout << "____________________" << endl;
 
 	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 8);
-	cout << "어떤 행동을 하시겠습니까? : ";
+	std::cout << "어떤 행동을 하시겠습니까? : ";
 
+	/*입력 항상 초기화 후 입력 받기*/
+	ChooseAction = 0;
+	std::cin >> ChooseAction;
 }
 
 /* 스테이지 UI*/
 void UI::PrintStage()
 {
 	SetCursorPosition(UI_XY::POS_STAGE_X, UI_XY::POS_STAGE_Y);
-	cout << "- 현재 스테이지 : " << StageCount << " -" << endl;
+	std::cout << "- 현재 스테이지 : " << StageCount << " -" << endl;
 	PastStageCount = StageCount;
 }
-
-
-/*플레이어 전투 상태창*/
-//void UI::PrintPlayerSummry()
-//{
-//
-//	Character* p = Character::getInstance();
-//	string UIName = p->getName();
-//	int UIHP = p->getHealth();
-//	int UIATK = p->getAttack();
-//
-//	SetCursorPosition(UI_XY::POS_PLAYER_SUMMARY_X, UI_XY::POS_PLAYER_SUMMARY_Y);
-//	cout << "=   PLAYER   =" << endl;
-//	SetCursorPosition(UI_XY::POS_PLAYER_SUMMARY_X, UI_XY::POS_PLAYER_SUMMARY_Y + 1);
-//	cout << "=  HP : " << UIHP << " =" << endl;
-//	SetCursorPosition(UI_XY::POS_PLAYER_SUMMARY_X, UI_XY::POS_PLAYER_SUMMARY_Y + 2);
-//	cout << "= ATK " << UIATK << " =" << endl;
-//}
-
-
-///*몬스터 가져오기*/
-//void UI::SetMonster(Monster* m)
-//{
-//	currentMonster = m;
-//}
-//
-///*몬스터 전투 상태창*/
-//void UI::PrintMonsterSummary()
-//{
-//	if (currentMonster == nullptr)
-//	{
-//		SetCursorPosition(UI_XY::POS_MONSTER_SUMMARY_X, UI_XY::POS_MONSTER_SUMMARY_Y);
-//		cout << "=  " " =" << endl;
-//		SetCursorPosition(UI_XY::POS_MONSTER_SUMMARY_X, UI_XY::POS_MONSTER_SUMMARY_Y + 1);
-//		cout << "=  HP : "  << "=" << endl;
-//		SetCursorPosition(UI_XY::POS_MONSTER_SUMMARY_X, UI_XY::POS_MONSTER_SUMMARY_Y + 2);
-//		cout << "= ATK : " << " =" << endl;
-//	}
-//
-//	SetCursorPosition(UI_XY::POS_MONSTER_SUMMARY_X, UI_XY::POS_MONSTER_SUMMARY_Y);
-//	cout << "=  " << currentMonster->GetName() << " =" << endl;
-//	SetCursorPosition(UI_XY::POS_MONSTER_SUMMARY_X, UI_XY::POS_MONSTER_SUMMARY_Y + 1);
-//	cout << "=  HP : " << currentMonster->GetHealth() << " =" << endl;
-//	SetCursorPosition(UI_XY::POS_MONSTER_SUMMARY_X, UI_XY::POS_MONSTER_SUMMARY_Y + 2);
-//	cout << "= ATK : " << currentMonster->GetAttack() << " =" << endl;
-//}
 
 
 /*이전 전투 로그 삭제*/
@@ -163,22 +123,19 @@ void UI::DeletePastBattleLog()
 /*전투 로그*/
 void UI::PrintBattleLog()
 {
-	SetCursorPosition(UI_XY::POS_BATTLE_TITLE_X-8, UI_XY::POS_BATTLE_LOG_Y);
-	cout << "======= 전투 기록 ========" << endl;
+	SetCursorPosition(UI_XY::POS_BATTLE_LOG_X-8, UI_XY::POS_BATTLE_LOG_Y);
+	std::cout << "======= 전투 기록 ========" << endl;
 
-	if (!BattleLog.empty())
+	if (!BattleLog.empty()) // 0. 로그 접근 검사 
 	{
-		// 벡터 크기 제한 (10개 초과시 오래된 로그 삭제)
-		while (BattleLog.size() > 10)
+		while (BattleLog.size() > 10) // 1.벡터 크기 제한 시 10개 초과시 오래된 로그 삭제
 		{
 			BattleLog.erase(BattleLog.begin());
 		}
-
-		// 현재 벡터 크기 기준으로 반복
-		for (size_t i = 0; i < BattleLog.size(); ++i)
+		for (size_t i = 0; i < BattleLog.size(); ++i)  // 3. 최신화한 벡터 크기 기준으로 출력
 		{
 			SetCursorPosition(UI_XY::POS_BATTLE_LOG_X-8, UI_XY::POS_BATTLE_LOG_Y + i + 1);
-			cout << BattleLog[i] << endl;
+			std::cout << BattleLog[i] << endl;
 			Sleep(10);
 		}
 	}
@@ -189,45 +146,47 @@ void UI::PrintBattleLog()
 void UI::PrintFullLog()
 {
 	SetCursorPosition(UI_XY::POS_FULL_LOG_X, UI_XY::POS_FULL_LOG_Y);
-	cout << "     ======= 당신의 여정 =======" << endl;
-
-	if (!FullLog.empty())
+	std::cout << "     ======= 당신의 여정 =======" << endl;
+ 
+	if (!FullLog.empty()) // 0. 로그 접근 검사 
 	{
-		// 벡터 크기 제한 (22개 초과시 오래된 로그 삭제)
-		while (FullLog.size() > 22)
+		while (FullLog.size() > 22) // 1.벡터 크기 제한 시 22개 초과시 오래된 로그 삭제
 		{
 			FullLog.erase(FullLog.begin());
 		}
-
-		// 현재 벡터 크기 기준으로 반복
-		for (size_t i = 0; i < FullLog.size(); ++i)
+		for (size_t i = 0; i < FullLog.size(); ++i) // 3. 최신화한 벡터 크기 기준으로 출력
 		{
 			SetCursorPosition(UI_XY::POS_FULL_LOG_X+8, UI_XY::POS_FULL_LOG_Y + i + 1);
-			cout << FullLog[i] << endl;
+			std::cout << FullLog[i] << endl;
 			Sleep(10);
 		}
 	}
 }
+
+/*풀 로그에 저장할 기록 받아오기요용*/
 void UI::AddFullLog(const std::string& log)
 {
 	FullLog.push_back(log);
 }
 
+/*전투 로그에 저장할 기록 받아오기용*/
 void UI::AddBattleLog(const std::string& log)
 {
 	BattleLog.push_back(log);
 }
 
+/*화면 출력용 함수*/
 void UI::CheckVal()
 {
+	// UI 업데이트 및 입력을 위환 초기화
 	system("cls");
+	cin.clear();
+	cin.ignore();
+
+	// UI에 업데이트할 최신 상태 불러오기
 	PrintStatus();
 	PrintInventory();
-
 	PrintBattleLog();
-	//PrintMonsterSummary();
-	//PrintPlayerSummry();
-
 	PrintFullLog();
 	PrintStage();
 	PrintAction();
