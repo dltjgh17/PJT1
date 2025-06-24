@@ -41,7 +41,8 @@ public:
 
     void AddFullLog(const std::string& log); // 풀 로그에 저장할 기록 받아오기
     void AddBattleLog(const std::string& log); // 전투 로그에 저장할 기록 받아오기용
-
+    
+    void FirstUI(); // 처음 화면 업데이트 
     void CheckVal(); // 화면 UI 업데이트 함수
 
     //Getter 함수들

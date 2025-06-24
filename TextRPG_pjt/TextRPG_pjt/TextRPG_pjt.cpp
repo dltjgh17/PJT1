@@ -6,6 +6,7 @@
 #include "Shop.h"
 #include "BattleSystem.h"
 #include <iostream>
+#include <limits>
 
 int main()
 {
@@ -16,9 +17,9 @@ int main()
 	BattleSystem MyBattle; // 배틀 시스템
 	string Name; // 플레이엄 이름을 받아올 변수
 	
-	/*캐릭터 생성 및 이름 짓기*/
+	/*캐릭터 생성, 이름 짓기, 초기 화면*/
 	Character* player = Character::getInstance(MainTitle->GameStart());
-
+    
 	/*인 게임 루프 */
 	while (true)
 	{
@@ -27,16 +28,6 @@ int main()
 		InterFace->CheckVal();
 
 		int Choice = -1;
-
-		//플레이어 체력 0인지 체크 (배틀 시스템에 있으면 삭제 예정)//
-		int PH = player->getHealth();						//
-		if (0>=PH)											//
-		{													//
-			MainTitle->GameOver();							//
-			goto END;										//
-		}													//
-		//--------------------------------------------------//
-
 
 		/*플레이어 행동 처리*/
 		switch (InterFace->GetChooseAction())

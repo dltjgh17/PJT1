@@ -100,9 +100,43 @@ void UI::PrintAction()
 	std::cout << "어떤 행동을 하시겠습니까? : ";
 
 	/*입력 항상 초기화 후 입력 받기*/
+	/*입력 받기 - getline 사용*/
 	ChooseAction = 0;
-	std::cin >> ChooseAction;
+	std::string input;
+
+	
+	std::getline(std::cin, input);
+
+	// 입력이 비어있는지 확인
+	if (input.empty())
+	{
+		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+		std::cout << "올바른 숫자를 입력해주세요! : ";
+		return;
+	}
+
+	// 문자열을 숫자로 변환 시도
+	try
+	{
+	ChooseAction = std::stoi(input);
+	if (ChooseAction >= 1 && ChooseAction <= 4)
+	{
+		return; // 올바른 입력이면 루프 종료
+	}
+	else
+	{
+		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+		std::cout << "1~4 사이의 숫자를 입력해주세요! : ";
+	}
+	}
+	catch (const std::exception&)
+	{
+		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+		std::cout << "올바른 숫자를 입력해주세요! : ";
+	}
 }
+
+
 
 /* 스테이지 UI*/
 void UI::PrintStage()
@@ -136,7 +170,6 @@ void UI::PrintBattleLog()
 		{
 			SetCursorPosition(UI_XY::POS_BATTLE_LOG_X-8, UI_XY::POS_BATTLE_LOG_Y + i + 1);
 			std::cout << BattleLog[i] << endl;
-			Sleep(10);
 		}
 	}
 	
@@ -158,7 +191,6 @@ void UI::PrintFullLog()
 		{
 			SetCursorPosition(UI_XY::POS_FULL_LOG_X+8, UI_XY::POS_FULL_LOG_Y + i + 1);
 			std::cout << FullLog[i] << endl;
-			Sleep(10);
 		}
 	}
 }
@@ -180,8 +212,6 @@ void UI::CheckVal()
 {
 	// UI 업데이트 및 입력을 위환 초기화
 	system("cls");
-	cin.clear();
-	cin.ignore();
 
 	// UI에 업데이트할 최신 상태 불러오기
 	PrintStatus();
