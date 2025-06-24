@@ -26,11 +26,15 @@ void Monster::TakeDamage(int damage)
 {
 	UI* ui = UI::getInstance();
 	health_ -= damage;
-	ui->AddBattleLog(name_ + " : [HEALTH]: " + to_string(damage) + " : 감소했습니다!");
-	ui->AddBattleLog(name_ + " : [HEALTH] : " + to_string(health_) + " : 남았습니다! ");
+	if (health_ > 0)
+	{
+		ui->AddBattleLog(name_ + " : [체력]: " + to_string(damage) + " : 감소했습니다!");
+		ui->AddBattleLog(name_ + " : [체력] : " + to_string(health_) + " : 남았습니다! ");
+	}
 	if (health_ <= 0)
 	{
 		health_ = 0;
+		ui->AddBattleLog(name_ + " : [체력] : 0 : 남았습니다! ");
 		ui->AddBattleLog(GetName() + " 죽었습니다!");
 	}
 }
@@ -51,7 +55,7 @@ void Monster::SetHealth(int playerLevel, int randomPer)
 }
 
 //레벨당 체력 공격력 조정 (플레이어 레벨 + 적용 퍼센트Hp + 적용 퍼센트 Atk)
-void Monster::SetHealth(int playerLevel, int randomPerHp, int randomPerAtk)
+void Monster::SetHealth(int playerLevel, float  randomPerHp, float  randomPerAtk)
 {
 	health_ = (health_ * (playerLevel)) * randomPerHp;
 	attack_ = (attack_ * (playerLevel)) * randomPerAtk;

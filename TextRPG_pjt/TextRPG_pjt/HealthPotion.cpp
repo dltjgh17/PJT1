@@ -4,8 +4,8 @@
 HealthPotion::HealthPotion()
 {
 	this->healthRestore = 50;
-	this->name = "Healing Potion";
-	this->toolTip = "Restore 50 HP";
+	this->name = "체력 회복 포션";
+	this->toolTip = "체력 50 회복";
 	this->sellPrice = 20;
 	this->buyPrice  = 50;
 }

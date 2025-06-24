@@ -24,12 +24,12 @@ void Shop::displayItems(Character* player)
 	{
 		system("cls");
 		cout << "============================" << endl;
-		cout << "        Item Shop           " << endl;
+		cout << "             상점            " << endl;
 		cout << "============================" << endl;
-		cout << "Gold: " << player->getGold() << "G" << endl;
-		cout << "[1] Buy" << endl;
-		cout << "[2] Sell" << endl;
-		cout << "[0] Exit Shop" << endl;
+		cout << "현재 보유 골드 : " << player->getGold() << "G" << endl;
+		cout << "[1] 사기" << endl;
+		cout << "[2] 팔기" << endl;
+		cout << "[0] 상점 나가기" << endl;
 
 		cin >> choice;
 
@@ -51,16 +51,16 @@ void Shop::displayBuyMenu(Character* player)
 	{
 		system("cls");
 		cout << "============================" << endl;
-		cout << "       Item Shop(Buy)       " << endl;
+		cout << "      상점 아이템 구매창      " << endl;
 		cout << "============================" << endl;
-		cout << "Gold: " << player->getGold() << "G" << endl;
+		cout << "현재 보유 골드 : " << player->getGold() << "G" << endl;
 		for (int i = 0; i < availableItems.size(); i++)
 		{
-			cout << "[" << i + 1 << "] " << availableItems[i]->getName() << " (" << availableItems[i]->getBuyPrice() << ") - " << availableItems[i]->getToolTip() << endl;
+			cout << "[" << i + 1 << "] " << availableItems[i]->getName() << " (" << availableItems[i]->getBuyPrice() << "G) - " << availableItems[i]->getToolTip() << endl;
 		}
-		cout << "[0] Back to main menu" << endl;
+		cout << "[0] 상점 메뉴로 돌아가기" << endl;
 
-		cout << "\nChoose an item to buy: ";
+		cout << "\n 구매할 아이템을 선택하세요 : ";
 		cin >> choice;
 
 		//아이템구매처리//
@@ -72,10 +72,10 @@ void Shop::displayBuyMenu(Character* player)
 			}
 			else
 			{
-				cout << "MORE NEED GOLD !" << endl;
+				cout << "골드가 부족합니다!" << endl;
 			}
 			// 엔터를 누르면 계속 진행
-			cout << "\nPress Enter to Continue...";
+			cout << "\n 아무 키나 눌러 계속 진행하세요...";
 			cin.ignore();
 			cin.get();
 		}
@@ -91,25 +91,25 @@ void Shop::displaySellMenu(Character* player)
 		vector<Item*> inven = player->getInventory();
 		system("cls");
 		cout << "============================" << endl;
-		cout << "       Item Shop(Sell)      " << endl;
+		cout << "         아이템 판매창       " << endl;
 		cout << "============================" << endl;
-		cout << "          Inventory         " << endl;
+		cout << "          내 인벤토리        " << endl;
 		cout << "============================" << endl;
-		cout << "Gold: " << player->getGold() << "G" << endl;
+		cout << "현재 보유 골드 : " << player->getGold() << "G" << endl;
 
 		if (!inven.size()) // 인벤이 빈 경우
 		{
-			cout << "Your inventory is empty." << endl;
+			cout << "가지고 있는 아이템이 없습니다." << endl;
 		}
 		else 
 		{
 			for (int i = 0; i < inven.size(); i++)
 			{
-				cout << "[" << i + 1 << "] " << inven[i]->getName() << " (" << inven[i]->getSellPrice() << ") - " << inven[i]->getToolTip() << endl;
+				cout << "[" << i + 1 << "] " << inven[i]->getName() << " (" << inven[i]->getSellPrice() << "G) - " << inven[i]->getToolTip() << endl;
 			}
 		}
-		cout << "[0] Back to main menu" << endl;
-		cout << "\nChoose an item to Sell: ";
+		cout << "[0] 상점 메뉴로 돌아가기" << endl;
+		cout << "\n판매할 아이템을 고르세요 : ";
 		cin >> choice;
 
 		// 선택한 인덱스의 아이템 판매 함수 호출
@@ -119,7 +119,7 @@ void Shop::displaySellMenu(Character* player)
 			sellItem(choice, player); // 인벤토리에서 제거
 		}
 		// 엔터를 누르면 계속 진행
-		cout << "\nPress Enter to Continue...";
+		cout << "\n아무 키나 눌러서 계속 진행하세요...";
 		cin.ignore();
 		cin.get();
 	}

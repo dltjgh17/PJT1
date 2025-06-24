@@ -2,8 +2,8 @@
 
 AttackBoost::AttackBoost()
 {
-	this->name = "Berserker Tincture";
-	this->toolTip = "+10 Attack";
+	this->name = "공격력 증가 포션";
+	this->toolTip = "공격력 10증가";
 	this->attackIncrease = 10;
 	this->buyPrice = 120;
 	this->sellPrice = 60;

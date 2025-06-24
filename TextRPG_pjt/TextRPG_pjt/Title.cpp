@@ -1,6 +1,9 @@
 ﻿#include "Title.h"
+#include <conio.h>
+#include <string>
 
-unique_ptr<Title> Title::instance = nullptr;
+/*단일 인스턴 생성*/
+std::unique_ptr<Title> Title::instance = nullptr;
 Title* Title::getInstance() 
 {
 	static Title instance;  
@@ -8,69 +11,106 @@ Title* Title::getInstance()
 }
 
 /* 게임 시작 화면*/
-string Title::GameStart()
+std::string Title::GameStart()
 {
 	while (true)
 	{
 		system("cls");
-		cout << endl;
-		cout << " _______   ______   __      ___   ________     " << endl;
-		cout << "|__   __| |  ____| \\\\ \\  //   /  |__   __|  " << endl;
-		cout << "   | |    | |__     \\\\ \\//   /      | |     " << endl;
-		cout << "   | |    |  __|     \\\\     /       | |      " << endl;
-		cout << "   | |    | |____    // /\\\\ \\       | |     " << endl;
-		cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << endl;
-		cout << endl;
-		cout << "            R          P         G             " << endl;
-		cout << endl;;
-		cout << endl;;
-		cout << "          >>> 아무 키나 누르세요. <<<            " << endl;
-		cout << endl;;
+		std::cout << std::endl;
+		std::cout << " _______   ______   **      **_   ________     " << std::endl;
+		std::cout << "|__   **| |  **__| \\\\ \\  //   /  |__   __|  " << std::endl;
+		std::cout << "   | |    | |__     \\\\ \\//   /      | |     " << std::endl;
+		std::cout << "   | |    |  __|     \\\\     /       | |      " << std::endl;
+		std::cout << "   | |    | |____    // /\\\\ \\       | |     " << std::endl;
+		std::cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << std::endl;
+		std::cout << std::endl;
+		std::cout << "            R          P         G             " << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << "          >>> 아무 키나 누르세요. <<<            " << std::endl;
+		std::cout << std::endl;
+
 		if (false == LoginCheck)
 		{
 			_getch();
 			LoginCheck = true;
 		}
-		cout << "      영어 약자로 이름을 입력하세요 (3글자 이하)    "  << endl;
-		cout << "          이름 : ";
-		
+
+		std::cout << "      이름을 입력하세요 (최소 1글자 3글자 이하)    " << std::endl;
+		std::cout << "          이름 : ";
+
 		/*이름 생성*/
-		cin >> Name;
+		std::getline(std::cin, Name);
 
-		if (Name.length() < 5)
+		// 공백 제거 후 검증
+		std::string trimmedName = Name;
+		// 앞뒤 공백 제거
+		trimmedName.erase(0, trimmedName.find_first_not_of(" \t"));
+		trimmedName.erase(trimmedName.find_last_not_of(" \t") + 1);
+
+		// 입력 검증
+		if (trimmedName.empty())
 		{
-			break;
-		}
-		else
-		{
-			cin.clear();
-			cin.ignore();
-			system("cls");
+			std::cout << "❌ 오류: 이름을 입력해주세요!" << std::endl;
+			std::cout << "아무 키나 눌러 다시 입력하세요...";
+			_getch();
+			continue;
 		}
 
+		if (trimmedName.length() < 1 || trimmedName.length() > 3)
+		{
+			std::cout << "❌ 오류: 이름은 1글자 이상 3글자 이하로 입력해주세요!" << std::endl;
+			std::cout << "아무 키나 눌러 다시 입력하세요...";
+			_getch();
+			continue;
+		}
+
+		// 영어만 입력했는지 확인
+		bool isEnglishOnly = true;
+		for (char c : trimmedName)
+		{
+			if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))
+			{
+				isEnglishOnly = false;
+				break;
+			}
+		}
+
+		if (!isEnglishOnly)
+		{
+			std::cout << "❌ 오류: 영어만 입력해주세요!" << std::endl;
+			std::cout << "아무 키나 눌러 다시 입력하세요...";
+			_getch();
+			continue;
+		}
+
+		// 모든 검증 통과
+		Name = trimmedName;
+		break;
 	}
 	return Name;
 }
 
+/*게임 종료 화면*/
 void Title::GameEnd()
 {
 	system("cls");
-	cout << endl;
-	cout << " _______   ______   __      ___   ________     " << endl;
-	cout << "|__   __| |  ____| \\\\ \\  //   /  |__   __|  " << endl;
-	cout << "   | |    | |__     \\\\ \\//   /      | |     " << endl;
-	cout << "   | |    |  __|     \\\\     /       | |      " << endl;
-	cout << "   | |    | |____    // /\\\\ \\       | |     " << endl;
-	cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << endl;
-	cout << endl;
-	cout << "            R          P         G             " << endl;
-	cout << endl;
-	cout << endl;
-	cout << "             >>> 다음에 만나요!!!! <<<           " << endl;
-	cout << "             >>> 다음에 만나요!!!! <<<           " << endl;
-	cout << "             >>> 다음에 만나요!!!! <<<           " << endl;
-	cout << endl;
-	cout << endl;
+	std::cout << std::endl;
+	std::cout << " _______   ______   __      ___   ________     " <<	std::endl;
+	std::cout << "|__   __| |  ____| \\\\ \\  //   /  |__   __|  " <<	std::endl;
+	std::cout << "   | |    | |__     \\\\ \\//   /      | |     " <<	std::endl;
+	std::cout << "   | |    | |____    // /\\\\ \\       | |     " <<	std::endl;
+	std::cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " <<	std::endl;
+	std::cout << std::endl;													
+	std::cout << "            R          P         G             " <<	std::endl;
+	std::cout << std::endl;													
+	std::cout << std::endl;													
+	std::cout << "             >>> 다음에 만나요!!!! <<<           " <<	std::endl;
+	std::cout << "             >>> 다음에 만나요!!!! <<<           " <<	std::endl;
+	std::cout << "             >>> 다음에 만나요!!!! <<<           " <<	std::endl;
+	std::cout << std::endl;													
+	std::cout << "   | |    |  __|     \\\\     /       | |      " <<	std::endl;
+	std::cout << std::endl;
 
 
 }
@@ -79,128 +119,128 @@ void Title::GameEnd()
 void Title::GameOver()
 {
 	system("cls");
-	cout << endl;
-	cout << " _______   ______   __      ___   ________     " << endl;
-	cout << "|__   __| |  ____| \\\\ \\  //   /  |__   __|  " << endl;
-	cout << "   | |    | |__     \\\\ \\//   /      | |     " << endl;
-	cout << "   | |    |  __|     \\\\     /       | |      " << endl;
-	cout << "   | |    | |____    // /\\\\ \\       | |     " << endl;
-	cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << endl;
-	cout << endl;
-	cout << "            R          P         G             " << endl;
-	cout << endl;
-	cout << endl;;
-	cout << "       >>>          유 다이ㅋ     <<<         " << endl;
-	cout << "       >>>          유 다이ㅋ     <<<         " << endl;	
-	cout << "       >>>          유 다이ㅋ     <<<         " << endl;	
-	cout << "       >>>          유 다이ㅋ     <<<         " << endl;
-	cout << endl;
-	cout << endl;
+	std::cout << std::endl;
+	std::cout << " _______   ______   __      ___   ________     " << std::endl;
+	std::cout << "|__   __| |  ____| \\\\ \\  //   /  |__   __|  " << std::endl;
+	std::cout << "   | |    | |__     \\\\ \\//   /      | |     " << std::endl;
+	std::cout << "   | |    |  __|     \\\\     /       | |      " << std::endl;
+	std::cout << "   | |    | |____    // /\\\\ \\       | |     " << std::endl;
+	std::cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << std::endl;
+	std::cout << std::endl;											
+	std::cout << "            R          P         G             " << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;;							    
+	std::cout << "       >>>          유 다이ㅋ     <<<           " << std::endl;
+	std::cout << "       >>>          유 다이ㅋ     <<<           " << std::endl;
+	std::cout << "       >>>          유 다이ㅋ     <<<           " << std::endl;
+	std::cout << "       >>>          유 다이ㅋ     <<<           " << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 }
 
-/* 게임 승리 화면*/
+/* 전투 승리 화면*/
 void Title::Victory()
 {
 	system("cls");
-	cout << endl;
-	cout << " _______   ______   __      ___   ________     " << endl;
-	cout << "|__   __| |  ____| \\\\ \\  //   /  |__   __|  " << endl;
-	cout << "   | |    | |__     \\\\ \\//   /      | |     " << endl;
-	cout << "   | |    |  __|     \\\\     /       | |      " << endl;
-	cout << "   | |    | |____    // /\\\\ \\       | |     " << endl;
-	cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << endl;
-	cout << endl;
-	cout << "            R          P         G             " << endl;
-	cout << endl;
-	cout << endl;;
-	cout << "       >>>      WIN! WINER! CHICKEN! DINER!    <<<         " << endl;
-	cout << "       >>>      WIN! WINER! CHICKEN! DINER!    <<<         " << endl;
-	cout << endl;
-	cout << endl;
+	std::cout << std::endl;
+	std::cout << " _______   ______   __      ___   ________     " << std::endl;
+	std::cout << "|__   __| |  ____| \\\\ \\  //   /  |__   __|  " << std::endl;
+	std::cout << "   | |    | |__     \\\\ \\//   /      | |     " << std::endl;
+	std::cout << "   | |    |  __|     \\\\     /       | |      " << std::endl;
+	std::cout << "   | |    | |____    // /\\\\ \\       | |     " << std::endl;
+	std::cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << std::endl;
+	std::cout << std::endl;
+	std::cout << "            R          P         G             " << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;;
+	std::cout << " >>>      WIN! WINER! CHICKEN! DINER!    <<<   " << std::endl;
+	std::cout << " >>>      WIN! WINER! CHICKEN! DINER!    <<<   " << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 }
 
 /* 게임 승리 화면*/
 void Title::EndVictory()
 {
 	system("cls");
-	cout << "                                   ~,                      " << endl;
-	cout << "                                 .=.  $!                   " << endl;
-	cout << "                                 #-   -@                   " << endl;
-	cout << "                                *;-    $                   " << endl;
-	cout << "           *.                   #!,  .,;,                  " << endl;
-	cout << "        @   .;                  #!~   ,;.                  " << endl;
-	cout << "        @    .!                 @.   . :,                  " << endl;
-	cout << "       @      :                 #$*   -=.                  " << endl;
-	cout << "       1      .!                @*,. ,*#                   " << endl;
-	cout << "       1       !               ;*@#:-!;$                   " << endl;
-	cout << "       1       ~!               ###$;:;;!                   " << endl;
-	cout << "       1   :   -;              #:--. ~:!                   " << endl;
-	cout << "       1   @*-$.=             .**!~   :~                   " << endl;
-	cout << "        !!!;@!$$,!            $,,..  ,*~                   " << endl;
-	cout << "        !!!$#!~  =            #$=!.   !;                   " << endl;
-	cout << "         !;~!=.  ~#          ,*;*!-   ;!                   " << endl;
-	cout << "         !;;*..   ;,         -.*---,  :!                   " << endl;
-	cout << "         !;-.#;   =#         **@$$!  .*!                   " << endl;
-	cout << "          ;~=. ,   ~,        $;@@#!##.:*                   " << endl;
-	cout << "           @ *$.   .#        $ !=.. . :!                   " << endl;
-	cout << "           = #. *~!-@,       $,..,   !!:                   " << endl;
-	cout << "           !;!@#:~@!=#       #*-. , -~$.                   " << endl;
-	cout << "           -=*@@#*-!,$       $=#-    .#                    " << endl;
-	cout << "            #:!$=. , ~-      #:=*,. .-$                    " << endl;
-	cout << "            !!=.::    #      @;,    .;!                    " << endl;
-	cout << "             @;!!,    =~    .$*$:,   !!                    " << endl;
-	cout << "             ;!$-~    -$    ,@==~    ;;                    " << endl;
-	cout << "              @-~*,  ~,=~   -$;:!;..~=;                    " << endl;
-	cout << "              ;=;~;-  ,.#   ~$#$=!.  =;                    " << endl;
-	cout << "              .@!~~=$-::**-,@#@@=@#*!=;                    " << endl;
-	cout << "               =:-#;*!*;..;#@##***$$*@@$**-                " << endl;
-	cout << "               -$-!*!$.-  !@@;-,. ,@@#.    =~.             " << endl;
-	cout << "               -#:#@..  --=#@@#;;~#@#        $,            " << endl;
-	cout << "               .@~@#@=-   ;$@@@@#; =-        ;$            " << endl;
-	cout << "               .@,.;.$$==!-.       ,$     , -##,           " << endl;
-	cout << "               ,@~~@        .~     !=~    ,,,@#*;*$#-      " << endl;
-	cout << "               -#*@$~,= .    $, .$,.=-    ,~#@#     ,#     " << endl;
-	cout << "               ~$$!@.:-: .     . ..=;   . ~-@:       ,@    " << endl;
-	cout << "               #!#!@=~.. .       !#:  .. ,#@-      ,. :*   " << endl;
-	cout << "               @#!$##;-,,,.-- **==*....,-@$        .,  @-  " << endl;
-	cout << "              ,@#,~:!=#$!!*=@#$$$=:.,,.-=!     . ,  ~- -#  " << endl;
-	cout << "              @@~-:;==*;~=@@@##!*!*=:-~@:       . .-~~  @  " << endl;
-	cout << "             ~@!,;.:-~*;*=@@@:~.!,~!*~@$!,.  ..,-,:*~.  @. " << endl;
-	cout << "             !# ~-;,,.. ~*@@#:;.-.:,:=$.:*--   ,=$@=-;!,@- " << endl;
-	cout << "            .@,,.-~,    ,!@@;,,-,.,-*=.-:;*:!,~@@##**~-.@  " << endl;
-	cout << "            !! ,.. -. .!~$@$-; .~;.;#-...:!:-~@@$@@@@@@-@  " << endl;
-	cout << "            @-   -     ,*!# ..=-..~@- ,-.,::,@*#@$$#@$@=@  " << endl;
-	cout << "           !@.-  .    .;!!; .  $ .@;#=--,.!~@@@~=*#$-   @  " << endl;
-	cout << "           *=.-  .,--.-~*=.. ;.~.#~.. .$..*@ -@$@: ,##$,@  " << endl;
-	cout << "           !@!--.....* !@!:..# .#!   --;.=@;,  =;-$!=#=#=  " << endl;
-	cout << "           ;@;; -.. , :*#@#!..$@@:- ,-;;##.     ,:.*~-!@   " << endl;
-	cout << "            @:=*,,,.-..*@@@@@@@@@$-=;;$@$~-      ,-.*:;#   " << endl;
-	cout << "            *=..~,,,.:!#!!**.,-=@@@#@@@@,;.     ..!-~=:*   " << endl;
-	cout << "            ,@-..,#~;:!,# #    .-!::=@@=#.,.     -. :;#,   " << endl;
-	cout << "             *$;.;~!*; =,~*        -*$*=;=  -,..~~::-,#    " << endl;
-	cout << "             ,@:~--~-.:, ;.        ,-$;=-=,, ~-~,:~;;!@    " << endl;
-	cout << "              :@~-*~ ~, ,-         , =;!,.$  .--,~~.:~$    " << endl;
-	cout << "               ==;~;,,.        .   , *;~! ;.. ..:,!- #!    " << endl;
-	cout << "               .@$ -:.!           .  !.,*-,= ,~~,.:-,@     " << endl;
-	cout << "                ,@-.*!,,-         -  :. * ,-.,;:.:..!*     " << endl;
-	cout << "                 .@,. -~ ..    .. . ~...!..,--~~.$.~#      " << endl;
-	cout << "                  .@# .-..*-.       ~  .-.   ~:!.- @!      " << endl;
-	cout << "                   .@.,! *,; .          ...   ;.~ ;=       " << endl;
-	cout << "                    .@*# ~:,, ~.-,  .   ~ , . =, !@        " << endl;
-	cout << "                     .$;.;--..  . , --. :.:;= -:.#.        " << endl;
-	cout << "                      $$ --~;,..-,~:-~-~-;:,..! =:         " << endl;
-	cout << "                      =:,,-~=-~:,!:.~;,~,  !    @          " << endl;
-	cout << "                      =-,-;;*,;;! -!,:-~..! ! .~@          " << endl;
-	cout << "                      $- .,:;-::-- ,-:; ..:*--. @          " << endl;
-	cout << "                      #-..;::-:.-..     -:-;    #          " << endl;
-	cout << "                      #.  ~-;,.!=      ,,.,.    #          " << endl;
-	cout << "                      #  ,.-=$;~*----, - -,-   .@          " << endl;
-	cout << "                      @   ,:~~*!!  .,,,, ~     -#          " << endl;
-	cout << "                      =    ~,.;,~~-:~-     !,  ,#          " << endl;
-	cout << "                     ~-    .,,-=       ,,      .#          " << endl;
-	cout << "                     $-    -.;                  -          " << endl;
-	cout << "                     =                                     " << endl;
-	cout << "                                                           " << endl;
+	std::cout << "                                   ~,                      " << std::endl;
+	std::cout << "                                 .=.  $!                   " << std::endl;
+	std::cout << "                                 #-   -@                   " << std::endl;
+	std::cout << "                                *;-    $                   " << std::endl;
+	std::cout << "           *.                   #!,  .,;,                  " << std::endl;
+	std::cout << "        @   .;                  #!~   ,;.                  " << std::endl;
+	std::cout << "        @    .!                 @.   . :,                  " << std::endl;
+	std::cout << "       @      :                 #$*   -=.                  " << std::endl;
+	std::cout << "       1      .!                @*,. ,*#                   " << std::endl;
+	std::cout << "       1       !               ;*@#:-!;$                   " << std::endl;
+	std::cout << "       1       ~!               ###$;:;;!                  " << std::endl;
+	std::cout << "       1   :   -;              #:--. ~:!                   " << std::endl;
+	std::cout << "       1   @*-$.=             .**!~   :~                   " << std::endl;
+	std::cout << "        !!!;@!$$,!            $,,..  ,*~                   " << std::endl;
+	std::cout << "        !!!$#!~  =            #$=!.   !;                   " << std::endl;
+	std::cout << "         !;~!=.  ~#          ,*;*!-   ;!                   " << std::endl;
+	std::cout << "         !;;*..   ;,         -.*---,  :!                   " << std::endl;
+	std::cout << "         !;-.#;   =#         **@$$!  .*!                   " << std::endl;
+	std::cout << "          ;~=. ,   ~,        $;@@#!##.:*                   " << std::endl;
+	std::cout << "           @ *$.   .#        $ !=.. . :!                   " << std::endl;
+	std::cout << "           = #. *~!-@,       $,..,   !!:                   " << std::endl;
+	std::cout << "           !;!@#:~@!=#       #*-. , -~$.                   " << std::endl;
+	std::cout << "           -=*@@#*-!,$       $=#-    .#                    " << std::endl;
+	std::cout << "            #:!$=. , ~-      #:=*,. .-$                    " << std::endl;
+	std::cout << "            !!=.::    #      @;,    .;!                    " << std::endl;
+	std::cout << "             @;!!,    =~    .$*$:,   !!                    " << std::endl;
+	std::cout << "             ;!$-~    -$    ,@==~    ;;                    " << std::endl;
+	std::cout << "              @-~*,  ~,=~   -$;:!;..~=;                    " << std::endl;
+	std::cout << "              ;=;~;-  ,.#   ~$#$=!.  =;                    " << std::endl;
+	std::cout << "              .@!~~=$-::**-,@#@@=@#*!=;                    " << std::endl;
+	std::cout << "               =:-#;*!*;..;#@##***$$*@@$**-                " << std::endl;
+	std::cout << "               -$-!*!$.-  !@@;-,. ,@@#.    =~.             " << std::endl;
+	std::cout << "               -#:#@..  --=#@@#;;~#@#        $,            " << std::endl;
+	std::cout << "               .@~@#@=-   ;$@@@@#; =-        ;$            " << std::endl;
+	std::cout << "               .@,.;.$$==!-.       ,$     , -##,           " << std::endl;
+	std::cout << "               ,@~~@        .~     !=~    ,,,@#*;*$#-      " << std::endl;
+	std::cout << "               -#*@$~,= .    $, .$,.=-    ,~#@#     ,#     " << std::endl;
+	std::cout << "               ~$$!@.:-: .     . ..=;   . ~-@:       ,@    " << std::endl;
+	std::cout << "               #!#!@=~.. .       !#:  .. ,#@-      ,. :*   " << std::endl;
+	std::cout << "               @#!$##;-,,,.-- **==*....,-@$        .,  @-  " << std::endl;
+	std::cout << "              ,@#,~:!=#$!!*=@#$$$=:.,,.-=!     . ,  ~- -#  " << std::endl;
+	std::cout << "              @@~-:;==*;~=@@@##!*!*=:-~@:       . .-~~  @  " << std::endl;
+	std::cout << "             ~@!,;.:-~*;*=@@@:~.!,~!*~@$!,.  ..,-,:*~.  @. " << std::endl;
+	std::cout << "             !# ~-;,,.. ~*@@#:;.-.:,:=$.:*--   ,=$@=-;!,@- " << std::endl;
+	std::cout << "            .@,,.-~,    ,!@@;,,-,.,-*=.-:;*:!,~@@##**~-.@  " << std::endl;
+	std::cout << "            !! ,.. -. .!~$@$-; .~;.;#-...:!:-~@@$@@@@@@-@  " << std::endl;
+	std::cout << "            @-   -     ,*!# ..=-..~@- ,-.,::,@*#@$$#@$@=@  " << std::endl;
+	std::cout << "           !@.-  .    .;!!; .  $ .@;#=--,.!~@@@~=*#$-   @  " << std::endl;
+	std::cout << "           *=.-  .,--.-~*=.. ;.~.#~.. .$..*@ -@$@: ,##$,@  " << std::endl;
+	std::cout << "           !@!--.....* !@!:..# .#!   --;.=@;,  =;-$!=#=#=  " << std::endl;
+	std::cout << "           ;@;; -.. , :*#@#!..$@@:- ,-;;##.     ,:.*~-!@   " << std::endl;
+	std::cout << "            @:=*,,,.-..*@@@@@@@@@$-=;;$@$~-      ,-.*:;#   " << std::endl;
+	std::cout << "            *=..~,,,.:!#!!**.,-=@@@#@@@@,;.     ..!-~=:*   " << std::endl;
+	std::cout << "            ,@-..,#~;:!,# #    .-!::=@@=#.,.     -. :;#,   " << std::endl;
+	std::cout << "             *$;.;~!*; =,~*        -*$*=;=  -,..~~::-,#    " << std::endl;
+	std::cout << "             ,@:~--~-.:, ;.        ,-$;=-=,, ~-~,:~;;!@    " << std::endl;
+	std::cout << "              :@~-*~ ~, ,-         , =;!,.$  .--,~~.:~$    " << std::endl;
+	std::cout << "               ==;~;,,.        .   , *;~! ;.. ..:,!- #!    " << std::endl;
+	std::cout << "               .@$ -:.!           .  !.,*-,= ,~~,.:-,@     " << std::endl;
+	std::cout << "                ,@-.*!,,-         -  :. * ,-.,;:.:..!*     " << std::endl;
+	std::cout << "                 .@,. -~ ..    .. . ~...!..,--~~.$.~#      " << std::endl;
+	std::cout << "                  .@# .-..*-.       ~  .-.   ~:!.- @!      " << std::endl;
+	std::cout << "                   .@.,! *,; .          ...   ;.~ ;=       " << std::endl;
+	std::cout << "                    .@*# ~:,, ~.-,  .   ~ , . =, !@        " << std::endl;
+	std::cout << "                     .$;.;--..  . , --. :.:;= -:.#.        " << std::endl;
+	std::cout << "                      $$ --~;,..-,~:-~-~-;:,..! =:         " << std::endl;
+	std::cout << "                      =:,,-~=-~:,!:.~;,~,  !    @          " << std::endl;
+	std::cout << "                      =-,-;;*,;;! -!,:-~..! ! .~@          " << std::endl;
+	std::cout << "                      $- .,:;-::-- ,-:; ..:*--. @          " << std::endl;
+	std::cout << "                      #-..;::-:.-..     -:-;    #          " << std::endl;
+	std::cout << "                      #.  ~-;,.!=      ,,.,.    #          " << std::endl;
+	std::cout << "                      #  ,.-=$;~*----, - -,-   .@          " << std::endl;
+	std::cout << "                      @   ,:~~*!!  .,,,, ~     -#          " << std::endl;
+	std::cout << "                      =    ~,.;,~~-:~-     !,  ,#          " << std::endl;
+	std::cout << "                     ~-    .,,-=       ,,      .#          " << std::endl;
+	std::cout << "                     $-    -.;                  -          " << std::endl;
+	std::cout << "                     =                                     " << std::endl;
+	std::cout << "                                                           " << std::endl;
 }
                                                                                                     
                                                                                                     
