@@ -31,8 +31,9 @@ unique_ptr<Monster> BattleSystem::CreateRandomEnemy()
 
 }
 
-unique_ptr<Monster> BattleSystem::CreateBossMonster(int playerLevel)
-{Character* player = Character::getInstance("YourName");
+unique_ptr<Monster> BattleSystem::CreateBossMonster(int playerLevel)  // 보스 몬스터 생성 함수
+{
+	Character* player = Character::getInstance("YourName"); // 플레이어 이름 설정 (예시로 "YourName" 사용)
 
     static const vector<MonsterStats> bossTemplates =   // 보스 몬스터 템플릿 정의
     {
@@ -65,7 +66,7 @@ void BattleSystem::StartBattle(Character* player)
     unique_ptr<Monster> monster;
 
 	bool isBossBattle = false; // 보스 배틀 여부 초기화
-    if (player->getLevel() >= 10) // 플레이어 레벨이 10 이상이면 보스 배틀로 설정
+    if (level >= 10) // 플레이어 레벨이 10 이상이면 보스 배틀로 설정
     {
         monster = CreateBossMonster(player->getLevel()); // 보스 몬스터 생성
         isBossBattle = true; // 보스 배틀로 설정
