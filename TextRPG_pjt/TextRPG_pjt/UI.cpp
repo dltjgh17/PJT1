@@ -221,3 +221,43 @@ void UI::CheckVal()
 	PrintStage();
 	PrintAction();
 }
+
+/*예비용 입력 함수*/
+void UI::Input()
+{
+/*입력 항상 초기화 후 입력 받기*/
+/*입력 받기 - getline 사용*/
+ChooseAction = 0;
+std::string input;
+
+
+std::getline(std::cin, input);
+
+// 입력이 비어있는지 확인
+if (input.empty())
+{
+	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+	std::cout << "올바른 숫자를 입력해주세요! : ";
+	return;
+}
+
+// 문자열을 숫자로 변환 시도
+try
+{
+	ChooseAction = std::stoi(input);
+	if (ChooseAction >= 1 && ChooseAction <= 4)
+	{
+		return; // 올바른 입력이면 루프 종료
+	}
+	else
+	{
+		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+		std::cout << "1~4 사이의 숫자를 입력해주세요! : ";
+	}
+}
+catch (const std::exception&)
+{
+	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+	std::cout << "올바른 숫자를 입력해주세요! : ";
+}
+}
