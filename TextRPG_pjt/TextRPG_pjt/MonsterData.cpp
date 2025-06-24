@@ -10,11 +10,11 @@ std::unique_ptr<Monster> CreateMonster(int monsterId)
 {
 	static const std::map<int, MonsterStats> monsterTamplates =
 	{
-		{0, {"Rat", 16, 4}},
-		{1, {"Slime", 20, 5}},
-		{2, {"Goblin", 15, 7}},
-		{3, {"Golem", 30, 10}},
-		{4, {"Dragon", 45, 15}}		//보스몬스터로 활용하면 좋을 것 같습니다.
+		{0, {"쥐", 16, 4}},
+		{1, {"슬라임", 20, 5}},
+		{2, {"고블린", 15, 7}},
+		{3, {"골렘", 30, 10}},
+		{4, {"드래곤", 45, 15}}		//보스몬스터로 활용하면 좋을 것 같습니다.
 	};
 
 
@@ -37,11 +37,11 @@ Monster* CreathMonsterP(int monsterId)
 {
 	static const std::map<int, MonsterStats> monsterTamplates =
 	{
-		{0, {"Rat", 16, 4}},
-		{1, {"Slime", 20, 5}},
-		{2, {"Goblin", 15, 7}},
-		{3, {"Golem", 30, 10}},
-		{4, {"Dragon", 45, 15}}		//보스몬스터로 활용하면 좋을 것 같습니다.
+		{0, {"쥐", 16, 4}},
+		{1, {"슬라임", 20, 5}},
+		{2, {"고블린", 15, 7}},
+		{3, {"골렘", 30, 10}},
+		{4, {"드래곤", 45, 15}}		//보스몬스터로 활용하면 좋을 것 같습니다.
 	};
 
 	auto it = monsterTamplates.find(monsterId);
