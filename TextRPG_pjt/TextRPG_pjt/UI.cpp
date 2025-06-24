@@ -89,7 +89,7 @@ void UI::PrintInventory()
 void UI::PrintAction()
 {
 	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y);
-	std::cout << "=======ACTION=======" << endl;
+	std::cout << "=======행동 선택=======" << endl;
 	std::cout << "|     전투 : 1 " << endl;
 	std::cout << "|     상점 : 2 " << endl;
 	std::cout << "|   아이템 : 3 " << endl;
