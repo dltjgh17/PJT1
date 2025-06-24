@@ -32,7 +32,7 @@ struct UI_XY
     static constexpr int POS_MONSTER_SUMMARY_X = 70;
     static constexpr int POS_MONSTER_SUMMARY_Y = 25;
 
-    static constexpr int POS_FULL_LOG_X = 96;
+    static constexpr int POS_FULL_LOG_X = 70;
     static constexpr int POS_FULL_LOG_Y = 0;
 };
 

@@ -63,12 +63,25 @@ void Shop::displayBuyMenu(Character* player)
 		cout << "\nChoose an item to buy: ";
 		cin >> choice;
 
-		// 엔터를 누르면 계속 진행
-		cout << "\nPress Enter to Continue...";
-		cin.ignore();
-		cin.get();
+		//아이템구매처리//
+		if (0 < choice && choice <= availableItems.size())
+		{
+			if (player->getGold() >= availableItems[choice - 1]->getBuyPrice())
+			{
+				buyItem(choice - 1, player);
+			}
+			else
+			{
+				cout << "MORE NEED GOLD !" << endl;
+			}
+			// 엔터를 누르면 계속 진행
+			cout << "\nPress Enter to Continue...";
+			cin.ignore();
+			cin.get();
+		}
 	}
 }
+
 
 void Shop::displaySellMenu(Character* player)
 {
@@ -83,6 +96,7 @@ void Shop::displaySellMenu(Character* player)
 		cout << "          Inventory         " << endl;
 		cout << "============================" << endl;
 		cout << "Gold: " << player->getGold() << "G" << endl;
+
 		if (!inven.size()) // 인벤이 빈 경우
 		{
 			cout << "Your inventory is empty." << endl;
@@ -102,7 +116,7 @@ void Shop::displaySellMenu(Character* player)
 		if (choice > 0 && 0 < inven.size() && choice <= inven.size()) // 인벤토리가 비어있을 경우 인벤토리에 접근 못하도록 예외처리
 		{
 			player->addGold(inven[choice - 1]->getSellPrice()); // 판매시 골드 증가
-			sellItem(choice - 1, player); // 인벤토리에서 제거
+			sellItem(choice, player); // 인벤토리에서 제거
 		}
 		// 엔터를 누르면 계속 진행
 		cout << "\nPress Enter to Continue...";
@@ -111,11 +125,12 @@ void Shop::displaySellMenu(Character* player)
 	}
 }
 
-void Shop::byItem(const int& slotNum, Character* player)
+void Shop::buyItem(const int& slotNum, Character* player)
 {
-	Item* item = new HealthPotion();
+	Item* item = createItemType(availableItems[slotNum]->getItemCode());
+
+	player->addGold(-availableItems[slotNum]->getBuyPrice());
 	player->addItem(item);
-	player->addGold(-50);
 }
 
 void Shop::sellItem(const int& slotNum, Character* player)
@@ -124,4 +139,16 @@ void Shop::sellItem(const int& slotNum, Character* player)
 	{
 		player->removeItem(slotNum); // 인덱스 위치의 아이템 제거 함수 호출
 	}
+}
+
+Item* Shop::createItemType(const ItemCode& code)
+{
+	switch (code)
+	{
+	case ItemCode::ITEM_HEALTH_POTION: return new HealthPotion();
+	case ItemCode::ITEM_ATTACK_BOOST: return new AttackBoost();
+	// 계속 추가
+	default: return nullptr;
+	}
+	return nullptr;
 }

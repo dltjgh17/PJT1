@@ -1,6 +1,8 @@
 ﻿//Monster.cpp
 #include "Monster.h"
 #include <iostream>
+#include "UI.h"
+
 Monster::Monster(const std::string& name, int health, int attack) : name_(name), health_(health), attack_(attack)
 {
 
@@ -22,21 +24,24 @@ int Monster::GetAttack() const
 
 void Monster::TakeDamage(int damage)
 {
+	UI* ui = UI::getInstance();
 	health_ -= damage;
-	if (health_ < 0)
+	ui->AddBattleLog(name_ + " : [HEALTH]: " + to_string(damage) + " : 감소했습니다!");
+	ui->AddBattleLog(name_ + " : [HEALTH] : " + to_string(health_) + " : 남았습니다! ");
+	if (health_ <= 0)
 	{
 		health_ = 0;
-        
+		ui->AddBattleLog(GetName() + " 죽었습니다!");
 	}
-
-	//로그 처리 필요한지?
 }
 
 //레벨당 체력 공격력 조정 (플레이어 레벨)
 void Monster::SetHealth(int playerLevel)
 {
+
 	health_ = health_ * (playerLevel);
 	attack_ = attack_ * (playerLevel);
+
 }
 //레벨당 체력 공격력 조정 (플레이어 레벨 + 적용 퍼센트)
 void Monster::SetHealth(int playerLevel, int randomPer)

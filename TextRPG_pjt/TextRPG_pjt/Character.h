@@ -31,6 +31,7 @@ public:
 	void addExp(int amount); //경험치 획득 함수
 	void addGold(int amount); //골드 획득 함수
 	void heal(int amount); //체력 회복 함수
+	void increaseAtk(int amount); //공격력 증가 함수
 	void takeDamage(int amount); //체력 감소 함수
 	bool isDead(); //캐릭터 사망 여부 체크 함수
 
@@ -45,7 +46,7 @@ public:
 	int getAttack() const { return attack; } //캐릭터 공격력 반환
 	int getExp() const { return experience; } //현재 경험치 반환
 	int getGold() const { return gold; } //소지 골드 반환
-	const vector<Item*>& const getInventory() { return inventory; } // 인벤토리 반환
+	const vector<Item*>& getInventory() const { return inventory; } // 인벤토리 반환
 
 	void destroyInstance();
 };
