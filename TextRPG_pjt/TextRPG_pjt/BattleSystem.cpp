@@ -11,6 +11,7 @@
 #include <thread>
 #include <chrono>
 #include <Windows.h>
+#include "Movie.h" // 무비 추가
 
 using namespace std;
 using std::unique_ptr;
@@ -70,6 +71,10 @@ void BattleSystem::StartBattle(Character* player)
     {
         monster = CreateBossMonster(player->getLevel()); // 보스 몬스터 생성
         isBossBattle = true; // 보스 배틀로 설정
+
+        
+        Movie MV;
+        MV.MoviePlay();
 
         cout << "\n=========보스 배틀=========\n"; // 보스 배틀 시작 메시지 출력
         cout << player->getName() << " VS " << monster->GetName() << endl; // 플레이어와 몬스터 이름 출력
@@ -150,6 +155,12 @@ void BattleSystem::StartBattle(Character* player)
         cout << "=========" << player->getName() << " 가 " << monster->GetName() << "에게 패배했습니다!=========" << endl;
         this_thread::sleep_for(chrono::seconds(2)); //2초 대기
 		Title::getInstance()->GameOver(); //패배 화면 출력
+        for (int i = 5; i > 0; --i)
+        {
+            cout << "\r" << "=========게임이 " << i << "초 후 종료됩니다...========= " << flush;
+            this_thread::sleep_for(chrono::seconds(1));
+        }
+        cout << "\n";			exit(0); // 게임 종료
     }
 
 }

@@ -90,10 +90,10 @@ void UI::PrintAction()
 {
 	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y);
 	std::cout << "=======행동 선택=======" << endl;
-	std::cout << "|     전투 : 1 " << endl;
-	std::cout << "|     상점 : 2 " << endl;
-	std::cout << "|   아이템 : 3 " << endl;
-	std::cout << "|     종료 : 4"  << endl;
+	std::cout << "|      전투 : 1 " << endl;
+	std::cout << "|      상점 : 2 " << endl;
+	std::cout << "|    아이템 : 3 " << endl;
+	std::cout << "|      종료 : 4" << endl;
 	std::cout << "____________________" << endl;
 
 	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 8);
@@ -104,7 +104,6 @@ void UI::PrintAction()
 	ChooseAction = 0;
 	std::string input;
 
-	
 	std::getline(std::cin, input);
 
 	// 입력이 비어있는지 확인
@@ -115,27 +114,40 @@ void UI::PrintAction()
 		return;
 	}
 
+	// 입력이 숫자로만 이루어져 있는지 확인
+	for (char c : input) {
+		if (!isdigit(c)) { // 문자가 숫자가 아니라면
+			SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+			std::cout << "올바른 숫자를 입력해주세요! : ";
+			return; // 함수를 즉시 종료하고 재입력 요구
+		}
+	}
+
 	// 문자열을 숫자로 변환 시도
 	try
 	{
-	ChooseAction = std::stoi(input);
-	if (ChooseAction >= 1 && ChooseAction <= 4)
-	{
-		return; // 올바른 입력이면 루프 종료
+		ChooseAction = std::stoi(input); // 문자열을 정수로 변환
+		if (ChooseAction >= 1 && ChooseAction <= 4)
+		{
+			return; // 올바른 입력이면 함수 종료
+		}
+		else
+		{
+			SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
+			std::cout << "1~4 사이의 숫자를 입력해주세요! : ";
+		}
 	}
-	else
+	catch (const std::out_of_range&) // 입력된 숫자가 너무 큰 경우
 	{
 		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
-		std::cout << "1~4 사이의 숫자를 입력해주세요! : ";
+		std::cout << "입력된 숫자가 너무 큽니다. 다시 입력해주세요! : ";
 	}
-	}
-	catch (const std::exception&)
+	catch (const std::exception&) // 기타 예외 처리 (이 경우는 위에서 대부분 걸러짐)
 	{
 		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
 		std::cout << "올바른 숫자를 입력해주세요! : ";
 	}
 }
-
 
 
 /* 스테이지 UI*/
@@ -225,7 +237,7 @@ void UI::CheckVal()
 /*예비용 입력 함수*/
 // 사용법
 // UI 헤더 추가하고 
-// UI* ui = UI::getInstance(); 사용할 스코프, 함수의 내부에 선언
+// UI* InterFace = UI::getInstance(); 사용할 스코프, 함수의 내부에 선언
 // 아래 함수를 InterFace->Input(); 이렇게 가져오면 됩니다.
 void UI::Input()
 {
