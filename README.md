@@ -1,7 +1,6 @@
 # 🛡️ 콘솔 기반 RPG 게임
 
-> **시연 영상**: 👉 [게임 플레이 영상 바로가기](https://www.youtube.com/watch?v=ayZLNcV461Q)  
-(*영상 촬영 후 업로드 예정!*)
+> **시연 영상**: 👉 [![게임 플레이 영상](https://img.youtube.com/vi/ayZLNcV461Q/0.jpg)](https://www.youtube.com/watch?v=ayZLNcV461Q)
 
 
 ## 🎯 프로젝트 개요
