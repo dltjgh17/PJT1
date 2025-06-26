@@ -9,6 +9,7 @@ private:
 
 public:
 	Shop();
+	~Shop();
 	void displayItems(Character* player);
 	void displayBuyMenu(Character* player);
 	void displaySellMenu(Character* player);

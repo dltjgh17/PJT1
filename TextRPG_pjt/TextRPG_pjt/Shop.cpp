@@ -16,6 +16,15 @@ Shop::Shop()
 	availableItems.push_back(slot2);
 }
 
+Shop::~Shop()
+{
+	for (Item* item : availableItems)
+	{
+		delete item;
+	}
+	availableItems.clear();
+}
+
 void Shop::displayItems(Character* player)
 {
 	// 구매 상점
