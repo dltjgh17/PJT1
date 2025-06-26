@@ -58,7 +58,6 @@ int main()
 			MyShop.displayItems(player);
 			InterFace->AddFullLog("                                       ");
 			break;
-			break;
 
 		case 3:
 			if (Itemlsit.size() <= 0)
