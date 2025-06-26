@@ -1,4 +1,4 @@
-#include "Shop.h"
+Ôªø#include "Shop.h"
 #include "Character.h"
 #include "Item.h"
 #include "HealthPotion.h"
@@ -27,27 +27,27 @@ Shop::~Shop()
 
 void Shop::displayItems(Character* player)
 {
-	// ±∏∏≈ ªÛ¡°
+	// Íµ¨Îß§ ÏÉÅÏ†ê
 	int choice = 1;
 	while (true) 
 	{
 		system("cls");
 		cout << "============================" << endl;
-		cout << "             ªÛ¡°            " << endl;
+		cout << "             ÏÉÅÏ†ê            " << endl;
 		cout << "============================" << endl;
-		cout << "«ˆ¿Á ∫∏¿Ø ∞ÒµÂ : " << player->getGold() << "G" << endl;
-		cout << "[1] ªÁ±‚" << endl;
-		cout << "[2] ∆»±‚" << endl;
-		cout << "[0] ªÛ¡° ≥™∞°±‚" << endl;
-		cout << "\nº±≈√: ";
+		cout << "ÌòÑÏû¨ Î≥¥Ïú† Í≥®Îìú : " << player->getGold() << "G" << endl;
+		cout << "[1] ÏÇ¨Í∏∞" << endl;
+		cout << "[2] ÌåîÍ∏∞" << endl;
+		cout << "[0] ÏÉÅÏ†ê ÎÇòÍ∞ÄÍ∏∞" << endl;
+		cout << "\nÏÑ†ÌÉù: ";
 
 		
 		if (!(cin >> choice)) 
 		{
-			cout << "¿ﬂ∏¯µ» ¿‘∑¬¿‘¥œ¥Ÿ. º˝¿⁄∏¶ ¿‘∑¬«ÿ¡÷ººø‰." << endl;
+			cout << "ÏûòÎ™ªÎêú ÏûÖÎ†•ÏûÖÎãàÎã§. Ïà´ÏûêÎ•º ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî." << endl;
 			cin.clear(); 
 			cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-			cout << "\n ø£≈Õ∏¶ ¥≠∑Ø ∞Ëº” ¡¯«‡«œººø‰...";
+			cout << "\n ÏóîÌÑ∞Î•º ÎàåÎü¨ Í≥ÑÏÜç ÏßÑÌñâÌïòÏÑ∏Ïöî...";
 			cin.get();
 			continue; 
 		}
@@ -65,8 +65,8 @@ void Shop::displayItems(Character* player)
 			break;
 		}
 		else { 
-			cout << "¿ﬂ∏¯µ» º±≈√¿‘¥œ¥Ÿ. 0, 1, 2 ¡ﬂ «œ≥™∏¶ ¿‘∑¬«ÿ¡÷ººø‰." << endl;
-			cout << "\n ø£≈Õ∏¶ ¥≠∑Ø ∞Ëº” ¡¯«‡«œººø‰...";
+			cout << "ÏûòÎ™ªÎêú ÏÑ†ÌÉùÏûÖÎãàÎã§. 0, 1, 2 Ï§ë ÌïòÎÇòÎ•º ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî." << endl;
+			cout << "\n ÏóîÌÑ∞Î•º ÎàåÎü¨ Í≥ÑÏÜç ÏßÑÌñâÌïòÏÑ∏Ïöî...";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cin.get();
 		}
@@ -80,23 +80,23 @@ void Shop::displayBuyMenu(Character* player)
 	{
 		system("cls");
 		cout << "============================" << endl;
-		cout << "      ªÛ¡° æ∆¿Ã≈€ ±∏∏≈√¢      " << endl;
+		cout << "      ÏÉÅÏ†ê ÏïÑÏù¥ÌÖú Íµ¨Îß§Ï∞Ω      " << endl;
 		cout << "============================" << endl;
-		cout << "«ˆ¿Á ∫∏¿Ø ∞ÒµÂ : " << player->getGold() << "G" << endl;
+		cout << "ÌòÑÏû¨ Î≥¥Ïú† Í≥®Îìú : " << player->getGold() << "G" << endl;
 		for (int i = 0; i < availableItems.size(); i++)
 		{
 			cout << "[" << i + 1 << "] " << availableItems[i]->getName() << " (" << availableItems[i]->getBuyPrice() << "G) - " << availableItems[i]->getToolTip() << endl;
 		}
-		cout << "[0] ªÛ¡° ∏ﬁ¥∫∑Œ µπæ∆∞°±‚" << endl;
-		cout << "\n ±∏∏≈«“ æ∆¿Ã≈€¿ª º±≈√«œººø‰ : ";
+		cout << "[0] ÏÉÅÏ†ê Î©îÎâ¥Î°ú ÎèåÏïÑÍ∞ÄÍ∏∞" << endl;
+		cout << "\n Íµ¨Îß§Ìï† ÏïÑÏù¥ÌÖúÏùÑ ÏÑ†ÌÉùÌïòÏÑ∏Ïöî : ";
 
 		
 		if (!(cin >> choice)) 
 		{
-			cout << "¿ﬂ∏¯µ» ¿‘∑¬¿‘¥œ¥Ÿ. º˝¿⁄∏¶ ¿‘∑¬«ÿ¡÷ººø‰." << endl;
+			cout << "ÏûòÎ™ªÎêú ÏûÖÎ†•ÏûÖÎãàÎã§. Ïà´ÏûêÎ•º ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-			cout << "\n ø£≈Õ∏¶ ¥≠∑Ø ∞Ëº” ¡¯«‡«œººø‰...";
+			cout << "\n ÏóîÌÑ∞Î•º ÎàåÎü¨ Í≥ÑÏÜç ÏßÑÌñâÌïòÏÑ∏Ïöî...";
 			cin.get();
 			continue; 
 		}
@@ -112,21 +112,21 @@ void Shop::displayBuyMenu(Character* player)
 			if (player->getGold() >= availableItems[choice - 1]->getBuyPrice())
 			{
 				buyItem(choice - 1, player);
-				cout << "º∫∞¯¿˚¿∏∑Œ ±∏∏≈«ﬂΩ¿¥œ¥Ÿ!" << endl; 
+				cout << "ÏÑ±Í≥µÏ†ÅÏúºÎ°ú Íµ¨Îß§ÌñàÏäµÎãàÎã§!" << endl; 
 			}
 			else
 			{
-				cout << "∞ÒµÂ∞° ∫Œ¡∑«’¥œ¥Ÿ!" << endl;
+				cout << "Í≥®ÎìúÍ∞Ä Î∂ÄÏ°±Ìï©ÎãàÎã§!" << endl;
 			}
 			
-			cout << "\n ø£≈Õ∏¶ ¥≠∑Ø ∞Ëº” ¡¯«‡«œººø‰...";
+			cout << "\n ÏóîÌÑ∞Î•º ÎàåÎü¨ Í≥ÑÏÜç ÏßÑÌñâÌïòÏÑ∏Ïöî...";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cin.get();
 		}
 		else 
 		{
-			cout << "¿Ø»ø«œ¡ˆ æ ¿∫ æ∆¿Ã≈€ π¯»£¿‘¥œ¥Ÿ." << endl;
-			cout << "\n ø£≈Õ∏¶ ¥≠∑Ø ∞Ëº” ¡¯«‡«œººø‰...";
+			cout << "Ïú†Ìö®ÌïòÏßÄ ÏïäÏùÄ ÏïÑÏù¥ÌÖú Î≤àÌò∏ÏûÖÎãàÎã§." << endl;
+			cout << "\n ÏóîÌÑ∞Î•º ÎàåÎü¨ Í≥ÑÏÜç ÏßÑÌñâÌïòÏÑ∏Ïöî...";
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cin.get();
 		}
@@ -141,14 +141,14 @@ void Shop::displaySellMenu(Character* player)
 		vector<Item*> inven = player->getInventory();
 		system("cls");
 		cout << "============================" << endl;
-		cout << "         æ∆¿Ã≈€ ∆«∏≈√¢       " << endl;
+		cout << "         ÏïÑÏù¥ÌÖú ÌåêÎß§Ï∞Ω       " << endl;
 		cout << "============================" << endl;
-		cout << "          ≥ª ¿Œ∫•≈‰∏Æ        " << endl;
+		cout << "          ÎÇ¥ Ïù∏Î≤§ÌÜ†Î¶¨        " << endl;
 		cout << "============================" << endl;
-		cout << "«ˆ¿Á ∫∏¿Ø ∞ÒµÂ : " << player->getGold() << "G" << endl;
+		cout << "ÌòÑÏû¨ Î≥¥Ïú† Í≥®Îìú : " << player->getGold() << "G" << endl;
 		if (inven.empty())
 		{
-			cout << "∞°¡ˆ∞Ì ¿÷¥¬ æ∆¿Ã≈€¿Ã æ¯Ω¿¥œ¥Ÿ." << endl;
+			cout << "Í∞ÄÏßÄÍ≥† ÏûàÎäî ÏïÑÏù¥ÌÖúÏù¥ ÏóÜÏäµÎãàÎã§." << endl;
 		}
 		else
 		{
@@ -157,16 +157,16 @@ void Shop::displaySellMenu(Character* player)
 				cout << "[" << i + 1 << "] " << inven[i]->getName() << " (" << inven[i]->getSellPrice() << "G) - " << inven[i]->getToolTip() << endl;
 			}
 		}
-		cout << "[0] ªÛ¡° ∏ﬁ¥∫∑Œ µπæ∆∞°±‚" << endl;
-		cout << "\n∆«∏≈«“ æ∆¿Ã≈€¿ª ∞Ì∏£ººø‰ : ";
+		cout << "[0] ÏÉÅÏ†ê Î©îÎâ¥Î°ú ÎèåÏïÑÍ∞ÄÍ∏∞" << endl;
+		cout << "\nÌåêÎß§Ìï† ÏïÑÏù¥ÌÖúÏùÑ Í≥†Î•¥ÏÑ∏Ïöî : ";
 
 		
 		if (!(cin >> choice)) 
 		{
-			cout << "¿ﬂ∏¯µ» ¿‘∑¬¿‘¥œ¥Ÿ. º˝¿⁄∏¶ ¿‘∑¬«ÿ¡÷ººø‰." << endl;
+			cout << "ÏûòÎ™ªÎêú ÏûÖÎ†•ÏûÖÎãàÎã§. Ïà´ÏûêÎ•º ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "\nø£≈Õ∏¶ ¥≠∑Øº≠ ∞Ëº” ¡¯«‡«œººø‰...";
+			cout << "\nÏóîÌÑ∞Î•º ÎàåÎü¨ÏÑú Í≥ÑÏÜç ÏßÑÌñâÌïòÏÑ∏Ïöî...";
 			cin.get();
 			continue;
 		}
@@ -182,21 +182,21 @@ void Shop::displaySellMenu(Character* player)
 		{
 			player->addGold(inven[choice - 1]->getSellPrice());
 			sellItem(choice, player);
-			cout << "º∫∞¯¿˚¿∏∑Œ ∆«∏≈«ﬂΩ¿¥œ¥Ÿ!" << endl;
+			cout << "ÏÑ±Í≥µÏ†ÅÏúºÎ°ú ÌåêÎß§ÌñàÏäµÎãàÎã§!" << endl;
 		}
 		else
 		{
 			if (inven.empty()) 
 			{
-				cout << "¿Œ∫•≈‰∏Æ∞° ∫ÒæÓ¿÷æÓ ∆«∏≈«“ æ∆¿Ã≈€¿Ã æ¯Ω¿¥œ¥Ÿ." << endl;
+				cout << "Ïù∏Î≤§ÌÜ†Î¶¨Í∞Ä ÎπÑÏñ¥ÏûàÏñ¥ ÌåêÎß§Ìï† ÏïÑÏù¥ÌÖúÏù¥ ÏóÜÏäµÎãàÎã§." << endl;
 			}
 			else 
 			{
-				cout << "¿Ø»ø«œ¡ˆ æ ¿∫ æ∆¿Ã≈€ π¯»£¿‘¥œ¥Ÿ." << endl;
+				cout << "Ïú†Ìö®ÌïòÏßÄ ÏïäÏùÄ ÏïÑÏù¥ÌÖú Î≤àÌò∏ÏûÖÎãàÎã§." << endl;
 			}
 		}
 		
-		cout << "\nø£≈Õ∏¶ ¥≠∑Øº≠ ∞Ëº” ¡¯«‡«œººø‰...";
+		cout << "\nÏóîÌÑ∞Î•º ÎàåÎü¨ÏÑú Í≥ÑÏÜç ÏßÑÌñâÌïòÏÑ∏Ïöî...";
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin.get();
 	}
@@ -223,8 +223,7 @@ Item* Shop::createItemType(const ItemCode& code)
 	{
 	case ItemCode::ITEM_HEALTH_POTION: return new HealthPotion();
 	case ItemCode::ITEM_ATTACK_BOOST: return new AttackBoost();
-		// ∞Ëº” √ﬂ∞°
+		// Í≥ÑÏÜç Ï∂îÍ∞Ä
 	default: return nullptr;
 	}
-	return nullptr;
 }

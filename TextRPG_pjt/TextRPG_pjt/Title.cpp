@@ -6,8 +6,8 @@
 std::unique_ptr<Title> Title::instance = nullptr;
 Title* Title::getInstance() 
 {
-	static Title instance;  
-	return &instance;
+	static Title localInstance;
+	return &localInstance;
 }
 
 /* 게임 시작 화면*/
@@ -32,7 +32,7 @@ std::string Title::GameStart()
 
 		if (false == LoginCheck)
 		{
-			_getch();
+			(void)_getch();
 			LoginCheck = true;
 		}
 
@@ -51,17 +51,17 @@ std::string Title::GameStart()
 		// 입력 검증
 		if (trimmedName.empty())
 		{
-			std::cout << "❌ 오류: 이름을 입력해주세요!" << std::endl;
+			std::cout << "[오류]: 이름을 입력해주세요!" << std::endl;
 			std::cout << "아무 키나 눌러 다시 입력하세요...";
-			_getch();
+			(void)_getch();
 			continue;
 		}
 
 		if (trimmedName.length() < 1 || trimmedName.length() > 3)
 		{
-			std::cout << "❌ 오류: 이름은 1글자 이상 3글자 이하로 입력해주세요!" << std::endl;
+			std::cout << "[오류]: 이름은 1글자 이상 3글자 이하로 입력해주세요!" << std::endl;
 			std::cout << "아무 키나 눌러 다시 입력하세요...";
-			_getch();
+			(void)_getch();
 			continue;
 		}
 
@@ -78,9 +78,9 @@ std::string Title::GameStart()
 
 		if (!isEnglishOnly)
 		{
-			std::cout << "❌ 오류: 영어만 입력해주세요!" << std::endl;
+			std::cout << "[오류]: 영어만 입력해주세요!" << std::endl;
 			std::cout << "아무 키나 눌러 다시 입력하세요...";
-			_getch();
+			(void)_getch();
 			continue;
 		}
 

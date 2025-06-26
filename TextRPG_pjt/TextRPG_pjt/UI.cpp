@@ -1,7 +1,7 @@
-#include "UI.h"
+ï»¿#include "UI.h"
 #include <windows.h>
 #include <memory>
-/*´ÜÀÏ ÀÎ½ºÅÏ½º·Î »ı¼º*/
+/*ë‹¨ì¼ ì¸ìŠ¤í„´ìŠ¤ë¡œ ìƒì„±*/
 std::unique_ptr<UI> UI::instance = nullptr;
 UI* UI::getInstance()
 {
@@ -9,16 +9,16 @@ UI* UI::getInstance()
 	return &instance;
 }
 
-/* UI À§Ä¡ °ª ÇÔ¼ö*/
+/* UI ìœ„ì¹˜ ê°’ í•¨ìˆ˜*/
 void UI::SetCursorPosition(int X, int Y) 
 {
-	COORD coord;
+	COORD coord = { 0, 0 };
 	coord.X = X;
 	coord.Y = Y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-/* »óÅÂÃ¢ UI*/
+/* ìƒíƒœì°½ UI*/
 void UI::PrintStatus() 
 {
 	Character* p = Character::getInstance();
@@ -31,43 +31,43 @@ void UI::PrintStatus()
 	int EXP = p->getExp();
 
 	SetCursorPosition(UI_XY::POS_STATUS_X, UI_XY::POS_STATUS_Y);
-	std::cout << "=======»óÅÂÃ¢=======" << endl;
-	std::cout << "|    ÀÌ¸§ : " << UIName << endl;
-	std::cout << "|    ·¹º§ : " << UILevel << endl;
-	std::cout << "|    Ã¼·Â : " << UIHP << "/" << MAXHP << endl;
-	std::cout << "|  °ø°İ·Â : " << UIATK << endl;
-	std::cout << "|    °ñµå : " << UIGold << endl;
-	std::cout << "|  °æÇèÄ¡ : " << EXP << "/100" << endl;
+	std::cout << "=======ìƒíƒœì°½=======" << endl;
+	std::cout << "|    ì´ë¦„ : " << UIName << endl;
+	std::cout << "|    ë ˆë²¨ : " << UILevel << endl;
+	std::cout << "|    ì²´ë ¥ : " << UIHP << "/" << MAXHP << endl;
+	std::cout << "|  ê³µê²©ë ¥ : " << UIATK << endl;
+	std::cout << "|    ê³¨ë“œ : " << UIGold << endl;
+	std::cout << "|  ê²½í—˜ì¹˜ : " << EXP << "/100" << endl;
 	std::cout << "____________________" << endl;
 }
 
-///* ÀÎº¥Åä¸® UI*/	
+///* ì¸ë²¤í† ë¦¬ UI*/	
 void UI::PrintInventory()
 {
 	Character* p = Character::getInstance();
 	const vector<Item*>& Itemlsit = p->getInventory();
 	 
 	SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y);
-	std::cout << "===== ÀÎº¥Åä¸® ======" << endl;
+	std::cout << "===== ì¸ë²¤í† ë¦¬ ======" << endl;
 
-	// ÀÎº¥Åä¸® Á¢±Ù ¿À·ù½Ã ¿¹¿ÜÃ³¸®//
+	// ì¸ë²¤í† ë¦¬ ì ‘ê·¼ ì˜¤ë¥˜ì‹œ ì˜ˆì™¸ì²˜ë¦¬//
 	if (Itemlsit.empty())
 	{
 		SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + 1);
-		std::cout << "| ÀÎº¥Åä¸®°¡ ºñ¾îÀÖ½À´Ï´Ù." << endl;
+		std::cout << "| ì¸ë²¤í† ë¦¬ê°€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤." << endl;
 		SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + 9);
 		std::cout << "____________________" << endl;
 		return;
 	}
 
-	// ÀÎº¥Åä¸® Á¢±ÙÇØ¼­ °¡Á®¿À±â
+	// ì¸ë²¤í† ë¦¬ ì ‘ê·¼í•´ì„œ ê°€ì ¸ì˜¤ê¸°
 	for (size_t i = 0; i < Itemlsit.size(); ++i)
 	{
-		// ¿¹¿Ü Ã³¸® (Ç¥½Ã °¹¼ö ¹× ÀÎº¥Åä¸® ¿À¹ö Á¢±Ù ½Ã ¿¹¿ÜÃ³¸®)
+		// ì˜ˆì™¸ ì²˜ë¦¬ (í‘œì‹œ ê°¯ìˆ˜ ë° ì¸ë²¤í† ë¦¬ ì˜¤ë²„ ì ‘ê·¼ ì‹œ ì˜ˆì™¸ì²˜ë¦¬)
 		if (i >= Itemlsit.size()) break;
 		if (i >= 11 ) break;
 
-		// nullptrÀÎ ¾Æ´Ñ °æ¿ì ½½·Ô Ç¥½Ã
+		// nullptrì¸ ì•„ë‹Œ ê²½ìš° ìŠ¬ë¡¯ í‘œì‹œ
 		if (Itemlsit[i] != nullptr)
 		{
 			SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + (int)i + 1);
@@ -75,9 +75,9 @@ void UI::PrintInventory()
 		}
 		else
 		{
-			// nullptrÀÎ °æ¿ì ÇØ´ç ½½·ÔÀº °Ç³Ê¶Ù°Å³ª ºó ½½·ÔÀ¸·Î Ç¥½Ã
+			// nullptrì¸ ê²½ìš° í•´ë‹¹ ìŠ¬ë¡¯ì€ ê±´ë„ˆë›°ê±°ë‚˜ ë¹ˆ ìŠ¬ë¡¯ìœ¼ë¡œ í‘œì‹œ
 			SetCursorPosition(UI_XY::POS_INVENTORY_X, UI_XY::POS_INVENTORY_Y + (int)i + 1);
-			std::cout << "| " << (i + 1) << ". [ºó ½½·Ô]" << endl;
+			std::cout << "| " << (i + 1) << ". [ë¹ˆ ìŠ¬ë¡¯]" << endl;
 		}
 	}
 
@@ -85,147 +85,147 @@ void UI::PrintInventory()
 	std::cout << "____________________" << endl;
 }
 
-/* Çàµ¿ À¯Çü ¼±ÅÃ UI*/
+/* í–‰ë™ ìœ í˜• ì„ íƒ UI*/
 void UI::PrintAction()
 {
 	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y);
-	std::cout << "=======Çàµ¿ ¼±ÅÃ=======" << endl;
-	std::cout << "|      ÀüÅõ : 1 " << endl;
-	std::cout << "|      »óÁ¡ : 2 " << endl;
-	std::cout << "|    ¾ÆÀÌÅÛ : 3 " << endl;
-	std::cout << "|      Á¾·á : 4" << endl;
+	std::cout << "=======í–‰ë™ ì„ íƒ=======" << endl;
+	std::cout << "|      ì „íˆ¬ : 1 " << endl;
+	std::cout << "|      ìƒì  : 2 " << endl;
+	std::cout << "|    ì•„ì´í…œ : 3 " << endl;
+	std::cout << "|      ì¢…ë£Œ : 4" << endl;
 	std::cout << "____________________" << endl;
 
 	SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 8);
-	std::cout << "¾î¶² Çàµ¿À» ÇÏ½Ã°Ú½À´Ï±î? : ";
+	std::cout << "ì–´ë–¤ í–‰ë™ì„ í•˜ì‹œê² ìŠµë‹ˆê¹Œ? : ";
 
-	/*ÀÔ·Â Ç×»ó ÃÊ±âÈ­ ÈÄ ÀÔ·Â ¹Ş±â*/
-	/*ÀÔ·Â ¹Ş±â - getline »ç¿ë*/
+	/*ì…ë ¥ í•­ìƒ ì´ˆê¸°í™” í›„ ì…ë ¥ ë°›ê¸°*/
+	/*ì…ë ¥ ë°›ê¸° - getline ì‚¬ìš©*/
 	ChooseAction = 0;
 	std::string input;
 
 	std::getline(std::cin, input);
 
-	// ÀÔ·ÂÀÌ ºñ¾îÀÖ´ÂÁö È®ÀÎ
+	// ì…ë ¥ì´ ë¹„ì–´ìˆëŠ”ì§€ í™•ì¸
 	if (input.empty())
 	{
 		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
-		std::cout << "¿Ã¹Ù¸¥ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
+		std::cout << "ì˜¬ë°”ë¥¸ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
 		return;
 	}
 
-	// ÀÔ·ÂÀÌ ¼ıÀÚ·Î¸¸ ÀÌ·ç¾îÁ® ÀÖ´ÂÁö È®ÀÎ
+	// ì…ë ¥ì´ ìˆ«ìë¡œë§Œ ì´ë£¨ì–´ì ¸ ìˆëŠ”ì§€ í™•ì¸
 	for (char c : input) {
-		if (!isdigit(c)) { // ¹®ÀÚ°¡ ¼ıÀÚ°¡ ¾Æ´Ï¶ó¸é
+		if (!isdigit(c)) { // ë¬¸ìê°€ ìˆ«ìê°€ ì•„ë‹ˆë¼ë©´
 			SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
-			std::cout << "¿Ã¹Ù¸¥ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
-			return; // ÇÔ¼ö¸¦ Áï½Ã Á¾·áÇÏ°í ÀçÀÔ·Â ¿ä±¸
+			std::cout << "ì˜¬ë°”ë¥¸ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
+			return; // í•¨ìˆ˜ë¥¼ ì¦‰ì‹œ ì¢…ë£Œí•˜ê³  ì¬ì…ë ¥ ìš”êµ¬
 		}
 	}
 
-	// ¹®ÀÚ¿­À» ¼ıÀÚ·Î º¯È¯ ½Ãµµ
+	// ë¬¸ìì—´ì„ ìˆ«ìë¡œ ë³€í™˜ ì‹œë„
 	try
 	{
-		ChooseAction = std::stoi(input); // ¹®ÀÚ¿­À» Á¤¼ö·Î º¯È¯
+		ChooseAction = std::stoi(input); // ë¬¸ìì—´ì„ ì •ìˆ˜ë¡œ ë³€í™˜
 		if (ChooseAction >= 1 && ChooseAction <= 4)
 		{
-			return; // ¿Ã¹Ù¸¥ ÀÔ·ÂÀÌ¸é ÇÔ¼ö Á¾·á
+			return; // ì˜¬ë°”ë¥¸ ì…ë ¥ì´ë©´ í•¨ìˆ˜ ì¢…ë£Œ
 		}
 		else
 		{
 			SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
-			std::cout << "1~4 »çÀÌÀÇ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
+			std::cout << "1~4 ì‚¬ì´ì˜ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
 		}
 	}
-	catch (const std::out_of_range&) // ÀÔ·ÂµÈ ¼ıÀÚ°¡ ³Ê¹« Å« °æ¿ì
+	catch (const std::out_of_range&) // ì…ë ¥ëœ ìˆ«ìê°€ ë„ˆë¬´ í° ê²½ìš°
 	{
 		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
-		std::cout << "ÀÔ·ÂµÈ ¼ıÀÚ°¡ ³Ê¹« Å®´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
+		std::cout << "ì…ë ¥ëœ ìˆ«ìê°€ ë„ˆë¬´ í½ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
 	}
-	catch (const std::exception&) // ±âÅ¸ ¿¹¿Ü Ã³¸® (ÀÌ °æ¿ì´Â À§¿¡¼­ ´ëºÎºĞ °É·¯Áü)
+	catch (const std::exception&) // ê¸°íƒ€ ì˜ˆì™¸ ì²˜ë¦¬ (ì´ ê²½ìš°ëŠ” ìœ„ì—ì„œ ëŒ€ë¶€ë¶„ ê±¸ëŸ¬ì§)
 	{
 		SetCursorPosition(UI_XY::POS_ACTION_X, UI_XY::POS_ACTION_Y + 9);
-		std::cout << "¿Ã¹Ù¸¥ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
+		std::cout << "ì˜¬ë°”ë¥¸ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
 	}
 }
 
 
-/* ½ºÅ×ÀÌÁö UI*/
+/* ìŠ¤í…Œì´ì§€ UI*/
 void UI::PrintStage()
 {
 	SetCursorPosition(UI_XY::POS_STAGE_X, UI_XY::POS_STAGE_Y);
-	std::cout << "- ÇöÀç ½ºÅ×ÀÌÁö : " << StageCount << " -" << endl;
+	std::cout << "- í˜„ì¬ ìŠ¤í…Œì´ì§€ : " << StageCount << " -" << endl;
 	PastStageCount = StageCount;
 }
 
 
-/*ÀÌÀü ÀüÅõ ·Î±× »èÁ¦*/
+/*ì´ì „ ì „íˆ¬ ë¡œê·¸ ì‚­ì œ*/
 void UI::DeletePastBattleLog()
 {
 	BattleLog.erase(BattleLog.begin(),BattleLog.end());
 }
 
 
-/*ÀüÅõ ·Î±×*/
+/*ì „íˆ¬ ë¡œê·¸*/
 void UI::PrintBattleLog()
 {
 	SetCursorPosition(UI_XY::POS_BATTLE_LOG_X-8, UI_XY::POS_BATTLE_LOG_Y);
-	std::cout << "======= ÀüÅõ ±â·Ï ========" << endl;
+	std::cout << "======= ì „íˆ¬ ê¸°ë¡ ========" << endl;
 
-	if (!BattleLog.empty()) // 0. ·Î±× Á¢±Ù °Ë»ç 
+	if (!BattleLog.empty()) // 0. ë¡œê·¸ ì ‘ê·¼ ê²€ì‚¬ 
 	{
-		while (BattleLog.size() > 10) // 1.º¤ÅÍ Å©±â Á¦ÇÑ ½Ã 10°³ ÃÊ°ú½Ã ¿À·¡µÈ ·Î±× »èÁ¦
+		while (BattleLog.size() > 10) // 1.ë²¡í„° í¬ê¸° ì œí•œ ì‹œ 10ê°œ ì´ˆê³¼ì‹œ ì˜¤ë˜ëœ ë¡œê·¸ ì‚­ì œ
 		{
 			BattleLog.erase(BattleLog.begin());
 		}
-		for (size_t i = 0; i < BattleLog.size(); ++i)  // 3. ÃÖ½ÅÈ­ÇÑ º¤ÅÍ Å©±â ±âÁØÀ¸·Î Ãâ·Â
+		for (size_t i = 0; i < BattleLog.size(); ++i)  // 3. ìµœì‹ í™”í•œ ë²¡í„° í¬ê¸° ê¸°ì¤€ìœ¼ë¡œ ì¶œë ¥
 		{
-			SetCursorPosition(UI_XY::POS_BATTLE_LOG_X-8, UI_XY::POS_BATTLE_LOG_Y + i + 1);
+			SetCursorPosition(UI_XY::POS_BATTLE_LOG_X - 8, UI_XY::POS_BATTLE_LOG_Y + static_cast<int>(i) + 1);
 			std::cout << BattleLog[i] << endl;
 		}
 	}
 	
 }
 
-/*¸ğµç ±â·Ï ·Î±×*/
+/*ëª¨ë“  ê¸°ë¡ ë¡œê·¸*/
 void UI::PrintFullLog()
 {
 	SetCursorPosition(UI_XY::POS_FULL_LOG_X, UI_XY::POS_FULL_LOG_Y);
-	std::cout << "     ======= ´ç½ÅÀÇ ¿©Á¤ =======" << endl;
+	std::cout << "     ======= ë‹¹ì‹ ì˜ ì—¬ì • =======" << endl;
  
-	if (!FullLog.empty()) // 0. ·Î±× Á¢±Ù °Ë»ç 
+	if (!FullLog.empty()) // 0. ë¡œê·¸ ì ‘ê·¼ ê²€ì‚¬ 
 	{
-		while (FullLog.size() > 22) // 1.º¤ÅÍ Å©±â Á¦ÇÑ ½Ã 22°³ ÃÊ°ú½Ã ¿À·¡µÈ ·Î±× »èÁ¦
+		while (FullLog.size() > 22) // 1.ë²¡í„° í¬ê¸° ì œí•œ ì‹œ 22ê°œ ì´ˆê³¼ì‹œ ì˜¤ë˜ëœ ë¡œê·¸ ì‚­ì œ
 		{
 			FullLog.erase(FullLog.begin());
 		}
-		for (size_t i = 0; i < FullLog.size(); ++i) // 3. ÃÖ½ÅÈ­ÇÑ º¤ÅÍ Å©±â ±âÁØÀ¸·Î Ãâ·Â
+		for (size_t i = 0; i < FullLog.size(); ++i) // 3. ìµœì‹ í™”í•œ ë²¡í„° í¬ê¸° ê¸°ì¤€ìœ¼ë¡œ ì¶œë ¥
 		{
-			SetCursorPosition(UI_XY::POS_FULL_LOG_X+8, UI_XY::POS_FULL_LOG_Y + i + 1);
+			SetCursorPosition(UI_XY::POS_FULL_LOG_X+8, UI_XY::POS_FULL_LOG_Y + static_cast<int>(i) + 1);
 			std::cout << FullLog[i] << endl;
 		}
 	}
 }
 
-/*Ç® ·Î±×¿¡ ÀúÀåÇÒ ±â·Ï ¹Ş¾Æ¿À±â¿ä¿ë*/
+/*í’€ ë¡œê·¸ì— ì €ì¥í•  ê¸°ë¡ ë°›ì•„ì˜¤ê¸°ìš”ìš©*/
 void UI::AddFullLog(const std::string& log)
 {
 	FullLog.push_back(log);
 }
 
-/*ÀüÅõ ·Î±×¿¡ ÀúÀåÇÒ ±â·Ï ¹Ş¾Æ¿À±â¿ë*/
+/*ì „íˆ¬ ë¡œê·¸ì— ì €ì¥í•  ê¸°ë¡ ë°›ì•„ì˜¤ê¸°ìš©*/
 void UI::AddBattleLog(const std::string& log)
 {
 	BattleLog.push_back(log);
 }
 
-/*È­¸é Ãâ·Â¿ë ÇÔ¼ö*/
+/*í™”ë©´ ì¶œë ¥ìš© í•¨ìˆ˜*/
 void UI::CheckVal()
 {
-	// UI ¾÷µ¥ÀÌÆ® ¹× ÀÔ·ÂÀ» À§È¯ ÃÊ±âÈ­
+	// UI ì—…ë°ì´íŠ¸ ë° ì…ë ¥ì„ ìœ„í™˜ ì´ˆê¸°í™”
 	system("cls");
 
-	// UI¿¡ ¾÷µ¥ÀÌÆ®ÇÒ ÃÖ½Å »óÅÂ ºÒ·¯¿À±â
+	// UIì— ì—…ë°ì´íŠ¸í•  ìµœì‹  ìƒíƒœ ë¶ˆëŸ¬ì˜¤ê¸°
 	PrintStatus();
 	PrintInventory();
 	PrintBattleLog();
@@ -234,43 +234,43 @@ void UI::CheckVal()
 	PrintAction();
 }
 
-/*¿¹ºñ¿ë ÀÔ·Â ÇÔ¼ö*/
-// »ç¿ë¹ı
-// UI Çì´õ Ãß°¡ÇÏ°í 
-// UI* InterFace = UI::getInstance(); »ç¿ëÇÒ ½ºÄÚÇÁ, ÇÔ¼öÀÇ ³»ºÎ¿¡ ¼±¾ğ
-// ¾Æ·¡ ÇÔ¼ö¸¦ InterFace->Input(); ÀÌ·¸°Ô °¡Á®¿À¸é µË´Ï´Ù.
+/*ì˜ˆë¹„ìš© ì…ë ¥ í•¨ìˆ˜*/
+// ì‚¬ìš©ë²•
+// UI í—¤ë” ì¶”ê°€í•˜ê³  
+// UI* InterFace = UI::getInstance(); ì‚¬ìš©í•  ìŠ¤ì½”í”„, í•¨ìˆ˜ì˜ ë‚´ë¶€ì— ì„ ì–¸
+// ì•„ë˜ í•¨ìˆ˜ë¥¼ InterFace->Input(); ì´ë ‡ê²Œ ê°€ì ¸ì˜¤ë©´ ë©ë‹ˆë‹¤.
 void UI::Input()
 {
-/*ÀÔ·Â Ç×»ó ÃÊ±âÈ­ ÈÄ ÀÔ·Â ¹Ş±â*/
-/*ÀÔ·Â ¹Ş±â - getline »ç¿ë*/
+/*ì…ë ¥ í•­ìƒ ì´ˆê¸°í™” í›„ ì…ë ¥ ë°›ê¸°*/
+/*ì…ë ¥ ë°›ê¸° - getline ì‚¬ìš©*/
 ChooseAction = 0;
 std::string input;
 
 
 std::getline(std::cin, input);
 
-// ÀÔ·ÂÀÌ ºñ¾îÀÖ´ÂÁö È®ÀÎ
+// ì…ë ¥ì´ ë¹„ì–´ìˆëŠ”ì§€ í™•ì¸
 if (input.empty())
 {
-	std::cout << "¿Ã¹Ù¸¥ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
+	std::cout << "ì˜¬ë°”ë¥¸ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
 	return;
 }
 
-// ¹®ÀÚ¿­À» ¼ıÀÚ·Î º¯È¯ ½Ãµµ
+// ë¬¸ìì—´ì„ ìˆ«ìë¡œ ë³€í™˜ ì‹œë„
 try
 {
 	ChooseAction = std::stoi(input);
 	if (ChooseAction >= 1 && ChooseAction <= 4)
 	{
-		return; // ¿Ã¹Ù¸¥ ÀÔ·ÂÀÌ¸é ·çÇÁ Á¾·á
+		return; // ì˜¬ë°”ë¥¸ ì…ë ¥ì´ë©´ ë£¨í”„ ì¢…ë£Œ
 	}
 	else
 	{
-		std::cout << "1~4 »çÀÌÀÇ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
+		std::cout << "1~4 ì‚¬ì´ì˜ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
 	}
 }
 catch (const std::exception&)
 {
-	std::cout << "¿Ã¹Ù¸¥ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! : ";
+	std::cout << "ì˜¬ë°”ë¥¸ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! : ";
 }
 }

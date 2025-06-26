@@ -1,4 +1,4 @@
-#include "BattleSystem.h"
+ï»¿#include "BattleSystem.h"
 #include "Character.h"
 #include <iostream>
 #include "MonsterData.h"
@@ -11,7 +11,7 @@
 #include <thread>
 #include <chrono>
 #include <Windows.h>
-#include "Movie.h" // ¹«ºñ Ãß°¡
+#include "Movie.h" // ë¬´ë¹„ ì¶”ê°€
 
 using namespace std;
 using std::unique_ptr;
@@ -20,44 +20,44 @@ using std::unique_ptr;
 
 unique_ptr<Monster> BattleSystem::CreateRandomEnemy() 
 {
-	static bool seeded = false; // ·£´ı ½Ãµå ÃÊ±âÈ­ ¿©ºÎ¸¦ È®ÀÎÇÏ´Â º¯¼ö
-	if (!seeded) // ½Ãµå°¡ ÃÊ±âÈ­µÇÁö ¾Ê¾Ò´Ù¸é
+	static bool seeded = false; // ëœë¤ ì‹œë“œ ì´ˆê¸°í™” ì—¬ë¶€ë¥¼ í™•ì¸í•˜ëŠ” ë³€ìˆ˜
+	if (!seeded) // ì‹œë“œê°€ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ë‹¤ë©´
     {
-		srand(static_cast<unsigned int> (time(nullptr))); // ·£´ı ½Ãµå ÃÊ±âÈ­
-		seeded = true; // ½Ãµå°¡ ÃÊ±âÈ­µÇ¾úÀ½À» Ç¥½Ã
+		srand(static_cast<unsigned int> (time(nullptr))); // ëœë¤ ì‹œë“œ ì´ˆê¸°í™”
+		seeded = true; // ì‹œë“œê°€ ì´ˆê¸°í™”ë˜ì—ˆìŒì„ í‘œì‹œ
     }
-	int r = rand() % 4;  // 0ºÎÅÍ 3±îÁöÀÇ ·£´ı ¼ıÀÚ »ı¼º (¸ó½ºÅÍ Á¾·ù ¼±ÅÃ)
+	int r = rand() % 4;  // 0ë¶€í„° 3ê¹Œì§€ì˜ ëœë¤ ìˆ«ì ìƒì„± (ëª¬ìŠ¤í„° ì¢…ë¥˜ ì„ íƒ)
 
-	return CreateMonster(r);  // ¸ó½ºÅÍ »ı¼º ÇÔ¼ö È£Ãâ
+	return CreateMonster(r);  // ëª¬ìŠ¤í„° ìƒì„± í•¨ìˆ˜ í˜¸ì¶œ
 
 }
 
-unique_ptr<Monster> BattleSystem::CreateBossMonster(int playerLevel)  // º¸½º ¸ó½ºÅÍ »ı¼º ÇÔ¼ö
+unique_ptr<Monster> BattleSystem::CreateBossMonster(int playerLevel)  // ë³´ìŠ¤ ëª¬ìŠ¤í„° ìƒì„± í•¨ìˆ˜
 {
-	Character* player = Character::getInstance("YourName"); // ÇÃ·¹ÀÌ¾î ÀÌ¸§ ¼³Á¤ (¿¹½Ã·Î "YourName" »ç¿ë)
+	Character* player = Character::getInstance("YourName"); // í”Œë ˆì´ì–´ ì´ë¦„ ì„¤ì • (ì˜ˆì‹œë¡œ "YourName" ì‚¬ìš©)
 
-    static const vector<MonsterStats> bossTemplates =   // º¸½º ¸ó½ºÅÍ ÅÛÇÃ¸´ Á¤ÀÇ
+    static const vector<MonsterStats> bossTemplates =   // ë³´ìŠ¤ ëª¬ìŠ¤í„° í…œí”Œë¦¿ ì •ì˜
     {
-        {"µå·¡°ï", 50, 10},
-        {"µ¥¸ó ·Îµå", 50, 10},
-        {"¿¡ÀÌ¼ÇÆ® °ñ·½", 50, 10}
+        {"ë“œë˜ê³¤", 50, 10},
+        {"ë°ëª¬ ë¡œë“œ", 50, 10},
+        {"ì—ì´ì…˜íŠ¸ ê³¨ë ˜", 50, 10}
     };
 
-	int bossIndex = rand() % bossTemplates.size(); // ·£´ıÀ¸·Î º¸½º ¸ó½ºÅÍ ÀÎµ¦½º ¼±ÅÃ
-	const MonsterStats& selectedBoss = bossTemplates[bossIndex]; // ¼±ÅÃµÈ º¸½º ¸ó½ºÅÍ Á¤º¸ °¡Á®¿À±â
+	int bossIndex = rand() % bossTemplates.size(); // ëœë¤ìœ¼ë¡œ ë³´ìŠ¤ ëª¬ìŠ¤í„° ì¸ë±ìŠ¤ ì„ íƒ
+	const MonsterStats& selectedBoss = bossTemplates[bossIndex]; // ì„ íƒëœ ë³´ìŠ¤ ëª¬ìŠ¤í„° ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 
 
-    unique_ptr<Monster> boss = make_unique<Monster>(selectedBoss.name, selectedBoss.health, selectedBoss.attack); // º¸½º ¸ó½ºÅÍ »ı¼º
+    unique_ptr<Monster> boss = make_unique<Monster>(selectedBoss.name, selectedBoss.health, selectedBoss.attack); // ë³´ìŠ¤ ëª¬ìŠ¤í„° ìƒì„±
 
-    // ÇÃ·¹ÀÌ¾î ·¹º§¿¡ µû¶ó º¸½º ¸ó½ºÅÍÀÇ Ã¼·Â°ú °ø°İ·Â Á¶Á¤
-    float  randomPerHp = static_cast<float>(rand() % 51 + 100) / 100.0f;  // 1.00 ~ 1.50 ·£´ı Ãâ·Â
+    // í”Œë ˆì´ì–´ ë ˆë²¨ì— ë”°ë¼ ë³´ìŠ¤ ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ê³¼ ê³µê²©ë ¥ ì¡°ì •
+    float  randomPerHp = static_cast<float>(rand() % 51 + 100) / 100.0f;  // 1.00 ~ 1.50 ëœë¤ ì¶œë ¥
     float  randomPerAtk = static_cast<float>(rand() % 51 + 100) / 100.0f;
 
 
-	boss->SetHealth(playerLevel, randomPerHp, randomPerAtk); // º¸½º ¸ó½ºÅÍÀÇ Ã¼·Â ¼³Á¤ (ÇÃ·¹ÀÌ¾î ·¹º§¿¡ µû¶ó Á¶Á¤)
+	boss->SetHealth(playerLevel, randomPerHp, randomPerAtk); // ë³´ìŠ¤ ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ ì„¤ì • (í”Œë ˆì´ì–´ ë ˆë²¨ì— ë”°ë¼ ì¡°ì •)
 
 
-	return boss; // »ı¼ºµÈ º¸½º ¸ó½ºÅÍ¸¦ ¹İÈ¯
+	return boss; // ìƒì„±ëœ ë³´ìŠ¤ ëª¬ìŠ¤í„°ë¥¼ ë°˜í™˜
 }
 
 
@@ -66,133 +66,133 @@ void BattleSystem::StartBattle(Character* player)
     int level = player->getLevel();
     unique_ptr<Monster> monster;
 
-	bool isBossBattle = false; // º¸½º ¹èÆ² ¿©ºÎ ÃÊ±âÈ­
-    if (level >= 10) // ÇÃ·¹ÀÌ¾î ·¹º§ÀÌ 10 ÀÌ»óÀÌ¸é º¸½º ¹èÆ²·Î ¼³Á¤
+	bool isBossBattle = false; // ë³´ìŠ¤ ë°°í‹€ ì—¬ë¶€ ì´ˆê¸°í™”
+    if (level >= 10) // í”Œë ˆì´ì–´ ë ˆë²¨ì´ 10 ì´ìƒì´ë©´ ë³´ìŠ¤ ë°°í‹€ë¡œ ì„¤ì •
     {
-        monster = CreateBossMonster(player->getLevel()); // º¸½º ¸ó½ºÅÍ »ı¼º
-        isBossBattle = true; // º¸½º ¹èÆ²·Î ¼³Á¤
+        monster = CreateBossMonster(player->getLevel()); // ë³´ìŠ¤ ëª¬ìŠ¤í„° ìƒì„±
+        isBossBattle = true; // ë³´ìŠ¤ ë°°í‹€ë¡œ ì„¤ì •
 
         
         Movie MV;
         MV.MoviePlay();
 
-        cout << "\n=========º¸½º ¹èÆ²=========\n"; // º¸½º ¹èÆ² ½ÃÀÛ ¸Ş½ÃÁö Ãâ·Â
-        cout << player->getName() << " VS " << monster->GetName() << endl; // ÇÃ·¹ÀÌ¾î¿Í ¸ó½ºÅÍ ÀÌ¸§ Ãâ·Â
+        cout << "\n=========ë³´ìŠ¤ ë°°í‹€=========\n"; // ë³´ìŠ¤ ë°°í‹€ ì‹œì‘ ë©”ì‹œì§€ ì¶œë ¥
+        cout << player->getName() << " VS " << monster->GetName() << endl; // í”Œë ˆì´ì–´ì™€ ëª¬ìŠ¤í„° ì´ë¦„ ì¶œë ¥
     }
     else
     {
-		monster = CreateRandomEnemy(); // ÀÏ¹İ ¸ó½ºÅÍ »ı¼º
-		monster->SetHealth(player->getLevel()); // ¸ó½ºÅÍÀÇ Ã¼·ÂÀ» ÇÃ·¹ÀÌ¾î ·¹º§¿¡ ¸Â°Ô ¼³Á¤
+		monster = CreateRandomEnemy(); // ì¼ë°˜ ëª¬ìŠ¤í„° ìƒì„±
+		monster->SetHealth(player->getLevel()); // ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ì„ í”Œë ˆì´ì–´ ë ˆë²¨ì— ë§ê²Œ ì„¤ì •
 
-        cout << "\n==========ÀÏ¹İ ÀüÅõ=========\n";
-		cout << player->getName() << " VS " << monster->GetName() << endl; // ÇÃ·¹ÀÌ¾î¿Í ¸ó½ºÅÍ ÀÌ¸§ Ãâ·Â
+        cout << "\n==========ì¼ë°˜ ì „íˆ¬=========\n";
+		cout << player->getName() << " VS " << monster->GetName() << endl; // í”Œë ˆì´ì–´ì™€ ëª¬ìŠ¤í„° ì´ë¦„ ì¶œë ¥
     }
 
 
-	cout << "\n=========ÀüÅõ ½ÃÀÛ!=========\n"  << endl;  // ÀüÅõ ½ÃÀÛ ¸Ş½ÃÁö Ãâ·Â
-	while (player->getHealth() > 0 && monster->GetHealth() > 0) // ÇÃ·¹ÀÌ¾î¿Í ¸ó½ºÅÍ°¡ ¸ğµÎ »ì¾ÆÀÖ´Â µ¿¾È ÀüÅõ ÁøÇà
+	cout << "\n=========ì „íˆ¬ ì‹œì‘!=========\n"  << endl;  // ì „íˆ¬ ì‹œì‘ ë©”ì‹œì§€ ì¶œë ¥
+	while (player->getHealth() > 0 && monster->GetHealth() > 0) // í”Œë ˆì´ì–´ì™€ ëª¬ìŠ¤í„°ê°€ ëª¨ë‘ ì‚´ì•„ìˆëŠ” ë™ì•ˆ ì „íˆ¬ ì§„í–‰
     {
-		monster->TakeDamage(player->getAttack());     // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍ¸¦ °ø°İ
-        if (isBossBattle) // º¸½º ¹èÆ²ÀÎ °æ¿ì
+		monster->TakeDamage(player->getAttack());     // í”Œë ˆì´ì–´ê°€ ëª¬ìŠ¤í„°ë¥¼ ê³µê²©
+        if (isBossBattle) // ë³´ìŠ¤ ë°°í‹€ì¸ ê²½ìš°
         {
-            cout << player->getName() << " ÀÇ °ø°İ!\n" << monster->GetName() << " ³²Àº Ã¼·Â : " << monster->GetHealth() << endl; // ÇÃ·¹ÀÌ¾îÀÇ °ø°İ ÈÄ ¸ó½ºÅÍÀÇ ³²Àº Ã¼·ÂÀ» Ãâ·Â
-            this_thread::sleep_for(chrono::seconds(2)); //2ÃÊ ´ë±â
+            cout << player->getName() << " ì˜ ê³µê²©!\n" << monster->GetName() << " ë‚¨ì€ ì²´ë ¥ : " << monster->GetHealth() << endl; // í”Œë ˆì´ì–´ì˜ ê³µê²© í›„ ëª¬ìŠ¤í„°ì˜ ë‚¨ì€ ì²´ë ¥ì„ ì¶œë ¥
+            this_thread::sleep_for(chrono::seconds(2)); //2ì´ˆ ëŒ€ê¸°
             if (monster->GetHealth() <= 0) break;
         }
-        else // ÀÏ¹İ ¸ó½ºÅÍ ¹èÆ²ÀÎ °æ¿ì
+        else // ì¼ë°˜ ëª¬ìŠ¤í„° ë°°í‹€ì¸ ê²½ìš°
         {
-			cout << player->getName() << " ÀÇ °ø°İ!\n" << monster->GetName() << " ³²Àº Ã¼·Â : " << monster->GetHealth() << endl; // ÇÃ·¹ÀÌ¾îÀÇ °ø°İ ÈÄ ¸ó½ºÅÍÀÇ ³²Àº Ã¼·ÂÀ» Ãâ·Â
-            this_thread::sleep_for(chrono::seconds(2));    //2ÃÊ ´ë±â
+			cout << player->getName() << " ì˜ ê³µê²©!\n" << monster->GetName() << " ë‚¨ì€ ì²´ë ¥ : " << monster->GetHealth() << endl; // í”Œë ˆì´ì–´ì˜ ê³µê²© í›„ ëª¬ìŠ¤í„°ì˜ ë‚¨ì€ ì²´ë ¥ì„ ì¶œë ¥
+            this_thread::sleep_for(chrono::seconds(2));    //2ì´ˆ ëŒ€ê¸°
             if (monster->GetHealth() <= 0) break;
         }
 
 
-		player->takeDamage(monster->GetAttack()); // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍÀÇ °ø°İÀ» ¹ŞÀ½
-        if (isBossBattle) // º¸½º ¹èÆ²ÀÎ °æ¿ì
+		player->takeDamage(monster->GetAttack()); // í”Œë ˆì´ì–´ê°€ ëª¬ìŠ¤í„°ì˜ ê³µê²©ì„ ë°›ìŒ
+        if (isBossBattle) // ë³´ìŠ¤ ë°°í‹€ì¸ ê²½ìš°
         {
-			cout << monster->GetName() << " ÀÇ °ø°İ!\n" << player->getName() << " ³²Àº Ã¼·Â : " << player->getHealth() << endl; // ¸ó½ºÅÍÀÇ °ø°İ ÈÄ ÇÃ·¹ÀÌ¾îÀÇ ³²Àº Ã¼·ÂÀ» Ãâ·Â
-            this_thread::sleep_for(chrono::seconds(2)); //2ÃÊ ´ë±â
-            if (player->getHealth() <= 0) break; // ÇÃ·¹ÀÌ¾î°¡ Á×¾ú´ÂÁö È®ÀÎ
+			cout << monster->GetName() << " ì˜ ê³µê²©!\n" << player->getName() << " ë‚¨ì€ ì²´ë ¥ : " << player->getHealth() << endl; // ëª¬ìŠ¤í„°ì˜ ê³µê²© í›„ í”Œë ˆì´ì–´ì˜ ë‚¨ì€ ì²´ë ¥ì„ ì¶œë ¥
+            this_thread::sleep_for(chrono::seconds(2)); //2ì´ˆ ëŒ€ê¸°
+            if (player->getHealth() <= 0) break; // í”Œë ˆì´ì–´ê°€ ì£½ì—ˆëŠ”ì§€ í™•ì¸
         }
         else
         {
-        cout << monster->GetName() << " ÀÇ °ø°İ!\n" << player->getName() << " ³²Àº Ã¼·Â : " << player->getHealth() << endl; // ¸ó½ºÅÍÀÇ °ø°İ ÈÄ ÇÃ·¹ÀÌ¾îÀÇ ³²Àº Ã¼·ÂÀ» Ãâ·Â
-		this_thread::sleep_for(chrono::seconds(2)); //2ÃÊ ´ë±â
-		if (player->getHealth() <= 0) break; // ÇÃ·¹ÀÌ¾î°¡ Á×¾ú´ÂÁö È®ÀÎ
+        cout << monster->GetName() << " ì˜ ê³µê²©!\n" << player->getName() << " ë‚¨ì€ ì²´ë ¥ : " << player->getHealth() << endl; // ëª¬ìŠ¤í„°ì˜ ê³µê²© í›„ í”Œë ˆì´ì–´ì˜ ë‚¨ì€ ì²´ë ¥ì„ ì¶œë ¥
+		this_thread::sleep_for(chrono::seconds(2)); //2ì´ˆ ëŒ€ê¸°
+		if (player->getHealth() <= 0) break; // í”Œë ˆì´ì–´ê°€ ì£½ì—ˆëŠ”ì§€ í™•ì¸
         }
 
 
 
     }
-	bool playerWon = player->getHealth() > 0 && monster->GetHealth() <= 0; // ÇÃ·¹ÀÌ¾î°¡ ½Â¸®Çß´ÂÁö È®ÀÎ
+	bool playerWon = player->getHealth() > 0 && monster->GetHealth() <= 0; // í”Œë ˆì´ì–´ê°€ ìŠ¹ë¦¬í–ˆëŠ”ì§€ í™•ì¸
 
-	cout << "\n----------------------------\n\n"; // ÀüÅõ °á°ú Ãâ·Â
-    if (playerWon) // 6.24 º¸½º ¸ó½ºÅÍ ¹èÆ² ½Â¸® Á¶°Ç º°µµ·Î Ãâ·Â,
+	cout << "\n----------------------------\n\n"; // ì „íˆ¬ ê²°ê³¼ ì¶œë ¥
+    if (playerWon) // 6.24 ë³´ìŠ¤ ëª¬ìŠ¤í„° ë°°í‹€ ìŠ¹ë¦¬ ì¡°ê±´ ë³„ë„ë¡œ ì¶œë ¥,
     {
-        if (isBossBattle) // º¸½º ¹èÆ²¿¡¼­ ½Â¸®ÇÑ °æ¿ì
+        if (isBossBattle) // ë³´ìŠ¤ ë°°í‹€ì—ì„œ ìŠ¹ë¦¬í•œ ê²½ìš°
         {
-            cout << "=========ÃàÇÏµå¸³´Ï´Ù! º¸½º";
-            cout << monster->GetName() << "¸¦ Ã³Ä¡ÇÏ¼Ì½À´Ï´Ù!=========\n" << endl;
-			Title::getInstance()->EndVictory(); // º¸½º ¹èÆ² ½Â¸® È­¸é Ãâ·Â
+            cout << "=========ì¶•í•˜ë“œë¦½ë‹ˆë‹¤! ë³´ìŠ¤";
+            cout << monster->GetName() << "ë¥¼ ì²˜ì¹˜í•˜ì…¨ìŠµë‹ˆë‹¤!=========\n" << endl;
+			Title::getInstance()->EndVictory(); // ë³´ìŠ¤ ë°°í‹€ ìŠ¹ë¦¬ í™”ë©´ ì¶œë ¥
 
-			cout << "=========ÃàÇÏÇÕ´Ï´Ù! °ÔÀÓ ¿£µùÀ» º¸¼Ì½À´Ï´Ù!=========" << endl;
+			cout << "=========ì¶•í•˜í•©ë‹ˆë‹¤! ê²Œì„ ì—”ë”©ì„ ë³´ì…¨ìŠµë‹ˆë‹¤!=========" << endl;
             for (int i = 5; i > 0; --i)
             {
-                cout << "\r" << "=========°ÔÀÓÀÌ " << i << "ÃÊ ÈÄ Á¾·áµË´Ï´Ù...========= " << flush;
+                cout << "\r" << "=========ê²Œì„ì´ " << i << "ì´ˆ í›„ ì¢…ë£Œë©ë‹ˆë‹¤...========= " << flush;
                 this_thread::sleep_for(chrono::seconds(1));
             }
-            cout << "\n";			exit(0); // °ÔÀÓ Á¾·á
+            cout << "\n";			exit(0); // ê²Œì„ ì¢…ë£Œ
         }
         
-        cout << "\n=========ÀüÅõ ½Â¸®!=========\n" << endl;
-        this_thread::sleep_for(chrono::seconds(2)); //2ÃÊ ´ë±â
-        Title::getInstance()->Victory();      // ½Â¸® È­¸é Ãâ·Â
+        cout << "\n=========ì „íˆ¬ ìŠ¹ë¦¬!=========\n" << endl;
+        this_thread::sleep_for(chrono::seconds(2)); //2ì´ˆ ëŒ€ê¸°
+        Title::getInstance()->Victory();      // ìŠ¹ë¦¬ í™”ë©´ ì¶œë ¥
         GrantVictoryRewards(player);
         
     }
     else
     {
-        cout << "=========" << player->getName() << " °¡ " << monster->GetName() << "¿¡°Ô ÆĞ¹èÇß½À´Ï´Ù!=========" << endl;
-        this_thread::sleep_for(chrono::seconds(2)); //2ÃÊ ´ë±â
-		Title::getInstance()->GameOver(); //ÆĞ¹è È­¸é Ãâ·Â
+        cout << "=========" << player->getName() << " ê°€ " << monster->GetName() << "ì—ê²Œ íŒ¨ë°°í–ˆìŠµë‹ˆë‹¤!=========" << endl;
+        this_thread::sleep_for(chrono::seconds(2)); //2ì´ˆ ëŒ€ê¸°
+		Title::getInstance()->GameOver(); //íŒ¨ë°° í™”ë©´ ì¶œë ¥
         for (int i = 5; i > 0; --i)
         {
-            cout << "\r" << "=========°ÔÀÓÀÌ " << i << "ÃÊ ÈÄ Á¾·áµË´Ï´Ù...========= " << flush;
+            cout << "\r" << "=========ê²Œì„ì´ " << i << "ì´ˆ í›„ ì¢…ë£Œë©ë‹ˆë‹¤...========= " << flush;
             this_thread::sleep_for(chrono::seconds(1));
         }
-        cout << "\n";			exit(0); // °ÔÀÓ Á¾·á
+        cout << "\n";			exit(0); // ê²Œì„ ì¢…ë£Œ
     }
 
 }
 
-Item* CreateRandomItemDrop()
+static Item* CreateRandomItemDrop()
 {
 	int r = rand() % 100;
     
-    if (r < 40) return new HealthPotion(); // 40% È®·ü·Î Ã¼·Â ¹°¾à µå¶ø
-    else if (r < 80) return new AttackBoost(); // 40% È®·ü·Î °ø°İ·Â Áõ°¡ ¾ÆÀÌÅÛ µå¶ø
-    else return nullptr; // 20% È®·ü·Î ¾ÆÀÌÅÛ µå¶ø ¾øÀ½
+    if (r < 40) return new HealthPotion(); // 40% í™•ë¥ ë¡œ ì²´ë ¥ ë¬¼ì•½ ë“œë
+    else if (r < 80) return new AttackBoost(); // 40% í™•ë¥ ë¡œ ê³µê²©ë ¥ ì¦ê°€ ì•„ì´í…œ ë“œë
+    else return nullptr; // 20% í™•ë¥ ë¡œ ì•„ì´í…œ ë“œë ì—†ìŒ
     	
 }
 
-void BattleSystem::GrantVictoryRewards(Character* player) // ÇÃ·¹ÀÌ¾î¿¡°Ô º¸»ó Áö±Ş
+void BattleSystem::GrantVictoryRewards(Character* player) // í”Œë ˆì´ì–´ì—ê²Œ ë³´ìƒ ì§€ê¸‰
 {
-	const int expReward = 50; // °íÁ¤ °æÇèÄ¡ º¸»ó
-	int goldReward = 10 + (rand() % 10); // 10¿¡¼­ 20 »çÀÌÀÇ ·£´ı °ñµå º¸»ó
-    cout << "º¸»ó : " << expReward << "°æÇèÄ¡ , " << "°ñµå " << goldReward << endl;
-	player->addExp(expReward); // ÇÃ·¹ÀÌ¾î¿¡°Ô °æÇèÄ¡ Ãß°¡
-	player->addGold(goldReward); // ÇÃ·¹ÀÌ¾î¿¡°Ô °ñµå Ãß°¡
+	const int expReward = 50; // ê³ ì • ê²½í—˜ì¹˜ ë³´ìƒ
+	int goldReward = 10 + (rand() % 10); // 10ì—ì„œ 20 ì‚¬ì´ì˜ ëœë¤ ê³¨ë“œ ë³´ìƒ
+    cout << "ë³´ìƒ : " << expReward << "ê²½í—˜ì¹˜ , " << "ê³¨ë“œ " << goldReward << endl;
+	player->addExp(expReward); // í”Œë ˆì´ì–´ì—ê²Œ ê²½í—˜ì¹˜ ì¶”ê°€
+	player->addGold(goldReward); // í”Œë ˆì´ì–´ì—ê²Œ ê³¨ë“œ ì¶”ê°€
 
-    Item* drop = CreateRandomItemDrop();// ¾ÆÀÌÅÛ µå¶ø »ı¼º
+    Item* drop = CreateRandomItemDrop();// ì•„ì´í…œ ë“œë ìƒì„±
  
         if (drop)
         {
-            player->addItem(drop); // ÇÃ·¹ÀÌ¾î¿¡°Ô ¾ÆÀÌÅÛ Ãß°¡
-            cout << drop->getName() << "¸¦ Ã£¾Ò½À´Ï´Ù!\n" << endl; // ¾ÆÀÌÅÛ µå¶ø ¸Ş½ÃÁö Ãâ·Â
+            player->addItem(drop); // í”Œë ˆì´ì–´ì—ê²Œ ì•„ì´í…œ ì¶”ê°€
+            cout << drop->getName() << "ë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤!\n" << endl; // ì•„ì´í…œ ë“œë ë©”ì‹œì§€ ì¶œë ¥
         }
         else
         {
-            cout << "¾ÆÀÌÅÛÀÌ µå¶øµÇÁö ¾Ê¾Ò½À´Ï´Ù.\n" << endl; // ¾ÆÀÌÅÛ µå¶ø ¾øÀ½ ¸Ş½ÃÁö Ãâ·Â
+            cout << "ì•„ì´í…œì´ ë“œëë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\n" << endl; // ì•„ì´í…œ ë“œë ì—†ìŒ ë©”ì‹œì§€ ì¶œë ¥
         }
 
 }
