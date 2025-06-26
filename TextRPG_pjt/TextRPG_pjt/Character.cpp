@@ -124,7 +124,7 @@ void Character::addItem(Item* item)
 void Character::removeItem(int index)
 {
     /*UI 아이템 사용 및 제거시 무조건 먼저 실행되어야 합니다.*/
-    Item* targetItem = inventory[index - 1];
+    Item* targetItem = inventory[static_cast<std::vector<Item*, std::allocator<Item*>>::size_type>(index) - 1];
     std::string itemName = targetItem->getName();
     UI* InterFace = UI::getInstance();
     InterFace->AddFullLog(name + " : [아이템] : " + itemName + " : 제거!");
@@ -139,7 +139,7 @@ void Character::useItem(int index)
     if (index <= 0 || index >= inventory.size() + 1) return; //입력받은 index의 유효성 검사. 사용자 기준이기 때문에 인벤토리 사이즈에 1을 더함(1부터 시작)
 
     /*UI 아이템 사용 및 제거시 무조건 먼저 실행되어야 합니다.*/
-    Item* targetItem = inventory[index - 1];
+    Item* targetItem = inventory[static_cast<std::vector<Item*, std::allocator<Item*>>::size_type>(index) - 1];
     std::string itemName = targetItem->getName();
     UI* InterFace = UI::getInstance();
     InterFace->AddFullLog(name + " : [아이템] : " + itemName + " : 사용!");

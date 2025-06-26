@@ -33,35 +33,38 @@ int main()
 	Character* player = Character::getInstance(MainTitle->GameStart());
     
 	/*인 게임 루프 */
-
 	while (true)
 	{
-
 		const vector<Item*>& Itemlsit = player->getInventory();
 		InterFace->CheckVal();
 
 		int Choice = -1;
+		int ChooseMyAction = InterFace->GetChooseAction();
 
 		/*플레이어 행동 처리*/
-		switch (InterFace->GetChooseAction())
-		{
-		case 1: //전투
+		switch (ChooseMyAction)
+		{ 
+            case static_cast<int>(GameState::Battle):
 			system("cls");
 			InterFace->AddFullLog("[전투 : " + std::to_string(InterFace->GetStageCount() + 1) + "]-----------------------------");
 			InterFace->Stage(); // 스테이트 올라가는 거 표시 for UI 업데이트
 			InterFace->DeletePastBattleLog(); //이전 전투 기록 삭제 for UI업데이트
 			MyBattle.StartBattle(player); // 배틀 시스템(=전투로) 진입
+
+			if(player->getHealth() <= 0 || UI::currentState == GameState::EndGame)
+				goto END; // 죽었을 경우 게임 종료로 이동
+
 			InterFace->AddFullLog("                                       ");
 			system("Pause");
 			break;
 
-		case 2: //상점
+			case static_cast<int>(GameState::Shop):
 			InterFace->AddFullLog("[상점]---------------------------------");
 			MyShop.displayItems(player);
 			InterFace->AddFullLog("                                       ");
 			break;
 
-		case 3:
+			case static_cast<int>(GameState::UseItem):
 			if (Itemlsit.size() <= 0)
 			{
 				cout << "인벤토리에 아이템이 없습니다!" << endl;
@@ -81,7 +84,7 @@ int main()
 			InterFace->AddFullLog("                                       ");
 			break;
 
-		case 4:
+			case static_cast<int>(GameState::EndGame):
 			//게임 종료
 			MainTitle->GameEnd();
 			goto END;

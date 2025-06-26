@@ -9,6 +9,8 @@ UI* UI::getInstance()
 	return &localInstance;
 }
 
+GameState UI::currentState = GameState::Running;
+
 /* UI 위치 값 함수*/
 void UI::SetCursorPosition(int X, int Y) 
 {

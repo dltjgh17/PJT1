@@ -12,6 +12,7 @@
 #include <chrono>
 #include <Windows.h>
 #include "Movie.h" // 무비 추가
+#include "UI.h"
 
 using namespace std;
 using std::unique_ptr;
@@ -63,6 +64,7 @@ unique_ptr<Monster> BattleSystem::CreateBossMonster(int playerLevel)  // 보스 
 
 void BattleSystem::StartBattle(Character* player)
 {
+
     int level = player->getLevel();
     unique_ptr<Monster> monster;
 
@@ -141,7 +143,9 @@ void BattleSystem::StartBattle(Character* player)
                 cout << "\r" << "=========게임이 " << i << "초 후 종료됩니다...========= " << flush;
                 this_thread::sleep_for(chrono::seconds(1));
             }
-            cout << "\n";			exit(0); // 게임 종료
+            cout << "\n";			
+            UI* InterFace = UI::getInstance();
+            InterFace->EndGame();
         }
         
         cout << "\n=========전투 승리!=========\n" << endl;
@@ -160,7 +164,9 @@ void BattleSystem::StartBattle(Character* player)
             cout << "\r" << "=========게임이 " << i << "초 후 종료됩니다...========= " << flush;
             this_thread::sleep_for(chrono::seconds(1));
         }
-        cout << "\n";			exit(0); // 게임 종료
+        cout << "\n";			 
+        UI* InterFace = UI::getInstance();
+        InterFace->EndGame();
     }
 
 }

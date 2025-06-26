@@ -4,6 +4,15 @@
 #include "Character.h"
 #include "Monster.h"
 
+enum class GameState
+{
+    Running = 0,
+    Battle = 1,
+	Shop = 2,
+	UseItem = 3,
+	EndGame = 4,   
+};
+
 class UI
 {
 private:
@@ -23,6 +32,9 @@ private:
     std::vector<std::string> BattleLog;
     
 public:
+    
+    static GameState currentState; // 현재 게임 상태 (0으로 시작)
+
     /*단일 인스턴스*/
     static UI* getInstance();
     UI(const UI&) = delete;
@@ -52,5 +64,5 @@ public:
 
     //Setter 함수
     void Stage() { ++StageCount; } // 스테이지 카운트 UP
-
+    void EndGame() { currentState = GameState::EndGame; }
 };
