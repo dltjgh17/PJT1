@@ -5,16 +5,16 @@
 std::unique_ptr<UI> UI::instance = nullptr;
 UI* UI::getInstance()
 {
-	static UI instance;
-	return &instance;
+	static UI localInstance; // Renamed the local variable to 'localInstance'
+	return &localInstance;
 }
 
 /* UI 위치 값 함수*/
 void UI::SetCursorPosition(int X, int Y) 
 {
 	COORD coord = { 0, 0 };
-	coord.X = X;
-	coord.Y = Y;
+	coord.X = static_cast<SHORT>(X); // Explicitly cast int to SHORT
+	coord.Y = static_cast<SHORT>(Y); // Explicitly cast int to SHORT
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
