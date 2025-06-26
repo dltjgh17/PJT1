@@ -1,6 +1,4 @@
 ﻿// TextRPG_pjt.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-
-
 #include "UI.h"
 #include "Title.h"
 #include "Shop.h"
@@ -10,6 +8,8 @@
 #include "Opening.h"
 #include <conio.h>
 #include <Windows.h>
+
+
 
 int main()
 {
@@ -29,9 +29,11 @@ int main()
 	string Name; // 플레이엄 이름을 받아올 변수
 	
 	/*캐릭터 생성, 이름 짓기, 초기 화면*/
+
 	Character* player = Character::getInstance(MainTitle->GameStart());
     
 	/*인 게임 루프 */
+
 	while (true)
 	{
 
