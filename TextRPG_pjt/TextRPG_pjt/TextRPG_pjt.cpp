@@ -54,11 +54,10 @@ int main()
 			break;
 
 		case 2: //상점
-
+			InterFace->AddFullLog("[상점]---------------------------------");
 			MyShop.displayItems(player);
-
-			cin.clear();
-			cin.ignore();
+			InterFace->AddFullLog("                                       ");
+			break;
 			break;
 
 		case 3:
