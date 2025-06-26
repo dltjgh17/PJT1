@@ -8,8 +8,6 @@
 이 프로젝트는 C++ 언어를 활용한 **텍스트 기반 RPG 게임**입니다. 
 학습을 목표로 두고 진행한 프로젝트이기 때문에 github 협업, 강의 내용을 통해 학습한 내용을 위주로 진행되었습니다. 
 플레이어는 캐릭터를 생성하고 몬스터와의 전투, 아이템 사용, 레벨업을 통해 성장하며 게임을 진행합니다.  
-`Character`, `BattleSystem`, `Monster`, `Item`, `UI` 등의 클래스를 구조적으로 분리하여 **객체지향 프로그래밍의 핵심 원칙**을 실습했습니다.
-
 
 ## 🙋 팀원 역할
 
@@ -19,8 +17,8 @@
 | 이서호 | 레벨업/설명서 관리     |
 | 이상현 | 전투 시스템 구현       |
 | 윤찬   | 아이템/상점 기획       |
-| 심효종 | 몬스터 및 로그 설명    |
-| 서우영 | 게임 화면 구성         |
+| 심효종 | 몬스터 데이터 관리    |
+| 서우영 | 게임 화면 구성 및 로그 출력        |
 
 
 ## 🗺️ 게임 흐름
@@ -82,19 +80,56 @@
 ├── UI.cpp / .h                 # 게임 로그 출력  
 └── Title.cpp / .h              # 타이틀 화면
 
-## 🧠 개념 정리
-| 개념           | 의미               | RPG 예시                                       |
-| ------------ | ---------------- | -------------------------------------------- |
-| **다형성**      | 같은 함수 호출 → 다른 동작 | `Item* item; item->Use()`                    |
-| **SOLID 원칙** | 객체지향 설계 지침       | SRP: 클래스별 역할 분리 / OCP: 아이템 추가 시 기존 코드 수정 X   |
-| **상속**       | 기존 클래스 재사용       | `class HealthPotion : public Item`           |
-| **STL**      | 표준 자료구조    | `vector<string> logs;` |
+## 🎯 학습한 개발 개념 적용 사례
 
+### 1️⃣ 객체지향 설계 원칙 (SOLID)
+
+- `BattleSystem`, `UI`, `Shop`, `Item` 등 역할에 따라 클래스를 분리하여 단일 책임 원칙(SRP)을 적용했습니다.
+- `Item` 클래스를 추상 클래스로 설계하여, `HealthPotion`, `AttackBoost` 같은 아이템을 기존 코드 수정 없이 확장 가능 (개방-폐쇄 원칙, OCP)
+
+```cpp
+// Item.h
+class Item {
+public:
+    virtual void Use(Character* character) = 0;
+    virtual ~Item() = default;
+};
+```
+## 2️⃣ 상속과 다형성
+- 모든 아이템은 Item 클래스를 상속받아 Use() 함수를 각자 다르게 구현했습니다.
+- 실제 사용할 때는 Item* 포인터로 통일하여 다형성 적용
+
+```cpp
+// Character.cpp
+void Character::useItem(int index) {
+    inventory[index - 1]->Use(this);  // 실행 시점 다형성
+}
+
+// HealthPotion.cpp
+void HealthPotion::Use(Character* character) {
+    character->heal(50);  // 체력 회복
+}
+
+```
+## 3️⃣ STL 사용
+- UI 클래스에서 전투 로그, 전체 로그를 std::vector<string>으로 관리
+- 동적으로 메시지를 저장하고 출력하는 UI 기능을 STL로 효율적으로 구현
+```cpp
+// UI.h
+std::vector<std::string> BattleLog;
+
+void AddBattleLog(const std::string& log)
+// UI.cpp
+void UI::AddBattleLog(const std::string& log)
+{
+	BattleLog.push_back(log);
+}
+```
 
 ## ⚠️ GitHub 협업 시 주의사항
 
 - `main` 브랜치는 **항상 동작 가능한 상태**로 유지
-- 개발 작업은 반드시 `main_branch` 또는 `feature/브랜치명`에서 진행
+- 개발 작업은 반드시 `branch_main` 또는 `feature/브랜치명`에서 진행
 - 커밋 메시지는 간결하고 명확하게! 예: `feat: 캐릭터 상태 확인 기능 추가`
 - 코드 수정 시 다른 팀원의 코드에 영향을 주지 않도록 조심!
 - 코드 충돌 방지를 위해 **수시로 `main_branch` pull**!
