@@ -14,7 +14,7 @@
 int main()
 {
 	std::cout << "게임을 시작하려면 아무 키나 누르세요" << endl;
-	_getch();
+	(void)_getch();
 	system("cls");
 
 	/*오프닝*/
@@ -76,11 +76,9 @@ int main()
 			{
 				player->useItem(Choice+1); // 아이템 사용 
 			}
-			else
-			{
-			}
-			break;
 			InterFace->AddFullLog("                                       ");
+			break;
+
 		case 4:
 			//게임 종료
 			MainTitle->GameEnd();

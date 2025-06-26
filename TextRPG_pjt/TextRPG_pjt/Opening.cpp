@@ -1,4 +1,4 @@
-#include "Opening.h"
+﻿#include "Opening.h"
 #include <iostream>
 #include <Windows.h>
 
@@ -37,7 +37,7 @@ void Opening::OPfour()
 	std::cout << " _______   ______   **                         " << std::endl;
 	std::cout << "|__   **| |  **__| \\\\                        " << std::endl;
 	std::cout << "   | |    | |__     \\\\                       " << std::endl;
-	std::cout << "   | |    |  __|     \\\                       " << std::endl;
+	std::cout << "   | |    |  __|     \\\\                       " << std::endl;
 	std::cout << "   | |    | |____    //                        " << std::endl;
 	std::cout << "   |_|    |______|  //_/                       " << std::endl;
 }										                       
@@ -49,7 +49,7 @@ void Opening::OPfive()
 	std::cout << "   | |    | |__     \\\\ \\//                  " << std::endl;
 	std::cout << "   | |    |  __|     \\\\     /                " << std::endl;
 	std::cout << "   | |    | |____    // /\\\\ \\               " << std::endl;
-	std::cout << "   |_|    |______|  //_/  \\\\ \               " << std::endl;
+	std::cout << "   |_|    |______|  //_/  \\\\ \\               " << std::endl;
 }												                
 												                
 void Opening::OPsix()
@@ -57,7 +57,7 @@ void Opening::OPsix()
 	std::cout << " _______   ______   **      **_   ________     " << std::endl;
 	std::cout << "|__   **| |  **__| \\\\ \\  //   /  |__   __|  " << std::endl;
 	std::cout << "   | |    | |__     \\\\ \\//   /      | |     " << std::endl;
-	std::cout << "   | |    |  __|     \\\\     /       | |      " << std::endl;
+	std::cout << "   | |    |  __|     \\\\                       " << std::endl;
 	std::cout << "   | |    | |____    // /\\\\ \\       | |     " << std::endl;
 	std::cout << "   |_|    |______|  //_/  \\\\ \\      |_|     " << std::endl;
 }

@@ -1,12 +1,13 @@
-#include "AttackBoost.h"
+ï»¿#include "AttackBoost.h"
 
 AttackBoost::AttackBoost()
 {
-	this->name = "°ø°Ý·Â Áõ°¡ Æ÷¼Ç";
-	this->toolTip = "°ø°Ý·Â 10Áõ°¡";
+	this->name = "ê³µê²©ë ¥ ì¦ê°€ í¬ì…˜";
+	this->toolTip = "ê³µê²©ë ¥ 10ì¦ê°€";
 	this->attackIncrease = 10;
 	this->buyPrice = 120;
 	this->sellPrice = 60;
+	this->itemCode = static_cast<int>(ItemCode::ITEM_ATTACK_BOOST);
 }
 
 void AttackBoost::Use(Character* character)
